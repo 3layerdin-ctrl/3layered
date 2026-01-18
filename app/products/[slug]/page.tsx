@@ -39,15 +39,22 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
         };
     }
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+    const productUrl = `${siteUrl}/products/${slug}`;
+
     return {
         title: product.seo.title,
         description: product.seo.description,
         keywords: product.seo.keywords,
+        alternates: {
+            canonical: productUrl,
+        },
         openGraph: {
             title: product.seo.title,
             description: product.seo.description,
             images: [product.seo.ogImage],
-            type: 'website', // Next.js only accepts 'website' or 'article'
+            type: 'website',
+            url: productUrl,
         },
     };
 }
@@ -132,16 +139,74 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify({
                             '@context': 'https://schema.org',
-                            '@type': 'Product',
-                            name: product.hero.productName,
-                            description: product.hero.tagline,
-                            image: product.hero.gallery[0]?.url,
-                            offers: {
-                                '@type': 'Offer',
-                                price: product.hero.price.amount,
-                                priceCurrency: product.hero.price.currency,
-                                availability: 'https://schema.org/PreOrder',
-                            },
+                            '@graph': [
+                                // Product Schema
+                                {
+                                    '@type': 'Product',
+                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}#product`,
+                                    name: product.hero.productName,
+                                    description: product.hero.tagline,
+                                    image: product.hero.gallery.map(img => img.url),
+                                    brand: {
+                                        '@type': 'Brand',
+                                        name: '3 Layered',
+                                    },
+                                    offers: {
+                                        '@type': 'Offer',
+                                        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}`,
+                                        priceCurrency: product.hero.price.currency,
+                                        price: product.hero.price.amount,
+                                        priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+                                        availability: 'https://schema.org/PreOrder',
+                                        itemCondition: 'https://schema.org/NewCondition',
+                                    },
+                                    ...(product.reviews?.enabled && product.reviews.totalReviews > 0 ? {
+                                        aggregateRating: {
+                                            '@type': 'AggregateRating',
+                                            ratingValue: product.reviews.averageRating,
+                                            reviewCount: product.reviews.totalReviews,
+                                        },
+                                    } : {}),
+                                },
+                                // Breadcrumb Schema
+                                {
+                                    '@type': 'BreadcrumbList',
+                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}#breadcrumb`,
+                                    itemListElement: [
+                                        {
+                                            '@type': 'ListItem',
+                                            position: 1,
+                                            name: 'Home',
+                                            item: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
+                                        },
+                                        {
+                                            '@type': 'ListItem',
+                                            position: 2,
+                                            name: 'Miniature Temples',
+                                            item: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/category/miniature-temples`,
+                                        },
+                                        {
+                                            '@type': 'ListItem',
+                                            position: 3,
+                                            name: product.hero.productName,
+                                            item: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}`,
+                                        },
+                                    ],
+                                },
+                                // FAQ Schema (if FAQs exist)
+                                ...(product.faqs?.enabled && product.faqs.items.length > 0 ? [{
+                                    '@type': 'FAQPage',
+                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}#faq`,
+                                    mainEntity: product.faqs.items.map(faq => ({
+                                        '@type': 'Question',
+                                        name: faq.question,
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: faq.answer,
+                                        },
+                                    })),
+                                }] : []),
+                            ],
                         }),
                     }}
                 />

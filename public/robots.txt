@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap - Update the domain in .env.local (NEXT_PUBLIC_SITE_URL)
+Sitemap: {SITE_URL}/sitemap.xml

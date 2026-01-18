@@ -27,9 +27,21 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
         return { title: 'Category Not Found' };
     }
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+    const categoryUrl = `${siteUrl}/products/category/${categoryId}`;
+
     return {
         title: `${category.name} | Three Layered`,
         description: category.description,
+        alternates: {
+            canonical: categoryUrl,
+        },
+        openGraph: {
+            title: `${category.name} | Three Layered`,
+            description: category.description,
+            type: 'website',
+            url: categoryUrl,
+        },
     };
 }
 
