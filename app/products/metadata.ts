@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://3layered.in';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://3layered.com';
 
 export const metadata: Metadata = {
     title: '3D Printed Miniature Temples & Architectural Models | Products | 3 Layered',
