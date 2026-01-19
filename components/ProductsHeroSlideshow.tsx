@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSlide } from '@/contexts/SlideContext';
 
 const PRODUCT_SLIDES = [
     {
@@ -12,28 +13,32 @@ const PRODUCT_SLIDES = [
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/Gemini_Generated_Image_ljfv8mljfv8mljfv.jpg',
         title: 'Premium 3D Printing',
         description: 'Transform your ideas into reality',
-        link: '#categories'
+        link: '#categories',
+        isDark: true,
     },
     {
         id: 2,
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p1.jpg',
         title: 'Architectural Masterpieces',
         description: 'Museum-quality miniature temple models',
-        link: '#categories'
+        link: '#categories',
+        isDark: false, // Light background
     },
     {
         id: 3,
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p2.jpg',
         title: 'Sacred Geometry',
         description: 'Precision-engineered replicas',
-        link: '#categories'
+        link: '#categories',
+        isDark: false, // Light background
     },
     {
         id: 4,
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p3.jpg',
         title: 'Heritage Preserved',
         description: 'Bringing ancient architecture to life',
-        link: '#categories'
+        link: '#categories',
+        isDark: false, // Light background
     }
 ];
 
@@ -42,6 +47,12 @@ const SLIDE_INTERVAL = 4000; // 4 seconds
 export function ProductsHeroSlideshow() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const { setIsDarkSlide } = useSlide();
+
+    // Update navbar color based on current slide
+    useEffect(() => {
+        setIsDarkSlide(PRODUCT_SLIDES[currentSlide].isDark);
+    }, [currentSlide, setIsDarkSlide]);
 
     useEffect(() => {
         if (isPaused) return;

@@ -17,7 +17,7 @@ const SLIDES = [
         id: 2,
         image: "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/home%20page/Gemini_Generated_Image_vib79evib79evib7.jpg",
         caption: "Custom 3D Printing",
-        isDark: true,
+        isDark: false, // Light background - navbar text should be black
     },
 ];
 
