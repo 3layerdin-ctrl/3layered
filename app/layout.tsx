@@ -25,21 +25,30 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "3 Layered - Premium 3D Printed Miniature Temples & Architectural Models | Pimpri-Chinchwad",
-  description: "Museum-quality 3D printed miniature temples and architectural models. Sacred geometry, precision-engineered replicas of Asian architectural heritage. Custom 3D printing services in Pimpri-Chinchwad, Maharashtra.",
+  title: "3D Printing Services | Miniature Temple Models & Architectural Replicas | 3 Layered",
+  description: "Professional 3D printing services specializing in miniature temple models and architectural replicas. Custom 3D printed temples, sacred geometry models, and museum-quality architectural heritage pieces. Expert 3D printing in Pimpri-Chinchwad, Maharashtra.",
   keywords: [
+    "3D printing",
+    "3D printing services",
     "3D printing services Pimpri-Chinchwad",
     "miniature temple models",
+    "3D printed miniature temples",
+    "temple models 3D printing",
+    "architectural model making",
     "architectural model makers Maharashtra",
+    "custom 3D printing",
+    "3D printed temples",
     "sacred geometry replicas",
     "Asian architectural heritage",
     "museum-quality 3D printing",
-    "precision-engineered replicas",
-    "custom 3D printing quote",
-    "3D printed temples",
+    "precision temple replicas",
+    "miniature temple 3D printing",
+    "architectural replicas",
+    "3D printing miniatures",
     "Asian pagoda models",
     "miniature fort replicas",
-    "architectural heritage 3D printing"
+    "temple replica makers",
+    "3D printing architecture models"
   ],
   alternates: {
     canonical: siteUrl,
@@ -49,8 +58,8 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: siteUrl,
     siteName: '3 Layered',
-    title: "3 Layered - Premium 3D Printed Miniature Temples & Architectural Models",
-    description: "Museum-quality 3D printed miniature temples and architectural models. Sacred geometry, precision-engineered replicas of Asian architectural heritage.",
+    title: "3D Printing Services | Miniature Temple Models & Architectural Replicas",
+    description: "Professional 3D printing services specializing in miniature temple models and architectural replicas. Custom 3D printed temples and museum-quality architectural heritage pieces.",
     images: [
       {
         url: '/og-image.jpg',
@@ -62,8 +71,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "3 Layered - Premium 3D Printed Miniature Temples",
-    description: "Museum-quality 3D printed miniature temples and architectural models.",
+    title: "3D Printing Services | Miniature Temple Models & Architectural Replicas",
+    description: "Professional 3D printing services specializing in miniature temple models and architectural replicas.",
     images: ['/og-image.jpg'],
   },
   robots: {

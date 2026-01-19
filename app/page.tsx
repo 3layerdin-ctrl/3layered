@@ -4,6 +4,7 @@ import { ProductCategories } from "@/components/ProductCategories";
 import { CustomPrintCTA } from "@/components/CustomPrintCTA";
 import { BrandMarquee } from "@/components/BrandMarquee";
 import { InstagramReels } from "@/components/InstagramReels";
+import { SEOContent } from "@/components/SEOContent";
 import { SlideProvider } from "@/contexts/SlideContext";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <ProductCategories />
+        <SEOContent />
         <CustomPrintCTA />
         <BrandMarquee />
         <InstagramReels />
