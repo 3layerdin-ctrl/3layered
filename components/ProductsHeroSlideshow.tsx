@@ -84,11 +84,11 @@ export function ProductsHeroSlideshow() {
                     transition={{ duration: 0.5 }}
                     className="absolute inset-0"
                 >
-                    <div className="relative w-full h-full">
+                    <div className="relative w-full h-full bg-white">
                         <img
                             src={PRODUCT_SLIDES[currentSlide].image}
                             alt={PRODUCT_SLIDES[currentSlide].title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                             loading="eager"
                             decoding="async"
                         />
