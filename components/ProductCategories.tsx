@@ -24,8 +24,9 @@ export function ProductCategories() {
     return (
         <section id="products" className="py-16 md:py-32 px-6 bg-white">
             <div className="max-w-7xl mx-auto">
+                {/* What We Create Heading */}
                 <motion.h2
-                    className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center mb-12 md:mb-24"
+                    className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
@@ -34,8 +35,34 @@ export function ProductCategories() {
                     What We Create
                 </motion.h2>
 
+                {/* First Category Image - Featured */}
+                {categories[0] && (
+                    <motion.div
+                        className="mb-16 md:mb-24"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <Link
+                            href={categories[0].slug === 'custom-print' ? '/custom-print' : `/products/category/${categories[0].slug}`}
+                            className="block group"
+                        >
+                            <div className="aspect-[4/3] relative overflow-hidden bg-gray-100 rounded-lg max-w-4xl mx-auto">
+                                <Image
+                                    src={categories[0].imageUrl}
+                                    alt={categories[0].name}
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                        </Link>
+                    </motion.div>
+                )}
+
+                {/* All Categories - Skip first one as it's shown above */}
                 <div className="space-y-16 md:space-y-32">
-                    {categories.map((category, index) => {
+                    {categories.slice(1).map((category, index) => {
                         const isEven = index % 2 === 0;
 
                         return (
