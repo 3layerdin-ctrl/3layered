@@ -12,10 +12,31 @@ const PRODUCT_SLIDES = [
         title: 'Premium 3D Printing',
         description: 'Transform your ideas into reality',
         link: '#categories'
+    },
+    {
+        id: 2,
+        image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p1.jpg',
+        title: 'Architectural Masterpieces',
+        description: 'Museum-quality miniature temple models',
+        link: '#categories'
+    },
+    {
+        id: 3,
+        image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p2.jpg',
+        title: 'Sacred Geometry',
+        description: 'Precision-engineered replicas',
+        link: '#categories'
+    },
+    {
+        id: 4,
+        image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p3.jpg',
+        title: 'Heritage Preserved',
+        description: 'Bringing ancient architecture to life',
+        link: '#categories'
     }
 ];
 
-const SLIDE_INTERVAL = 5000; // 5 seconds
+const SLIDE_INTERVAL = 4000; // 4 seconds
 
 export function ProductsHeroSlideshow() {
     const [currentSlide, setCurrentSlide] = useState(0);
