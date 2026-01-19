@@ -70,7 +70,7 @@ export function ProductsHeroSlideshow() {
 
     return (
         <section
-            className="relative h-[80vh] bg-gray-50 overflow-hidden"
+            className="relative h-[60vh] md:h-[80vh] bg-white overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
@@ -88,7 +88,7 @@ export function ProductsHeroSlideshow() {
                         <img
                             src={PRODUCT_SLIDES[currentSlide].image}
                             alt={PRODUCT_SLIDES[currentSlide].title}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain object-center"
                             loading="eager"
                             decoding="async"
                         />
