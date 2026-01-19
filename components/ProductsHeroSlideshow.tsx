@@ -10,14 +10,6 @@ import { useSlide } from '@/contexts/SlideContext';
 const PRODUCT_SLIDES = [
     {
         id: 1,
-        image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/Gemini_Generated_Image_ljfv8mljfv8mljfv.jpg',
-        title: 'Premium 3D Printing',
-        description: 'Transform your ideas into reality',
-        link: '#categories',
-        isDark: true,
-    },
-    {
-        id: 2,
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p1.jpg',
         title: 'Architectural Masterpieces',
         description: 'Museum-quality miniature temple models',
@@ -25,7 +17,7 @@ const PRODUCT_SLIDES = [
         isDark: false, // Light background
     },
     {
-        id: 3,
+        id: 2,
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p2.jpg',
         title: 'Sacred Geometry',
         description: 'Precision-engineered replicas',
@@ -33,7 +25,7 @@ const PRODUCT_SLIDES = [
         isDark: false, // Light background
     },
     {
-        id: 4,
+        id: 3,
         image: 'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/slide/product%20page/p3.jpg',
         title: 'Heritage Preserved',
         description: 'Bringing ancient architecture to life',
