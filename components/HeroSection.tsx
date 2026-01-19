@@ -144,7 +144,7 @@ export function HeroSection() {
                 {/* Shop Now Button - Responsive positioning */}
                 <div className="absolute bottom-6 right-4 md:bottom-12 md:right-12 z-10">
                     <a
-                        href="#products"
+                        href="/products"
                         className="inline-flex items-center gap-2 md:gap-3 bg-white text-black px-5 py-3 md:px-8 md:py-4 text-base md:text-lg font-medium hover:bg-gray-100 transition-all duration-200 shadow-lg group"
                     >
                         <span>Shop Now</span>
