@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const PRODUCT_SLIDES = [
@@ -85,6 +86,8 @@ export function ProductsHeroSlideshow() {
                             src={PRODUCT_SLIDES[currentSlide].image}
                             alt={PRODUCT_SLIDES[currentSlide].title}
                             className="w-full h-full object-cover"
+                            loading="eager"
+                            decoding="async"
                         />
                     </div>
                 </motion.div>

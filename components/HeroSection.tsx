@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
+import Image from "next/image";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { useSlide } from "@/contexts/SlideContext";
 
@@ -83,6 +84,8 @@ export function HeroSection() {
                                 src={SLIDES[currentSlide].image}
                                 alt={SLIDES[currentSlide].caption}
                                 className="w-full h-full object-cover object-top md:object-center"
+                                loading="eager"
+                                decoding="async"
                             />
                             {/* Gradient overlay for better text contrast on mobile */}
                             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 md:bg-black/10" />
