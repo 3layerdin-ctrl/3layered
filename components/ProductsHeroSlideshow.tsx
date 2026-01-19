@@ -66,7 +66,7 @@ export function ProductsHeroSlideshow() {
 
     return (
         <section
-            className="relative h-[70vh] bg-gray-50 overflow-hidden"
+            className="relative h-[80vh] bg-gray-50 overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
@@ -86,41 +86,6 @@ export function ProductsHeroSlideshow() {
                             alt={PRODUCT_SLIDES[currentSlide].title}
                             className="w-full h-full object-cover"
                         />
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black/30" />
-
-                        {/* Content */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="text-center text-white px-4">
-                                <motion.h1
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.2 }}
-                                    className="font-serif text-5xl md:text-7xl font-bold mb-4"
-                                >
-                                    {PRODUCT_SLIDES[currentSlide].title}
-                                </motion.h1>
-                                <motion.p
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.3 }}
-                                    className="text-xl md:text-2xl text-gray-200"
-                                >
-                                    {PRODUCT_SLIDES[currentSlide].description}
-                                </motion.p>
-                            </div>
-                        </div>
-
-                        {/* Shop Now Button - Bottom Right */}
-                        <div className="absolute bottom-12 right-12 z-10">
-                            <Link
-                                href={PRODUCT_SLIDES[currentSlide].link}
-                                className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-lg font-medium hover:bg-gray-100 transition-all duration-200 shadow-lg group"
-                            >
-                                <span>Shop Now</span>
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </div>
                     </div>
                 </motion.div>
             </AnimatePresence>
