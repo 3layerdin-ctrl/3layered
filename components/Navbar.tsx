@@ -52,8 +52,7 @@ export function Navbar() {
     const getTextColor = () => {
         // When scrolled, navbar is white, so use black text
         if (isScrolled) return "text-black";
-        // On all pages with transparent navbar, match slide darkness (or default to white for products page)
-        if (isProductsPage) return "text-white";
+        // Use slide darkness for dynamic text color on all pages
         return isDarkSlide ? "text-white" : "text-black";
     };
 
