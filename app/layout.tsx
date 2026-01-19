@@ -8,6 +8,7 @@ import { LogoController } from "@/components/LogoController";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
+import { BlogJsonLd, OrganizationJsonLd, WebSiteJsonLd } from "@/components/StructuredData";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -159,6 +160,11 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* Enhanced Structured Data */}
+        <BlogJsonLd />
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
 
         <Analytics />
       </body>
