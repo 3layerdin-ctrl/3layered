@@ -49,7 +49,7 @@ export interface SEOMetadata {
 export interface Badge {
   enabled: boolean;
   text: string;
-  variant: 'premium' | 'exclusive' | 'limited' | 'hand-finished';
+  variant: 'premium' | 'exclusive' | 'limited' | 'hand-finished' | 'prebook' | 'led';
 }
 
 export interface CTA {
@@ -315,6 +315,7 @@ export interface ProductPage {
   slug: string; // URL-friendly identifier
   categoryId: string;
   status: 'draft' | 'published' | 'archived';
+  isPrebook?: boolean; // Flag for prebook-only products
 
   // SEO
   seo: SEOMetadata;
@@ -378,4 +379,5 @@ export interface Product {
   isFeatured: boolean;
   inStock: boolean;
   status: 'draft' | 'published' | 'archived';
+  isPrebook?: boolean;
 }

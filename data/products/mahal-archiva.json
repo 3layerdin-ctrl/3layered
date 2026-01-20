@@ -1,0 +1,266 @@
+{
+    "id": "mahal-archiva",
+    "slug": "mahal-archiva",
+    "categoryId": "architect-models",
+    "status": "published",
+    "isPrebook": true,
+    "seo": {
+        "title": "Mahal Archiva - Royal Palace Architecture Model | Prebook Now",
+        "description": "Elegant architectural model inspired by royal palace design. Built for collectors, architects, and premium interior showcases. Prebook this exclusive piece.",
+        "keywords": [
+            "mahal architecture model",
+            "royal palace replica",
+            "palace architecture miniature",
+            "indian palace model",
+            "architectural display piece",
+            "heritage palace model",
+            "architectural model makers",
+            "luxury architecture model"
+        ],
+        "ogImage": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%203.jpg",
+        "ogType": "product"
+    },
+    "hero": {
+        "productName": "Mahal Archiva",
+        "tagline": "Royal Palace Architecture Refined",
+        "badge": {
+            "enabled": true,
+            "text": "Prebook Now",
+            "variant": "prebook"
+        },
+        "price": {
+            "amount": 0,
+            "currency": "INR",
+            "displayFormat": "₹{amount}"
+        },
+        "cta": {
+            "primaryLabel": "Prebook Now",
+            "primaryAction": "inquire"
+        },
+        "gallery": [
+            {
+                "id": "hero-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%203.jpg",
+                "alt": "Mahal Archiva - Elegant royal palace architecture model",
+                "order": 1,
+                "isHero": true
+            },
+            {
+                "id": "detail-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%202.jpg",
+                "alt": "Mahal Archiva - Detailed view of palace domes and arches",
+                "order": 2,
+                "isHero": false
+            },
+            {
+                "id": "detail-2",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%201.jpg",
+                "alt": "Mahal Archiva - Side perspective showing architectural symmetry",
+                "order": 3,
+                "isHero": false
+            }
+        ]
+    },
+    "story": {
+        "enabled": true,
+        "title": "Inspired by Royal Palace Architecture",
+        "paragraphs": [
+            "An elegant architectural model inspired by royal palace design, built for collectors, architects, and premium interior showcases.",
+            "The Mahal Archiva embodies the grandeur and sophistication of Indian royal palaces, where architectural excellence meets regal aesthetics. Every dome, arch, and courtyard is meticulously crafted to reflect the opulence of palatial architecture.",
+            "Perfect for luxury interiors, architectural portfolios, and collectors who appreciate the timeless elegance of royal Indian architecture."
+        ],
+        "quote": {
+            "enabled": true,
+            "text": "Architecture of royalty - where every detail speaks of magnificence.",
+            "attribution": "— Three Layered Design Studio"
+        }
+    },
+    "craftsmanship": {
+        "material": {
+            "name": "Premium Architectural Resin",
+            "description": "High-quality photopolymer resin for architectural precision",
+            "properties": [
+                "Museum-quality finish",
+                "Exceptional detail retention",
+                "Durable construction",
+                "UV-resistant"
+            ]
+        },
+        "finish": {
+            "type": "Royal Palace Finish",
+            "description": "Luxurious finish with marble-like texture and gold accents",
+            "handFinished": true
+        },
+        "process": {
+            "method": "Precision 3D Printing + Hand Finishing",
+            "description": "Advanced 3D printing combined with artisan hand-finishing techniques",
+            "steps": [
+                "High-resolution 3D printing",
+                "Multi-stage curing process",
+                "Hand-painting with premium finishes",
+                "Quality inspection and authentication"
+            ]
+        },
+        "care": {
+            "durability": "Designed for long-term display",
+            "instructions": [
+                "Dust with soft, dry cloth",
+                "Keep away from direct sunlight",
+                "Display in stable environment",
+                "Handle with care to preserve details"
+            ]
+        }
+    },
+    "specifications": {
+        "dimensions": {
+            "height": {
+                "value": 22,
+                "unit": "cm"
+            },
+            "width": {
+                "value": 28,
+                "unit": "cm"
+            },
+            "depth": {
+                "value": 20,
+                "unit": "cm"
+            },
+            "displayUnits": "metric"
+        },
+        "weight": {
+            "value": 500,
+            "unit": "g"
+        },
+        "comparison": {
+            "enabled": true,
+            "text": "Premium centerpiece for luxury interiors and architectural displays"
+        },
+        "additionalSpecs": [
+            {
+                "label": "Style",
+                "value": "Royal Indian Palace Architecture"
+            },
+            {
+                "label": "Architectural Period",
+                "value": "Mughal-Rajput Fusion"
+            },
+            {
+                "label": "Display Type",
+                "value": "Architectural Model"
+            }
+        ]
+    },
+    "customization": {
+        "enabled": false,
+        "options": [],
+        "customRequest": {
+            "enabled": false,
+            "ctaLabel": "",
+            "formUrl": ""
+        }
+    },
+    "useCases": {
+        "enabled": true,
+        "title": "Perfect For",
+        "cases": [
+            {
+                "id": "luxury-interior",
+                "title": "Luxury Interiors",
+                "description": "Statement piece for premium homes and executive offices",
+                "imageUrl": "",
+                "order": 1
+            },
+            {
+                "id": "architect-portfolio",
+                "title": "Architectural Portfolios",
+                "description": "Showcase piece for heritage architecture specialists",
+                "imageUrl": "",
+                "order": 2
+            },
+            {
+                "id": "collector",
+                "title": "Discerning Collectors",
+                "description": "Museum-quality addition to architectural collections",
+                "imageUrl": "",
+                "order": 3
+            }
+        ],
+        "displayStyle": "grid"
+    },
+    "assurance": {
+        "production": {
+            "type": "made-to-order",
+            "leadTime": {
+                "min": 3,
+                "max": 4,
+                "unit": "weeks",
+                "description": "Prebook now - Production begins upon order confirmation"
+            }
+        },
+        "shipping": {
+            "description": "Secure packaging and insured shipping",
+            "methods": [
+                "Premium courier service",
+                "Fully insured transit"
+            ]
+        },
+        "returns": {
+            "policy": "Satisfaction guaranteed. Contact us for any concerns.",
+            "linkUrl": "/policies/returns"
+        },
+        "guarantees": [
+            {
+                "icon": "shield-check",
+                "text": "Authenticity Guaranteed"
+            },
+            {
+                "icon": "lock",
+                "text": "Secure Payment"
+            },
+            {
+                "icon": "package",
+                "text": "Museum-Grade Packaging"
+            }
+        ]
+    },
+    "reviews": {
+        "enabled": false,
+        "averageRating": 0,
+        "totalReviews": 0,
+        "reviews": []
+    },
+    "faqs": {
+        "enabled": true,
+        "title": "Frequently Asked Questions",
+        "items": [
+            {
+                "id": "faq-1",
+                "question": "What is a prebook product?",
+                "answer": "Prebook products are exclusive pieces that we create upon order confirmation. By prebooking, you reserve your piece and we'll notify you when production begins and when it's ready to ship.",
+                "order": 1
+            },
+            {
+                "id": "faq-2",
+                "question": "How long will production take?",
+                "answer": "Once we confirm your prebook, production typically takes 3-4 weeks. We'll keep you updated throughout the process.",
+                "order": 2
+            },
+            {
+                "id": "faq-3",
+                "question": "What architectural style does this represent?",
+                "answer": "The Mahal Archiva is inspired by the fusion of Mughal and Rajput palace architecture, featuring characteristic domes, arches, and courtyard elements that define royal Indian palaces.",
+                "order": 3
+            }
+        ]
+    },
+    "relatedProducts": {
+        "enabled": true,
+        "title": "More Architect Models",
+        "selectionType": "category",
+        "products": [],
+        "displayLimit": 3,
+        "layout": "carousel"
+    },
+    "createdAt": "2026-01-21T00:00:00Z",
+    "updatedAt": "2026-01-21T00:00:00Z"
+}

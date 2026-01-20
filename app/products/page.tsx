@@ -55,11 +55,16 @@ export default function ProductsPage() {
                                                         src={product.images[0]}
                                                         alt={product.name}
                                                         fill
-                                                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                                        className="object-contain group-hover:scale-105 transition-transform duration-300"
                                                     />
                                                     {product.isFeatured && (
                                                         <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 text-sm font-medium">
                                                             Featured
+                                                        </div>
+                                                    )}
+                                                    {product.isPrebook && (
+                                                        <div className="absolute top-4 right-4 bg-white text-black border border-black px-3 py-1 text-sm font-medium">
+                                                            Prebook Now
                                                         </div>
                                                     )}
                                                 </div>
@@ -74,16 +79,22 @@ export default function ProductsPage() {
                                                     </p>
 
                                                     <div className="flex items-center justify-between">
-                                                        <div>
-                                                            <span className="text-2xl font-bold">
-                                                                ₹{product.price.toLocaleString()}
+                                                        {product.isPrebook ? (
+                                                            <span className="text-xl font-light tracking-wide text-gray-900">
+                                                                ---- Coming Soon ----
                                                             </span>
-                                                            {product.compareAtPrice && (
-                                                                <span className="ml-2 text-gray-500 line-through">
-                                                                    ₹{product.compareAtPrice.toLocaleString()}
+                                                        ) : (
+                                                            <div>
+                                                                <span className="text-2xl font-bold">
+                                                                    ₹{product.price.toLocaleString()}
                                                                 </span>
-                                                            )}
-                                                        </div>
+                                                                {product.compareAtPrice && (
+                                                                    <span className="ml-2 text-gray-500 line-through">
+                                                                        ₹{product.compareAtPrice.toLocaleString()}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        )}
                                                         <div className="flex items-center gap-2 text-sm text-gray-600">
                                                             <ShoppingCart className="w-4 h-4" />
                                                             <span>View Details</span>

@@ -35,7 +35,7 @@ export function ProductCategories() {
                     What We Create
                 </motion.h2>
 
-                {/* First Category Image - Featured */}
+                {/* First Category - Featured with Description */}
                 {categories[0] && (
                     <motion.div
                         className="mb-16 md:mb-24"
@@ -44,19 +44,64 @@ export function ProductCategories() {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <Link
-                            href={categories[0].slug === 'custom-print' ? '/custom-print' : `/products/category/${categories[0].slug}`}
-                            className="block group"
-                        >
-                            <div className="aspect-[4/3] relative overflow-hidden bg-gray-100 rounded-lg max-w-4xl mx-auto">
-                                <Image
-                                    src={categories[0].imageUrl}
-                                    alt={categories[0].name}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+                            <div className="order-1 lg:order-1">
+                                <Link
+                                    href={categories[0].slug === 'custom-print' ? '/custom-print' : `/products/category/${categories[0].slug}`}
+                                    className="block group relative"
+                                >
+                                    <div className="aspect-[4/3] relative overflow-hidden bg-gray-100 rounded-lg">
+                                        <Image
+                                            src={categories[0].imageUrl}
+                                            alt={categories[0].name}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                        {/* Shop Now Button Overlay */}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300">
+                                            <div className="absolute bottom-6 right-6">
+                                                <button className="bg-white text-black px-6 py-3 text-base font-medium rounded-full hover:bg-black hover:text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg">
+                                                    Shop Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
-                        </Link>
+
+                            <motion.div
+                                className="order-2 lg:order-2"
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                            >
+                                <div className="space-y-4 md:space-y-6">
+                                    <p className="text-xs sm:text-sm uppercase tracking-widest text-gray-500">
+                                        Category 01
+                                    </p>
+                                    <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                                        {categories[0].name}
+                                    </h3>
+                                    <div className="w-16 md:w-24 h-1 bg-black"></div>
+                                    <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
+                                        {categories[0].description}
+                                    </p>
+                                    {categories[0].extendedDescription && (
+                                        <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
+                                            {categories[0].extendedDescription}
+                                        </p>
+                                    )}
+                                    <Link
+                                        href={categories[0].slug === 'custom-print' ? '/custom-print' : `/products/category/${categories[0].slug}`}
+                                        className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-black pb-1 hover:opacity-60 transition-opacity mt-8"
+                                    >
+                                        {categories[0].slug === 'custom-print' ? 'Get Started' : 'Explore Collection'}
+                                        <ArrowRight className="w-5 h-5" />
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 )}
 
@@ -74,10 +119,10 @@ export function ProductCategories() {
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                                <div className={isEven ? "order-2 lg:order-1" : "order-2"}>
+                                <div className={isEven ? "order-1 lg:order-1" : "order-1 lg:order-2"}>
                                     <Link
                                         href={category.slug === 'custom-print' ? '/custom-print' : `/products/category/${category.slug}`}
-                                        className="block group"
+                                        className="block group relative"
                                     >
                                         <div className="aspect-[4/3] relative overflow-hidden bg-gray-100 rounded-lg">
                                             <Image
@@ -86,12 +131,20 @@ export function ProductCategories() {
                                                 fill
                                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                                             />
+                                            {/* Shop Now Button Overlay */}
+                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300">
+                                                <div className="absolute bottom-6 right-6">
+                                                    <button className="bg-white text-black px-6 py-3 text-base font-medium rounded-full hover:bg-black hover:text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg">
+                                                        Shop Now
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </Link>
                                 </div>
 
                                 <motion.div
-                                    className={isEven ? "order-1 lg:order-2" : "order-1"}
+                                    className={isEven ? "order-2 lg:order-2" : "order-2 lg:order-1"}
                                     initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true, margin: "-100px" }}
@@ -99,7 +152,7 @@ export function ProductCategories() {
                                 >
                                     <div className="space-y-4 md:space-y-6">
                                         <p className="text-xs sm:text-sm uppercase tracking-widest text-gray-500">
-                                            Category {String(index + 1).padStart(2, '0')}
+                                            Category {String(index + 2).padStart(2, '0')}
                                         </p>
                                         <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                                             {category.name}

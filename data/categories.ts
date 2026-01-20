@@ -52,7 +52,11 @@ export const categories: ProductCategory[] = [
         description: 'Contemporary interpretations of Asian architectural heritage. Miniature models of temples, forts, and monuments reimagined with modern aesthetics.',
         extendedDescription: 'Where tradition meets innovation. Each model blends the timeless beauty of Asian architecture with contemporary design sensibilities, creating pieces that honor the past while embracing the future.',
         imageUrl: '/architectures.png',
-        productIds: [],
+        productIds: [
+            'kalinga-archiva',
+            'gopuram-archiva',
+            'mahal-archiva'
+        ],
         metaTitle: 'Architectural Model Makers Maharashtra | Contemporary Asian Monument Replicas',
         metaDescription: 'Contemporary interpretations of Asian architectural heritage. Miniature fort models, temple replicas, and monuments with modern aesthetics. Professional architectural model makers in Maharashtra.',
         metaKeywords: [
@@ -69,7 +73,7 @@ export const categories: ProductCategory[] = [
         displayOrder: 2,
         status: 'active',
         createdAt: '2026-01-14T00:00:00Z',
-        updatedAt: '2026-01-17T01:57:00Z'
+        updatedAt: '2026-01-21T00:00:00Z'
     }
 ];
 

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProductBySlug, getAllProducts } from '@/lib/products';
+import { PrebookPopupWrapper } from '@/components/PrebookPopupWrapper';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/product/HeroSection';
 import { StorySection } from '@/components/product/StorySection';
@@ -96,6 +97,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     data={product.hero}
                     productId={product.id}
                     productSlug={product.slug}
+                    isPrebook={product.isPrebook}
+                    productName={product.hero.productName}
                 />
 
                 {/* Story Section - Conditional */}
@@ -127,10 +130,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {/* FAQ Section - Conditional */}
                 <FAQSection data={product.faqs} />
 
-                {/* Related Products Section - Conditional */}
-                <RelatedProductsSection
-                    data={product.relatedProducts}
-                    currentProductId={product.id}
+                {/* Related Products */}
+                {product.relatedProducts.enabled && (
+                    <RelatedProductsSection data={product.relatedProducts} currentProductId={product.id} />
+                )}
+
+                {/* Prebook Popup - Auto-triggers after 3 seconds for prebook products */}
+                <PrebookPopupWrapper
+                    productSlug={product.slug}
+                    isPrebook={product.isPrebook}
                 />
 
                 {/* JSON-LD Structured Data for SEO */}

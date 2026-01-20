@@ -2,6 +2,9 @@ import { Product } from '@/types/product';
 import southIndianTempleData from './products/south-indian-temple.json';
 import miniGaneshaMandir from './products/mini-ganesha-mandir.json';
 import traditionalIndianTempleData from './products/traditional-indian-temple.json';
+import kalingaArchivaData from './products/kalinga-archiva.json';
+import gopuramArchivaData from './products/gopuram-archiva.json';
+import mahalArchivaData from './products/mahal-archiva.json';
 
 // Convert JSON data to Product type with simplified structure for the list page
 export const products: Product[] = [
@@ -43,6 +46,48 @@ export const products: Product[] = [
         isFeatured: true,
         inStock: true,
         status: traditionalIndianTempleData.status as 'draft' | 'published' | 'archived'
+    },
+    {
+        id: kalingaArchivaData.id,
+        slug: kalingaArchivaData.slug,
+        name: kalingaArchivaData.hero.productName,
+        shortDescription: kalingaArchivaData.hero.tagline,
+        price: kalingaArchivaData.hero.price.amount,
+        compareAtPrice: (kalingaArchivaData.hero.price as any).compareAtPrice,
+        images: kalingaArchivaData.hero.gallery.map(img => img.url),
+        categoryId: kalingaArchivaData.categoryId,
+        isFeatured: false,
+        inStock: true,
+        status: kalingaArchivaData.status as 'draft' | 'published' | 'archived',
+        isPrebook: true
+    },
+    {
+        id: gopuramArchivaData.id,
+        slug: gopuramArchivaData.slug,
+        name: gopuramArchivaData.hero.productName,
+        shortDescription: gopuramArchivaData.hero.tagline,
+        price: gopuramArchivaData.hero.price.amount,
+        compareAtPrice: (gopuramArchivaData.hero.price as any).compareAtPrice,
+        images: gopuramArchivaData.hero.gallery.map(img => img.url),
+        categoryId: gopuramArchivaData.categoryId,
+        isFeatured: false,
+        inStock: true,
+        status: gopuramArchivaData.status as 'draft' | 'published' | 'archived',
+        isPrebook: true
+    },
+    {
+        id: mahalArchivaData.id,
+        slug: mahalArchivaData.slug,
+        name: mahalArchivaData.hero.productName,
+        shortDescription: mahalArchivaData.hero.tagline,
+        price: mahalArchivaData.hero.price.amount,
+        compareAtPrice: (mahalArchivaData.hero.price as any).compareAtPrice,
+        images: mahalArchivaData.hero.gallery.map(img => img.url),
+        categoryId: mahalArchivaData.categoryId,
+        isFeatured: false,
+        inStock: true,
+        status: mahalArchivaData.status as 'draft' | 'published' | 'archived',
+        isPrebook: true
     }
 ];
 

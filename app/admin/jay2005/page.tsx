@@ -59,14 +59,28 @@ interface BookedCall {
     created_at: string;
 }
 
+interface PrebookRequest {
+    id: string;
+    product_slug: string;
+    product_id: string | null;
+    first_name: string;
+    last_name: string;
+    name: string | null;
+    email: string;
+    phone: string;
+    status: string;
+    created_at: string;
+}
+
 export default function AdminPanel() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
-    const [activeTab, setActiveTab] = useState<'orders' | 'custom' | 'contact' | 'calls'>('orders');
+    const [activeTab, setActiveTab] = useState<'orders' | 'custom' | 'contact' | 'calls' | 'prebooks'>('orders');
     const [orders, setOrders] = useState<Order[]>([]);
     const [customRequests, setCustomRequests] = useState<CustomRequest[]>([]);
     const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
     const [bookedCalls, setBookedCalls] = useState<BookedCall[]>([]);
+    const [prebookRequests, setPrebookRequests] = useState<PrebookRequest[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'amount'>('newest');
@@ -76,6 +90,7 @@ export default function AdminPanel() {
     const [customSearch, setCustomSearch] = useState('');
     const [contactSearch, setContactSearch] = useState('');
     const [callSearch, setCallSearch] = useState('');
+    const [prebookSearch, setPrebookSearch] = useState('');
     const [filterStatus, setFilterStatus] = useState<string>('all');
 
     // Check for existing session on mount
@@ -130,7 +145,8 @@ export default function AdminPanel() {
                 fetchOrders(),
                 fetchCustomRequests(),
                 fetchContactSubmissions(),
-                fetchBookedCalls()
+                fetchBookedCalls(),
+                fetchPrebookRequests()
             ]);
         } catch (err) {
             console.error('Error fetching data:', err);
@@ -184,6 +200,18 @@ export default function AdminPanel() {
             }
         } catch (err) {
             console.error('Error fetching booked calls:', err);
+        }
+    };
+
+    const fetchPrebookRequests = async () => {
+        try {
+            const response = await fetch(`/api/prebook-requests?password=${encodeURIComponent('jaygehlot20053layeredadmin//200590()')}`);
+            const data = await response.json();
+            if (data.requests) {
+                setPrebookRequests(data.requests);
+            }
+        } catch (err) {
+            console.error('Error fetching prebook requests:', err);
         }
     };
 
@@ -324,13 +352,48 @@ export default function AdminPanel() {
         }
     };
 
+    const updatePrebookStatus = async (requestId: string, newStatus: string) => {
+        try {
+            const response = await fetch('/api/prebook-requests', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    requestId,
+                    status: newStatus,
+                    adminPassword: 'jaygehlot20053layeredadmin//200590()'
+                })
+            });
+            if (response.ok) {
+                fetchPrebookRequests();
+            }
+        } catch (err) {
+            console.error('Error updating prebook request:', err);
+        }
+    };
+
+    const deletePrebookRequest = async (requestId: string) => {
+        if (!confirm('Are you sure you want to delete this prebook request?')) return;
+
+        try {
+            const response = await fetch(`/api/prebook-requests?requestId=${requestId}&password=${encodeURIComponent('jaygehlot20053layeredadmin//200590()')}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                fetchPrebookRequests();
+            }
+        } catch (err) {
+            console.error('Error deleting prebook request:', err);
+        }
+    };
+
     // Statistics calculations
     const stats = {
         totalOrders: orders.length,
         totalRevenue: orders.reduce((sum, order) => sum + (order.total || 0), 0),
         pendingCustomRequests: customRequests.filter(r => r.status === 'new' || r.status === 'reviewing').length,
         unreadContacts: contactSubmissions.filter(c => c.status === 'unread').length,
-        newCalls: bookedCalls.filter(c => c.status === 'new').length
+        newCalls: bookedCalls.filter(c => c.status === 'new').length,
+        newPrebooks: prebookRequests.filter(p => p.status === 'new').length
     };
 
     // Filter functions
@@ -360,6 +423,14 @@ export default function AdminPanel() {
         call.name?.toLowerCase().includes(callSearch.toLowerCase()) ||
         call.email?.toLowerCase().includes(callSearch.toLowerCase()) ||
         call.phone?.toLowerCase().includes(callSearch.toLowerCase())
+    );
+
+    const filteredPrebookRequests = prebookRequests.filter(req =>
+        prebookSearch === '' ||
+        req.first_name?.toLowerCase().includes(prebookSearch.toLowerCase()) ||
+        req.last_name?.toLowerCase().includes(prebookSearch.toLowerCase()) ||
+        req.email?.toLowerCase().includes(prebookSearch.toLowerCase()) ||
+        req.product_slug?.toLowerCase().includes(prebookSearch.toLowerCase())
     );
 
     // Status badge helper
@@ -488,6 +559,15 @@ export default function AdminPanel() {
                             <div className="text-3xl font-bold">{bookedCalls.length}</div>
                             <div className="text-sm text-red-600 mt-1">{stats.newCalls} new</div>
                         </div>
+
+                        <div className="bg-white border border-gray-200 p-6">
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="text-sm text-gray-500">Prebook Requests</div>
+                                <div className="text-3xl">🏛️</div>
+                            </div>
+                            <div className="text-3xl font-bold">{prebookRequests.length}</div>
+                            <div className="text-sm text-red-600 mt-1">{stats.newPrebooks} new</div>
+                        </div>
                     </div>
 
                     {/* Tabs */}
@@ -528,6 +608,15 @@ export default function AdminPanel() {
                                     }`}
                             >
                                 Booked Calls ({bookedCalls.length})
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('prebooks')}
+                                className={`pb-4 border-b-2 transition-colors ${activeTab === 'prebooks'
+                                    ? 'border-black text-black font-medium'
+                                    : 'border-transparent text-gray-500 hover:text-black'
+                                    }`}
+                            >
+                                Prebook Requests ({prebookRequests.length})
                             </button>
                         </div>
                     </div>
@@ -971,6 +1060,98 @@ export default function AdminPanel() {
                                                     </div>
                                                     <button
                                                         onClick={() => deleteBookedCall(call.id)}
+                                                        className="text-red-600 hover:text-red-800 text-sm font-medium"
+                                                    >
+                                                        🗑️ Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Prebook Requests Tab */}
+                            {activeTab === 'prebooks' && (
+                                <div className="space-y-4">
+                                    <div className="bg-white border border-gray-200 p-4">
+                                        <input
+                                            type="text"
+                                            placeholder="🔍 Search prebook requests by name, email, or product..."
+                                            value={prebookSearch}
+                                            onChange={(e) => setPrebookSearch(e.target.value)}
+                                            className="w-full border border-gray-300 px-4 py-2 focus:outline-none focus:border-black"
+                                        />
+                                    </div>
+
+                                    {prebookRequests.length === 0 ? (
+                                        <div className="bg-white border border-gray-200 p-8 text-center text-gray-600">
+                                            No prebook requests yet
+                                        </div>
+                                    ) : (
+                                        filteredPrebookRequests.map((request) => (
+                                            <div key={request.id} className="bg-white border border-gray-200 p-6">
+                                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                                                    <div>
+                                                        <div className="text-sm text-gray-500">Customer</div>
+                                                        <div className="font-bold">{request.first_name} {request.last_name}</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-sm text-gray-500">Email</div>
+                                                        <div className="font-medium flex items-center gap-2">
+                                                            {request.email}
+                                                            <button
+                                                                onClick={() => copyToClipboard(request.email)}
+                                                                className="text-blue-600 hover:text-blue-800"
+                                                                title="Copy email"
+                                                            >
+                                                                📋
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-sm text-gray-500">Phone</div>
+                                                        <div className="font-medium flex items-center gap-2">
+                                                            {request.phone}
+                                                            <button
+                                                                onClick={() => copyToClipboard(request.phone)}
+                                                                className="text-blue-600 hover:text-blue-800"
+                                                                title="Copy phone"
+                                                            >
+                                                                📋
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-sm text-gray-500">Date</div>
+                                                        <div className="text-sm">{new Date(request.created_at).toLocaleDateString()}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="mb-4 pt-4 border-t border-gray-200">
+                                                    <div className="text-sm text-gray-500 mb-1">Product</div>
+                                                    <div className="font-medium capitalize">
+                                                        {request.product_slug?.replace(/-/g, ' ') || 'N/A'}
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <div className="flex items-center gap-4">
+                                                        <label className="text-sm text-gray-600">Status:</label>
+                                                        <select
+                                                            value={request.status}
+                                                            onChange={(e) => updatePrebookStatus(request.id, e.target.value)}
+                                                            className="border border-gray-300 px-3 py-1 text-sm"
+                                                        >
+                                                            <option value="new">New</option>
+                                                            <option value="contacted">Contacted</option>
+                                                            <option value="confirmed">Confirmed</option>
+                                                            <option value="completed">Completed</option>
+                                                            <option value="cancelled">Cancelled</option>
+                                                        </select>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => deletePrebookRequest(request.id)}
                                                         className="text-red-600 hover:text-red-800 text-sm font-medium"
                                                     >
                                                         🗑️ Delete

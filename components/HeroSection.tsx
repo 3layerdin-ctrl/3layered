@@ -145,7 +145,7 @@ export function HeroSection() {
                 <div className="absolute bottom-6 right-4 md:bottom-12 md:right-12 z-10">
                     <a
                         href="/products"
-                        className="inline-flex items-center gap-2 md:gap-3 bg-white text-black px-5 py-3 md:px-8 md:py-4 text-base md:text-lg font-medium hover:bg-gray-100 transition-all duration-200 shadow-lg group"
+                        className="inline-flex items-center gap-2 md:gap-3 bg-white text-black px-5 py-3 md:px-8 md:py-4 text-base md:text-lg font-medium rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg group"
                     >
                         <span>Shop Now</span>
                         <svg className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

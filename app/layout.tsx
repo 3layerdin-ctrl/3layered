@@ -7,6 +7,7 @@ import { SlideProvider } from "@/contexts/SlideContext";
 import { LogoController } from "@/components/LogoController";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Analytics } from "@vercel/analytics/react";
 import { BlogJsonLd, OrganizationJsonLd, WebSiteJsonLd } from "@/components/StructuredData";
 
@@ -105,6 +106,7 @@ export default function RootLayout({
             <CartProvider>
               {children}
               <CartDrawer />
+              <WhatsAppButton />
             </CartProvider>
             <Footer />
           </SlideProvider>

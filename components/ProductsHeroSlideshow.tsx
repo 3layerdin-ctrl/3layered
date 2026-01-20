@@ -92,6 +92,17 @@ export function ProductsHeroSlideshow() {
                             loading="eager"
                             decoding="async"
                         />
+
+                        {/* Shop Now Button Overlay */}
+                        <div className="absolute bottom-6 right-6 z-10">
+                            <Link
+                                href="/products/category/architect-models"
+                                className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-900 transition-all duration-300 hover:scale-105 shadow-lg"
+                            >
+                                <span className="font-light tracking-wide">Shop Now</span>
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </div>
                     </div>
                 </motion.div>
             </AnimatePresence>

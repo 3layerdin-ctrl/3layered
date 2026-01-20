@@ -2,12 +2,18 @@ import { ProductPage } from '@/types/product';
 import southIndianTemple from '@/data/products/south-indian-temple.json';
 import miniGaneshaMandir from '@/data/products/mini-ganesha-mandir.json';
 import traditionalIndianTemple from '@/data/products/traditional-indian-temple.json';
+import kalingaArchiva from '@/data/products/kalinga-archiva.json';
+import gopuramArchiva from '@/data/products/gopuram-archiva.json';
+import mahalArchiva from '@/data/products/mahal-archiva.json';
 
 // In-memory product database (will be replaced with actual database later)
 const products: ProductPage[] = [
     southIndianTemple as ProductPage,
     miniGaneshaMandir as ProductPage,
     traditionalIndianTemple as ProductPage,
+    kalingaArchiva as ProductPage,
+    gopuramArchiva as ProductPage,
+    mahalArchiva as ProductPage,
 ];
 
 /**

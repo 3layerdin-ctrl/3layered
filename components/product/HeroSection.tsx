@@ -5,15 +5,19 @@ import Image from 'next/image';
 import { HeroSection as HeroSectionType } from '@/types/product';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { PrebookModal } from './PrebookModal';
 
 interface HeroSectionProps {
     data: HeroSectionType;
     productId: string;
     productSlug: string;
+    isPrebook?: boolean;
+    productName?: string;
 }
 
-export function HeroSection({ data, productId, productSlug }: HeroSectionProps) {
+export function HeroSection({ data, productId, productSlug, isPrebook = false, productName }: HeroSectionProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isPrebookModalOpen, setIsPrebookModalOpen] = useState(false);
     const sortedGallery = [...data.gallery].sort((a, b) => a.order - b.order);
     const { addToCart } = useCart();
     const touchStartX = useRef<number | null>(null);
@@ -93,7 +97,7 @@ export function HeroSection({ data, productId, productSlug }: HeroSectionProps) 
                     {/* Image Gallery */}
                     <div className="space-y-4">
                         {/* Main Image */}
-                        <div 
+                        <div
                             className="relative aspect-square bg-gray-50 overflow-hidden group touch-pan-y"
                             onTouchStart={onTouchStart}
                             onTouchMove={onTouchMove}
@@ -103,7 +107,7 @@ export function HeroSection({ data, productId, productSlug }: HeroSectionProps) 
                                 src={sortedGallery[currentImageIndex].url}
                                 alt={sortedGallery[currentImageIndex].alt}
                                 fill
-                                className="object-cover select-none"
+                                className="object-contain select-none"
                                 priority
                                 draggable={false}
                             />
@@ -150,7 +154,7 @@ export function HeroSection({ data, productId, productSlug }: HeroSectionProps) 
                                             src={image.url}
                                             alt={image.alt}
                                             fill
-                                            className="object-cover"
+                                            className="object-contain"
                                         />
                                     </button>
                                 ))}
@@ -179,45 +183,64 @@ export function HeroSection({ data, productId, productSlug }: HeroSectionProps) 
                             </p>
                         </div>
 
-                        {/* Price */}
+                        {/* Price - Show "Coming Soon" for prebook products */}
                         <div className="border-t border-b border-gray-200 py-6">
-                            <div className="flex items-center gap-3">
-                                {data.price.compareAtPrice && (
-                                    <div className="text-xl text-gray-400 line-through font-light">
-                                        {data.price.displayFormat.replace(
-                                            '{amount}',
-                                            data.price.compareAtPrice.toLocaleString()
-                                        )}
-                                    </div>
-                                )}
-                                <div className="text-3xl font-light">
-                                    {data.price.displayFormat.replace(
-                                        '{amount}',
-                                        data.price.amount.toLocaleString()
-                                    )}
+                            {isPrebook ? (
+                                <div className="text-3xl font-light tracking-wide text-gray-900">
+                                    ---- Coming Soon ----
                                 </div>
-                            </div>
-                            <p className="text-sm text-gray-500 mt-1">
-                                Made to order • Ships in 7-10 days
-                            </p>
+                            ) : (
+                                <>
+                                    <div className="flex items-center gap-3">
+                                        {data.price.compareAtPrice && (
+                                            <div className="text-xl text-gray-400 line-through font-light">
+                                                {data.price.displayFormat.replace(
+                                                    '{amount}',
+                                                    data.price.compareAtPrice.toLocaleString()
+                                                )}
+                                            </div>
+                                        )}
+                                        <div className="text-3xl font-light">
+                                            {data.price.displayFormat.replace(
+                                                '{amount}',
+                                                data.price.amount.toLocaleString()
+                                            )}
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-gray-500 mt-1">
+                                        Made to order • Ships in 7-10 days
+                                    </p>
+                                </>
+                            )}
                         </div>
 
                         {/* CTAs */}
                         <div className="space-y-3">
-                            <button
-                                onClick={handleAddToCart}
-                                className="w-full bg-black text-white py-4 px-8 text-lg font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
-                            >
-                                {data.cta.primaryLabel}
-                            </button>
-
-                            {data.cta.secondaryLabel && (
+                            {isPrebook ? (
                                 <button
-                                    onClick={handleBuyNow}
-                                    className="w-full border border-black text-black py-4 px-8 text-lg font-light tracking-wide hover:bg-gray-50 transition-colors duration-200"
+                                    onClick={() => setIsPrebookModalOpen(true)}
+                                    className="w-full bg-black text-white py-4 px-8 text-lg font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
                                 >
-                                    {data.cta.secondaryLabel}
+                                    {data.cta.primaryLabel}
                                 </button>
+                            ) : (
+                                <>
+                                    <button
+                                        onClick={handleAddToCart}
+                                        className="w-full bg-black text-white py-4 px-8 text-lg font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
+                                    >
+                                        {data.cta.primaryLabel}
+                                    </button>
+
+                                    {data.cta.secondaryLabel && (
+                                        <button
+                                            onClick={handleBuyNow}
+                                            className="w-full border border-black text-black py-4 px-8 text-lg font-light tracking-wide hover:bg-gray-50 transition-colors duration-200"
+                                        >
+                                            {data.cta.secondaryLabel}
+                                        </button>
+                                    )}
+                                </>
                             )}
                         </div>
 
@@ -243,22 +266,44 @@ export function HeroSection({ data, productId, productSlug }: HeroSectionProps) 
             {/* Mobile Sticky CTA */}
             <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
                 <div className="space-y-3">
-                    <button
-                        onClick={handleAddToCart}
-                        className="w-full bg-black text-white py-3 px-6 text-base font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
-                    >
-                        {data.cta.primaryLabel}
-                    </button>
-                    {data.cta.secondaryLabel && (
+                    {isPrebook ? (
                         <button
-                            onClick={handleBuyNow}
-                            className="w-full border border-black text-black py-3 px-6 text-base font-light tracking-wide hover:bg-gray-50 transition-colors duration-200"
+                            onClick={() => setIsPrebookModalOpen(true)}
+                            className="w-full bg-black text-white py-3 px-6 text-base font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
                         >
-                            {data.cta.secondaryLabel}
+                            {data.cta.primaryLabel}
                         </button>
+                    ) : (
+                        <>
+                            <button
+                                onClick={handleAddToCart}
+                                className="w-full bg-black text-white py-3 px-6 text-base font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
+                            >
+                                {data.cta.primaryLabel}
+                            </button>
+                            {data.cta.secondaryLabel && (
+                                <button
+                                    onClick={handleBuyNow}
+                                    className="w-full border border-black text-black py-3 px-6 text-base font-light tracking-wide hover:bg-gray-50 transition-colors duration-200"
+                                >
+                                    {data.cta.secondaryLabel}
+                                </button>
+                            )}
+                        </>
                     )}
                 </div>
             </div>
+
+            {/* Prebook Modal */}
+            {isPrebook && (
+                <PrebookModal
+                    isOpen={isPrebookModalOpen}
+                    onClose={() => setIsPrebookModalOpen(false)}
+                    productId={productId}
+                    productName={productName || data.productName}
+                    productSlug={productSlug}
+                />
+            )}
         </section>
     );
 }

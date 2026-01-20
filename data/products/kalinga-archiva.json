@@ -1,0 +1,266 @@
+{
+    "id": "kalinga-archiva",
+    "slug": "kalinga-archiva",
+    "categoryId": "architect-models",
+    "status": "published",
+    "isPrebook": true,
+    "seo": {
+        "title": "Kalinga Archiva - Ancient Indian Temple Architecture Model | Prebook Now",
+        "description": "Finely detailed architectural display model inspired by ancient Indian temple structures. Perfect for collectors, designers, and cultural enthusiasts. Prebook this exclusive piece.",
+        "keywords": [
+            "kalinga architecture model",
+            "ancient indian temple replica",
+            "architectural display model",
+            "temple architecture miniature",
+            "indian heritage model",
+            "kalinga temple design",
+            "architectural model makers",
+            "heritage architecture display"
+        ],
+        "ogImage": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%202.jpg",
+        "ogType": "product"
+    },
+    "hero": {
+        "productName": "Kalinga Archiva",
+        "tagline": "Ancient Temple Architecture Reimagined",
+        "badge": {
+            "enabled": true,
+            "text": "Prebook Now",
+            "variant": "prebook"
+        },
+        "price": {
+            "amount": 0,
+            "currency": "INR",
+            "displayFormat": "₹{amount}"
+        },
+        "cta": {
+            "primaryLabel": "Prebook Now",
+            "primaryAction": "inquire"
+        },
+        "gallery": [
+            {
+                "id": "hero-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%202.jpg",
+                "alt": "Kalinga Archiva - Detailed view showing intricate temple carvings",
+                "order": 1,
+                "isHero": true
+            },
+            {
+                "id": "detail-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva1.jpg",
+                "alt": "Kalinga Archiva - Front view of ancient Indian temple architecture model",
+                "order": 2,
+                "isHero": false
+            },
+            {
+                "id": "detail-2",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%203.jpg",
+                "alt": "Kalinga Archiva - Side perspective of temple structure",
+                "order": 3,
+                "isHero": false
+            }
+        ]
+    },
+    "story": {
+        "enabled": true,
+        "title": "Inspired by Ancient Kalinga Temple Architecture",
+        "paragraphs": [
+            "A finely detailed architectural display model inspired by ancient Indian temple structures, designed for collectors, designers, and cultural enthusiasts.",
+            "The Kalinga Archiva captures the essence of traditional temple architecture with precision-engineered details that honor centuries of architectural heritage. Each element reflects the sacred geometry and artistic mastery of ancient Indian craftspeople.",
+            "Perfect for architectural studios, cultural institutions, and discerning collectors who appreciate the intersection of heritage and contemporary design."
+        ],
+        "quote": {
+            "enabled": true,
+            "text": "Where ancient wisdom meets modern craftsmanship.",
+            "attribution": "— Three Layered Design Studio"
+        }
+    },
+    "craftsmanship": {
+        "material": {
+            "name": "Premium Architectural Resin",
+            "description": "High-quality photopolymer resin for architectural precision",
+            "properties": [
+                "Museum-quality finish",
+                "Exceptional detail retention",
+                "Durable construction",
+                "UV-resistant"
+            ]
+        },
+        "finish": {
+            "type": "Heritage Stone Finish",
+            "description": "Authentic stone-like texture with traditional color palette",
+            "handFinished": true
+        },
+        "process": {
+            "method": "Precision 3D Printing + Hand Finishing",
+            "description": "Advanced 3D printing combined with artisan hand-finishing techniques",
+            "steps": [
+                "High-resolution 3D printing",
+                "Multi-stage curing process",
+                "Hand-painting and detailing",
+                "Quality inspection and authentication"
+            ]
+        },
+        "care": {
+            "durability": "Designed for long-term display",
+            "instructions": [
+                "Dust with soft, dry cloth",
+                "Keep away from direct sunlight",
+                "Display in stable environment",
+                "Handle with care to preserve details"
+            ]
+        }
+    },
+    "specifications": {
+        "dimensions": {
+            "height": {
+                "value": 25,
+                "unit": "cm"
+            },
+            "width": {
+                "value": 18,
+                "unit": "cm"
+            },
+            "depth": {
+                "value": 18,
+                "unit": "cm"
+            },
+            "displayUnits": "metric"
+        },
+        "weight": {
+            "value": 400,
+            "unit": "g"
+        },
+        "comparison": {
+            "enabled": true,
+            "text": "Ideal for display shelves and architectural presentations"
+        },
+        "additionalSpecs": [
+            {
+                "label": "Style",
+                "value": "Ancient Kalinga Temple Architecture"
+            },
+            {
+                "label": "Era Inspiration",
+                "value": "Ancient Indian (Kalinga Period)"
+            },
+            {
+                "label": "Display Type",
+                "value": "Architectural Model"
+            }
+        ]
+    },
+    "customization": {
+        "enabled": false,
+        "options": [],
+        "customRequest": {
+            "enabled": false,
+            "ctaLabel": "",
+            "formUrl": ""
+        }
+    },
+    "useCases": {
+        "enabled": true,
+        "title": "Perfect For",
+        "cases": [
+            {
+                "id": "collector",
+                "title": "Heritage Collectors",
+                "description": "A museum-quality piece for architectural and cultural collections",
+                "imageUrl": "",
+                "order": 1
+            },
+            {
+                "id": "designer",
+                "title": "Design Studios",
+                "description": "Inspiration piece for architects and interior designers",
+                "imageUrl": "",
+                "order": 2
+            },
+            {
+                "id": "institution",
+                "title": "Cultural Institutions",
+                "description": "Educational display for museums and cultural centers",
+                "imageUrl": "",
+                "order": 3
+            }
+        ],
+        "displayStyle": "grid"
+    },
+    "assurance": {
+        "production": {
+            "type": "made-to-order",
+            "leadTime": {
+                "min": 3,
+                "max": 4,
+                "unit": "weeks",
+                "description": "Prebook now - Production begins upon order confirmation"
+            }
+        },
+        "shipping": {
+            "description": "Secure packaging and insured shipping",
+            "methods": [
+                "Premium courier service",
+                "Fully insured transit"
+            ]
+        },
+        "returns": {
+            "policy": "Satisfaction guaranteed. Contact us for any concerns.",
+            "linkUrl": "/policies/returns"
+        },
+        "guarantees": [
+            {
+                "icon": "shield-check",
+                "text": "Authenticity Guaranteed"
+            },
+            {
+                "icon": "lock",
+                "text": "Secure Payment"
+            },
+            {
+                "icon": "package",
+                "text": "Museum-Grade Packaging"
+            }
+        ]
+    },
+    "reviews": {
+        "enabled": false,
+        "averageRating": 0,
+        "totalReviews": 0,
+        "reviews": []
+    },
+    "faqs": {
+        "enabled": true,
+        "title": "Frequently Asked Questions",
+        "items": [
+            {
+                "id": "faq-1",
+                "question": "What is a prebook product?",
+                "answer": "Prebook products are exclusive pieces that we create upon order confirmation. By prebooking, you reserve your piece and we'll notify you when production begins and when it's ready to ship.",
+                "order": 1
+            },
+            {
+                "id": "faq-2",
+                "question": "How long will production take?",
+                "answer": "Once we confirm your prebook, production typically takes 3-4 weeks. We'll keep you updated throughout the process.",
+                "order": 2
+            },
+            {
+                "id": "faq-3",
+                "question": "Can I customize this model?",
+                "answer": "For prebook items, customization options may be available. Please contact us after prebooking to discuss your specific requirements.",
+                "order": 3
+            }
+        ]
+    },
+    "relatedProducts": {
+        "enabled": true,
+        "title": "More Architect Models",
+        "selectionType": "category",
+        "products": [],
+        "displayLimit": 3,
+        "layout": "carousel"
+    },
+    "createdAt": "2026-01-21T00:00:00Z",
+    "updatedAt": "2026-01-21T00:00:00Z"
+}

@@ -115,7 +115,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                                     src={product.hero.gallery[0].url}
                                                     alt={product.hero.gallery[0].alt}
                                                     fill
-                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    className="object-contain transition-transform duration-500 group-hover:scale-105"
                                                 />
                                             )}
 
@@ -137,7 +137,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                             </p>
                                             <div className="flex justify-between items-center">
                                                 <div className="text-xl font-light">
-                                                    {formatPrice(product.hero.price)}
+                                                    {product.isPrebook ? (
+                                                        <span className="tracking-wide text-gray-900">---- Coming Soon ----</span>
+                                                    ) : (
+                                                        formatPrice(product.hero.price)
+                                                    )}
                                                 </div>
                                                 <div className="text-sm text-gray-500">
                                                     {product.assurance.production.leadTime.description.split(' in ')[1]}
