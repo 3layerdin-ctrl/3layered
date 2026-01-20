@@ -83,15 +83,26 @@ export function PrebookPopup({ product, isOpen, onClose }: PrebookPopupProps) {
         }));
     };
 
-    // Track popup view
+    // Prevent body scroll when modal is open
     useEffect(() => {
-        if (isOpen && typeof window !== 'undefined' && (window as any).gtag) {
-            (window as any).gtag('event', 'prebook_popup_viewed', {
-                product_slug: product.slug,
-                product_title: product.title
-            });
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
         }
-    }, [isOpen, product.slug, product.title]);
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+        };
+    }, [isOpen]);
 
     return (
         <AnimatePresence>
@@ -104,30 +115,32 @@ export function PrebookPopup({ product, isOpen, onClose }: PrebookPopupProps) {
                         exit={{ opacity: 0 }}
                         onClick={onClose}
                         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]"
+                        style={{ touchAction: 'none' }}
                     />
 
-                    {/* Modal */}
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+                    {/* Modal Container - REMOVED pointer-events-none */}
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-0 sm:p-4 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.3 }}
-                            className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden pointer-events-auto"
+                            className="bg-white rounded-none sm:rounded-2xl shadow-2xl w-full sm:max-w-5xl h-full sm:h-auto sm:max-h-[90vh] overflow-hidden"
                             onClick={(e) => e.stopPropagation()}
+                            style={{ touchAction: 'auto' }}
                         >
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
-                                className="absolute top-4 right-4 z-10 p-2 bg-white/90 hover:bg-white rounded-full transition-colors"
+                                className="absolute top-4 right-4 z-10 p-2 bg-white/90 hover:bg-white rounded-full transition-colors shadow-lg"
                                 aria-label="Close"
                             >
                                 <X className="w-5 h-5" />
                             </button>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 max-h-[90vh]">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:max-h-[90vh]">
                                 {/* LEFT: Image Carousel */}
-                                <div className="relative bg-gray-100 min-h-[300px] lg:min-h-[600px]">
+                                <div className="relative bg-gray-100 h-[40vh] sm:h-[50vh] lg:min-h-[600px]">
                                     <Image
                                         src={product.images[currentImageIndex]}
                                         alt={product.title}
@@ -172,8 +185,8 @@ export function PrebookPopup({ product, isOpen, onClose }: PrebookPopupProps) {
                                     )}
                                 </div>
 
-                                {/* RIGHT: Form */}
-                                <div className="p-8 lg:p-12 overflow-y-auto">
+                                {/* RIGHT: Form - FIXED SCROLLING */}
+                                <div className="p-6 sm:p-8 lg:p-12 overflow-y-auto overscroll-contain" style={{ maxHeight: '60vh', WebkitOverflowScrolling: 'touch' }}>
                                     {isSuccess ? (
                                         <div className="flex flex-col items-center justify-center h-full text-center">
                                             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">

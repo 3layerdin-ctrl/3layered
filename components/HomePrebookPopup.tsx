@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -102,6 +102,27 @@ export function HomePrebookPopup({ isOpen, onClose }: HomePrebookPopupProps) {
         }));
     };
 
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+        };
+    }, [isOpen]);
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -113,17 +134,19 @@ export function HomePrebookPopup({ isOpen, onClose }: HomePrebookPopupProps) {
                         exit={{ opacity: 0 }}
                         onClick={onClose}
                         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]"
+                        style={{ touchAction: 'none' }}
                     />
 
-                    {/* Modal */}
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+                    {/* Modal Container - FIXED for mobile */}
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-0 sm:p-4 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.3 }}
-                            className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden pointer-events-auto"
+                            className="bg-white rounded-none sm:rounded-2xl shadow-2xl w-full sm:max-w-5xl h-full sm:h-auto sm:max-h-[90vh] overflow-hidden"
                             onClick={(e) => e.stopPropagation()}
+                            style={{ touchAction: 'auto' }}
                         >
                             {/* Close Button */}
                             <button
@@ -155,9 +178,9 @@ export function HomePrebookPopup({ isOpen, onClose }: HomePrebookPopupProps) {
                                 </div>
                             ) : selectedProduct ? (
                                 // Product Detail View
-                                <div className="grid grid-cols-1 lg:grid-cols-2 max-h-[90vh]">
-                                    {/* LEFT: Image Carousel */}
-                                    <div className="relative bg-gray-100 min-h-[300px] lg:min-h-[600px]">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:max-h-[90vh]">
+                                    {/* LEFT: Image Carousel - Reduced height on mobile */}
+                                    <div className="relative bg-gray-100 h-[35vh] sm:h-[45vh] lg:min-h-[600px]">
                                         <Image
                                             src={selectedProduct.images[currentImageIndex]}
                                             alt={selectedProduct.title}
@@ -200,8 +223,8 @@ export function HomePrebookPopup({ isOpen, onClose }: HomePrebookPopupProps) {
                                         )}
                                     </div>
 
-                                    {/* RIGHT: Form */}
-                                    <div className="p-8 lg:p-12 overflow-y-auto">
+                                    {/* RIGHT: Form - FIXED scrolling on mobile */}
+                                    <div className="p-6 sm:p-8 lg:p-12 overflow-y-auto overscroll-contain" style={{ maxHeight: '65vh', WebkitOverflowScrolling: 'touch' }}>
                                         <button
                                             onClick={handleBack}
                                             className="flex items-center gap-2 text-gray-600 hover:text-black mb-6 transition-colors"

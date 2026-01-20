@@ -61,6 +61,7 @@ export function Navbar() {
     return (
         <motion.header
             className={`fixed top-0 left-0 right-0 transition-all duration-300 ${isMenuOpen ? 'z-[100]' : 'z-50'} ${getNavbarBg()}`}
+            style={{ paddingTop: 'env(safe-area-inset-top)' }}
             initial={{ height: "5rem" }}
             animate={{
                 height: isScrolled ? "4rem" : "5rem",
@@ -115,11 +116,11 @@ export function Navbar() {
                         Custom Print
                     </a>
                     <button
-                        className="p-2 hover:opacity-60 transition-all duration-300 relative"
+                        className="p-3 hover:opacity-60 transition-all duration-300 relative min-w-[44px] min-h-[44px] flex items-center justify-center"
                         aria-label="Shopping cart"
                         onClick={openCart}
                     >
-                        <ShoppingCart className="w-5 h-5" style={{ color: textColor === "text-white" ? "white" : "black" }} />
+                        <ShoppingCart className="w-6 h-6" style={{ color: textColor === "text-white" ? "white" : "black" }} />
                         {cart.totalItems > 0 && (
                             <span
                                 className="absolute -top-1 -right-1 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium"
@@ -134,7 +135,7 @@ export function Navbar() {
                     </button>
                     <Link
                         href={user ? "/account/dashboard" : "/account"}
-                        className="p-2 hover:opacity-60 transition-all duration-300 flex items-center gap-2"
+                        className="p-3 hover:opacity-60 transition-all duration-300 flex items-center gap-2 min-w-[44px] min-h-[44px]"
                         aria-label="Account"
                     >
                         {user ? (
@@ -145,28 +146,28 @@ export function Navbar() {
                                 {user.email?.[0].toUpperCase()}
                             </div>
                         ) : (
-                            <User className="w-5 h-5" style={{ color: textColor === "text-white" ? "white" : "black" }} />
+                            <User className="w-6 h-6" style={{ color: textColor === "text-white" ? "white" : "black" }} />
                         )}
                     </Link>
                 </div>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile Menu Button - 48x48px touch target */}
                 <button
-                    className="md:hidden p-2"
+                    className="md:hidden p-3 min-w-[48px] min-h-[48px] flex flex-col items-center justify-center"
                     aria-label="Menu"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
-                    <div className="w-6 h-0.5 mb-1 transition-all duration-300" style={{
+                    <div className="w-6 h-0.5 mb-1.5 transition-all duration-300" style={{
                         backgroundColor: textColor === "text-white" ? "white" : "black",
-                        transform: isMenuOpen ? 'rotate(45deg) translateY(6px)' : 'none'
+                        transform: isMenuOpen ? 'rotate(45deg) translateY(7px)' : 'none'
                     }}></div>
-                    <div className="w-6 h-0.5 mb-1 transition-all duration-300" style={{
+                    <div className="w-6 h-0.5 mb-1.5 transition-all duration-300" style={{
                         backgroundColor: textColor === "text-white" ? "white" : "black",
                         opacity: isMenuOpen ? 0 : 1
                     }}></div>
                     <div className="w-6 h-0.5 transition-all duration-300" style={{
                         backgroundColor: textColor === "text-white" ? "white" : "black",
-                        transform: isMenuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none'
+                        transform: isMenuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none'
                     }}></div>
                 </button>
             </div>
@@ -180,20 +181,21 @@ export function Navbar() {
                         onClick={() => setIsMenuOpen(false)}
                     />
 
-                    {/* Menu Panel */}
+                    {/* Menu Panel - Better mobile spacing */}
                     <motion.div
-                        className="fixed top-20 right-0 bottom-0 w-64 bg-white shadow-xl z-[110] md:hidden"
+                        className="fixed top-20 right-0 bottom-0 w-80 bg-white shadow-xl z-[110] md:hidden overflow-y-auto"
+                        style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                     >
-                        <nav className="flex flex-col p-6 gap-4">
+                        <nav className="flex flex-col p-6 gap-2">
                             {NAV_ITEMS.map((item) => (
                                 <a
                                     key={item.label}
                                     href={item.href}
-                                    className="text-lg font-medium text-black hover:opacity-60 transition-all py-2"
+                                    className="text-lg font-medium text-black hover:opacity-60 transition-all py-4 min-h-[48px] flex items-center"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     {item.label}
@@ -202,7 +204,7 @@ export function Navbar() {
                             <hr className="my-2" />
                             <a
                                 href="/custom-print"
-                                className="text-lg font-medium text-black hover:opacity-60 transition-all py-2"
+                                className="text-lg font-medium text-black hover:opacity-60 transition-all py-4 min-h-[48px] flex items-center"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Custom Print

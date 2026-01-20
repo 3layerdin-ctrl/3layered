@@ -69,22 +69,22 @@ export function PrebookModal({ isOpen, onClose, productId, productName, productS
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-white w-full max-w-md relative shadow-2xl">
-                {/* Close Button */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm" style={{ touchAction: 'none' }}>
+            <div className="bg-white w-full h-full sm:h-auto sm:max-w-md sm:rounded-2xl relative shadow-2xl overflow-y-auto">
+                {/* Close Button - 48x48px touch target */}
                 <button
                     onClick={handleClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors p-3 min-w-[48px] min-h-[48px] flex items-center justify-center z-10"
                     aria-label="Close modal"
                 >
                     <X className="w-6 h-6" />
                 </button>
 
                 {/* Content */}
-                <div className="p-8">
+                <div className="p-6 sm:p-8">
                     {submitStatus === 'success' ? (
                         // Success State
-                        <div className="text-center space-y-6">
+                        <div className="text-center space-y-6 py-8">
                             <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mx-auto">
                                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -98,7 +98,7 @@ export function PrebookModal({ isOpen, onClose, productId, productName, productS
                             </div>
                             <button
                                 onClick={handleClose}
-                                className="w-full bg-black text-white py-3 px-6 font-light tracking-wide hover:bg-gray-900 transition-colors"
+                                className="w-full bg-black text-white py-4 px-6 rounded-full font-medium text-base hover:bg-gray-900 transition-colors min-h-[48px]"
                             >
                                 Close
                             </button>
@@ -107,16 +107,16 @@ export function PrebookModal({ isOpen, onClose, productId, productName, productS
                         // Form State
                         <>
                             <div className="mb-6">
-                                <h3 className="font-serif text-3xl font-bold mb-2">Prebook Now</h3>
-                                <p className="text-gray-600 font-light">
+                                <h3 className="font-serif text-2xl sm:text-3xl font-bold mb-2">Prebook Now</h3>
+                                <p className="text-gray-600 font-light text-base">
                                     Register your interest in <span className="font-normal">{productName}</span>
                                 </p>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                {/* Name Field */}
+                            <form onSubmit={handleSubmit} className="space-y-5">
+                                {/* Name Field - 48px height, 16px font */}
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-light mb-2">
+                                    <label htmlFor="name" className="block text-sm font-medium mb-2">
                                         Name <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -125,14 +125,14 @@ export function PrebookModal({ isOpen, onClose, productId, productName, productS
                                         required
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full border border-gray-300 px-4 py-3 focus:outline-none focus:border-black transition-colors"
+                                        className="w-full border border-gray-300 px-4 py-4 text-base rounded-lg focus:outline-none focus:border-black transition-colors"
                                         placeholder="Your full name"
                                     />
                                 </div>
 
                                 {/* Email Field */}
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-light mb-2">
+                                    <label htmlFor="email" className="block text-sm font-medium mb-2">
                                         Email <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -141,14 +141,14 @@ export function PrebookModal({ isOpen, onClose, productId, productName, productS
                                         required
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full border border-gray-300 px-4 py-3 focus:outline-none focus:border-black transition-colors"
+                                        className="w-full border border-gray-300 px-4 py-4 text-base rounded-lg focus:outline-none focus:border-black transition-colors"
                                         placeholder="your@email.com"
                                     />
                                 </div>
 
                                 {/* Phone Field */}
                                 <div>
-                                    <label htmlFor="phone" className="block text-sm font-light mb-2">
+                                    <label htmlFor="phone" className="block text-sm font-medium mb-2">
                                         Phone <span className="text-gray-400">(Optional)</span>
                                     </label>
                                     <input
@@ -156,23 +156,23 @@ export function PrebookModal({ isOpen, onClose, productId, productName, productS
                                         id="phone"
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                        className="w-full border border-gray-300 px-4 py-3 focus:outline-none focus:border-black transition-colors"
+                                        className="w-full border border-gray-300 px-4 py-4 text-base rounded-lg focus:outline-none focus:border-black transition-colors"
                                         placeholder="+91 98765 43210"
                                     />
                                 </div>
 
                                 {/* Error Message */}
                                 {submitStatus === 'error' && (
-                                    <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 text-sm">
+                                    <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
                                         {errorMessage}
                                     </div>
                                 )}
 
-                                {/* Submit Button */}
+                                {/* Submit Button - 48px height */}
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-black text-white py-3 px-6 font-light tracking-wide hover:bg-gray-900 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                    className="w-full bg-black text-white py-4 px-6 rounded-full font-medium text-base hover:bg-gray-900 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed min-h-[48px]"
                                 >
                                     {isSubmitting ? 'Submitting...' : 'Submit Prebook Request'}
                                 </button>
