@@ -164,14 +164,19 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
 
                     {/* Product Info */}
                     <div className="space-y-8 lg:sticky lg:top-32">
-                        {/* Badge */}
-                        {data.badge.enabled && (
-                            <div className="inline-block">
-                                <span className="text-xs tracking-widest uppercase border border-black px-4 py-1.5">
+                        {/* Badges */}
+                        <div className="flex flex-wrap gap-3">
+                            {data.badge.enabled && (
+                                <span className="inline-flex items-center text-xs tracking-widest uppercase border-2 border-black px-5 py-2 font-medium hover:bg-black hover:text-white transition-colors duration-200">
                                     {data.badge.text}
                                 </span>
-                            </div>
-                        )}
+                            )}
+                            {data.price.discountPercent && (
+                                <span className="inline-flex items-center text-xs tracking-widest uppercase bg-gradient-to-r from-green-600 to-emerald-600 text-white px-5 py-2 font-bold shadow-lg shadow-green-600/30 rounded-full">
+                                    {data.price.discountPercent}% OFF
+                                </span>
+                            )}
+                        </div>
 
                         {/* Product Name */}
                         <div>
@@ -183,11 +188,41 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                             </p>
                         </div>
 
-                        {/* Price - Show "Coming Soon" for prebook products */}
+                        {/* Price */}
                         <div className="border-t border-b border-gray-200 py-6">
                             {isPrebook ? (
-                                <div className="text-3xl font-light tracking-wide text-gray-900">
-                                    ---- Coming Soon ----
+                                <div className="space-y-3">
+                                    {/* Discount Badge */}
+                                    {data.price.discountPercent && (
+                                        <div className="inline-block px-3 py-1 bg-green-600 text-white text-sm font-bold rounded-full">
+                                            {data.price.discountPercent}% OFF
+                                        </div>
+                                    )}
+                                    {/* Pricing */}
+                                    <div className="flex items-center gap-3">
+                                        {data.price.originalAmount && (
+                                            <div className="text-xl text-gray-400 line-through font-light">
+                                                {data.price.displayFormat.replace(
+                                                    '{amount}',
+                                                    data.price.originalAmount.toLocaleString('en-IN')
+                                                )}
+                                            </div>
+                                        )}
+                                        <div className="text-3xl font-light">
+                                            {data.price.displayFormat.replace(
+                                                '{amount}',
+                                                data.price.amount.toLocaleString('en-IN')
+                                            )}
+                                        </div>
+                                    </div>
+                                    {data.price.originalAmount && (
+                                        <p className="text-sm text-green-600 font-medium">
+                                            Save ₹{(data.price.originalAmount - data.price.amount).toLocaleString('en-IN')}
+                                        </p>
+                                    )}
+                                    <p className="text-sm text-gray-500 mt-1">
+                                        Made to order • Ships in 3-4 weeks
+                                    </p>
                                 </div>
                             ) : (
                                 <>

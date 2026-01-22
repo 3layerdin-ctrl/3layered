@@ -29,9 +29,11 @@
             "variant": "prebook"
         },
         "price": {
-            "amount": 0,
+            "amount": 2099,
             "currency": "INR",
-            "displayFormat": "₹{amount}"
+            "displayFormat": "₹{amount}",
+            "originalAmount": 2799,
+            "discountPercent": 25
         },
         "cta": {
             "primaryLabel": "Prebook Now",

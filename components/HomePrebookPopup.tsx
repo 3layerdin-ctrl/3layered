@@ -234,7 +234,27 @@ export function HomePrebookPopup({ isOpen, onClose }: HomePrebookPopupProps) {
                                         </button>
 
                                         <h2 className="text-3xl lg:text-4xl font-bold mb-4">{selectedProduct.title}</h2>
-                                        <p className="text-gray-600 mb-8 leading-relaxed">{selectedProduct.description}</p>
+                                        <p className="text-gray-600 mb-6 leading-relaxed">{selectedProduct.description}</p>
+
+                                        {/* Pricing Section */}
+                                        <div className="mb-8 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <span className="inline-block px-3 py-1 bg-green-600 text-white text-sm font-bold rounded-full">
+                                                    {selectedProduct.discountPercent}% OFF
+                                                </span>
+                                                <span className="text-gray-500 text-lg line-through">
+                                                    ₹{selectedProduct.originalPrice.toLocaleString('en-IN')}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-baseline gap-2">
+                                                <span className="text-4xl font-bold text-gray-900">
+                                                    ₹{selectedProduct.price.toLocaleString('en-IN')}
+                                                </span>
+                                                <span className="text-gray-600">
+                                                    (Save ₹{(selectedProduct.originalPrice - selectedProduct.price).toLocaleString('en-IN')})
+                                                </span>
+                                            </div>
+                                        </div>
 
                                         <form onSubmit={handleSubmit} className="space-y-6">
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -342,14 +362,29 @@ export function HomePrebookPopup({ isOpen, onClose }: HomePrebookPopupProps) {
                                                         fill
                                                         className="object-contain group-hover:scale-105 transition-transform duration-300"
                                                     />
+                                                    {/* Discount Badge */}
+                                                    <div className="absolute top-3 right-3 px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full shadow-lg">
+                                                        {product.discountPercent}% OFF
+                                                    </div>
                                                 </div>
                                                 <div className="p-4">
                                                     <h3 className="font-bold text-lg mb-2 group-hover:underline">
                                                         {product.title.replace(' — Prebooking Now Open', '')}
                                                     </h3>
-                                                    <p className="text-sm text-gray-600 line-clamp-2">
+                                                    <p className="text-sm text-gray-600 line-clamp-2 mb-3">
                                                         {product.description}
                                                     </p>
+                                                    {/* Pricing */}
+                                                    <div className="mb-3">
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <span className="text-gray-400 text-sm line-through">
+                                                                ₹{product.originalPrice.toLocaleString('en-IN')}
+                                                            </span>
+                                                        </div>
+                                                        <div className="text-2xl font-bold text-gray-900">
+                                                            ₹{product.price.toLocaleString('en-IN')}
+                                                        </div>
+                                                    </div>
                                                     <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium">
                                                         Select to Prebook
                                                         <ChevronRight className="w-4 h-4" />

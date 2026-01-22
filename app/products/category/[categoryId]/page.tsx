@@ -119,12 +119,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                                 />
                                             )}
 
-                                            {/* Badge */}
-                                            {product.hero.badge.enabled && (
-                                                <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 text-xs uppercase tracking-wider">
-                                                    {product.hero.badge.text}
-                                                </div>
-                                            )}
+                                            {/* Badges */}
+                                            <div className="absolute top-4 left-4">
+                                                {product.hero.badge.enabled && (
+                                                    <div className="bg-white/95 backdrop-blur-sm text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold border-2 border-black shadow-lg">
+                                                        {product.hero.badge.text}
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
 
                                         {/* Product Info */}
@@ -138,7 +140,31 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                             <div className="flex justify-between items-center">
                                                 <div className="text-xl font-light">
                                                     {product.isPrebook ? (
-                                                        <span className="tracking-wide text-gray-900">---- Coming Soon ----</span>
+                                                        <div className="space-y-2">
+                                                            {/* Discount Badge */}
+                                                            {product.hero.price.discountPercent && (
+                                                                <div className="inline-flex items-center bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-lg rounded-full">
+                                                                    {product.hero.price.discountPercent}% OFF
+                                                                </div>
+                                                            )}
+                                                            {/* Pricing */}
+                                                            <div className="flex items-center gap-2">
+                                                                {product.hero.price.originalAmount && (
+                                                                    <span className="text-sm text-gray-400 line-through">
+                                                                        ₹{product.hero.price.originalAmount.toLocaleString('en-IN')}
+                                                                    </span>
+                                                                )}
+                                                                <span className="text-xl font-medium text-gray-900">
+                                                                    ₹{product.hero.price.amount.toLocaleString('en-IN')}
+                                                                </span>
+                                                            </div>
+                                                            {/* Savings */}
+                                                            {product.hero.price.originalAmount && (
+                                                                <div className="text-xs text-green-600 font-medium">
+                                                                    Save ₹{(product.hero.price.originalAmount - product.hero.price.amount).toLocaleString('en-IN')}
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     ) : (
                                                         formatPrice(product.hero.price)
                                                     )}

@@ -25,6 +25,8 @@ export interface GalleryImage extends Image {
 export interface Price {
   amount: number;
   compareAtPrice?: number; // Original price before discount
+  originalAmount?: number; // For prebook products with discount
+  discountPercent?: number; // Discount percentage (e.g., 25 for 25% off)
   currency: 'USD' | 'INR' | 'EUR' | 'GBP';
   displayFormat: string; // e.g., "₹{amount}" or "${amount}"
 }
@@ -49,7 +51,7 @@ export interface SEOMetadata {
 export interface Badge {
   enabled: boolean;
   text: string;
-  variant: 'premium' | 'exclusive' | 'limited' | 'hand-finished' | 'prebook' | 'led';
+  variant: 'premium' | 'exclusive' | 'limited' | 'hand-finished' | 'prebook' | 'led' | 'discount';
 }
 
 export interface CTA {
@@ -374,6 +376,8 @@ export interface Product {
   shortDescription: string;
   price: number;
   compareAtPrice?: number;
+  originalPrice?: number; // For prebook products with discount
+  discountPercent?: number; // Discount percentage
   images: string[];
   categoryId: string;
   isFeatured: boolean;

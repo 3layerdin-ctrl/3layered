@@ -208,7 +208,27 @@ export function PrebookPopup({ product, isOpen, onClose }: PrebookPopupProps) {
                                     ) : (
                                         <>
                                             <h2 className="text-3xl lg:text-4xl font-bold mb-4">{product.title}</h2>
-                                            <p className="text-gray-600 mb-8 leading-relaxed">{product.description}</p>
+                                            <p className="text-gray-600 mb-6 leading-relaxed">{product.description}</p>
+
+                                            {/* Pricing Section */}
+                                            <div className="mb-8 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200">
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    <span className="inline-block px-3 py-1 bg-green-600 text-white text-sm font-bold rounded-full">
+                                                        {product.discountPercent}% OFF
+                                                    </span>
+                                                    <span className="text-gray-500 text-lg line-through">
+                                                        ₹{product.originalPrice.toLocaleString('en-IN')}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-baseline gap-2">
+                                                    <span className="text-4xl font-bold text-gray-900">
+                                                        ₹{product.price.toLocaleString('en-IN')}
+                                                    </span>
+                                                    <span className="text-gray-600">
+                                                        (Save ₹{(product.originalPrice - product.price).toLocaleString('en-IN')})
+                                                    </span>
+                                                </div>
+                                            </div>
 
                                             <form onSubmit={handleSubmit} className="space-y-6">
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

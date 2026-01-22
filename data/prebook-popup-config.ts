@@ -3,6 +3,9 @@ export interface PrebookPopupProduct {
     title: string;
     description: string;
     images: string[];
+    price: number;
+    originalPrice: number;
+    discountPercent: number;
 }
 
 export const prebookPopupProducts: Record<string, PrebookPopupProduct> = {
@@ -14,7 +17,10 @@ export const prebookPopupProducts: Record<string, PrebookPopupProduct> = {
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%202.jpg',
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%203.jpg',
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva1.jpg',
-        ]
+        ],
+        price: 2099,
+        originalPrice: 2799,
+        discountPercent: 25
     },
     'gopuram-archiva': {
         slug: 'gopuram-archiva',
@@ -24,7 +30,10 @@ export const prebookPopupProducts: Record<string, PrebookPopupProduct> = {
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Gopuram%20Archiva/Gopuram%20Archiva%204.jpg',
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Gopuram%20Archiva/Gopuram%20Archiva%203.jpg',
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Gopuram%20Archiva/Gopuram%20Archiva%205.jpg',
-        ]
+        ],
+        price: 2499,
+        originalPrice: 3332,
+        discountPercent: 25
     },
     'mahal-archiva': {
         slug: 'mahal-archiva',
@@ -34,7 +43,10 @@ export const prebookPopupProducts: Record<string, PrebookPopupProduct> = {
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%203.jpg',
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%202.jpg',
             'https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%201.jpg',
-        ]
+        ],
+        price: 1799,
+        originalPrice: 2399,
+        discountPercent: 25
     }
 };
 
