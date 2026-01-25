@@ -6,23 +6,23 @@ import { useEffect, useRef, useState } from "react";
 const REELS = [
     {
         id: 1,
-        url: "https://www.instagram.com/reel/DS7A7OgCXho/",
-        embedUrl: "https://www.instagram.com/reel/DS7A7OgCXho/embed",
+        url: "https://www.instagram.com/reel/DT7JeZ-DJSN/",
+        embedUrl: "https://www.instagram.com/reel/DT7JeZ-DJSN/embed",
     },
     {
         id: 2,
-        url: "https://www.instagram.com/reel/DSxqPF7jGma/",
-        embedUrl: "https://www.instagram.com/reel/DSxqPF7jGma/embed",
+        url: "https://www.instagram.com/reel/DT4plTqjDUC/",
+        embedUrl: "https://www.instagram.com/reel/DT4plTqjDUC/embed",
     },
     {
         id: 3,
-        url: "https://www.instagram.com/reel/DSuiW2ZjG9o/",
-        embedUrl: "https://www.instagram.com/reel/DSuiW2ZjG9o/embed",
+        url: "https://www.instagram.com/reel/DT2BHPriciE/",
+        embedUrl: "https://www.instagram.com/reel/DT2BHPriciE/embed",
     },
     {
         id: 4,
-        url: "https://www.instagram.com/reel/DRRQR-YCdFu/",
-        embedUrl: "https://www.instagram.com/reel/DRRQR-YCdFu/embed",
+        url: "https://www.instagram.com/reel/DTzbr27jBJ7/",
+        embedUrl: "https://www.instagram.com/reel/DTzbr27jBJ7/embed",
     },
 ];
 
