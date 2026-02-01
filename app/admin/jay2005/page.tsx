@@ -12,6 +12,9 @@ interface Order {
     customer_phone: string | null;
     customer_address?: any;
     items: any[];
+    subtotal?: number;
+    discount?: number;
+    coupon_code?: string | null;
     total: number;
     status: string;
     payment_method?: string;
@@ -695,7 +698,19 @@ export default function AdminPanel() {
                                                     </div>
                                                     <div>
                                                         <div className="text-sm text-gray-500">Total</div>
-                                                        <div className="font-bold text-xl">₹{order.total.toLocaleString()}</div>
+                                                        <div className="space-y-1">
+                                                            {order.discount && order.discount > 0 ? (
+                                                                <>
+                                                                    <div className="text-sm text-gray-500 line-through">₹{((order.total || 0) + (order.discount || 0)).toLocaleString()}</div>
+                                                                    <div className="font-bold text-xl text-green-600">₹{order.total.toLocaleString()}</div>
+                                                                    {order.coupon_code && (
+                                                                        <div className="text-xs text-green-600 font-medium">🎉 {order.coupon_code} (-₹{order.discount})</div>
+                                                                    )}
+                                                                </>
+                                                            ) : (
+                                                                <div className="font-bold text-xl">₹{order.total.toLocaleString()}</div>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <div className="text-sm text-gray-500">Date</div>

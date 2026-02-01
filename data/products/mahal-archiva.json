@@ -3,10 +3,9 @@
     "slug": "mahal-archiva",
     "categoryId": "architect-models",
     "status": "published",
-    "isPrebook": true,
     "seo": {
-        "title": "Mahal Archiva - Royal Palace Architecture Model | Prebook Now",
-        "description": "Elegant architectural model inspired by royal palace design. Built for collectors, architects, and premium interior showcases. Prebook this exclusive piece.",
+        "title": "Mahal Archiva - Royal Palace Architecture Model | Premium Display Piece",
+        "description": "Elegant architectural model inspired by royal palace design. Built for collectors, architects, and premium interior showcases. Order this exclusive piece.",
         "keywords": [
             "mahal architecture model",
             "royal palace replica",
@@ -25,8 +24,8 @@
         "tagline": "Royal Palace Architecture Refined",
         "badge": {
             "enabled": true,
-            "text": "Prebook Now",
-            "variant": "prebook"
+            "text": "25% OFF",
+            "variant": "discount"
         },
         "price": {
             "amount": 1799,
@@ -36,8 +35,9 @@
             "discountPercent": 25
         },
         "cta": {
-            "primaryLabel": "Prebook Now",
-            "primaryAction": "inquire"
+            "primaryLabel": "Add to Cart",
+            "primaryAction": "add-to-cart",
+            "secondaryLabel": "Buy Now"
         },
         "gallery": [
             {
@@ -196,7 +196,7 @@
                 "min": 3,
                 "max": 4,
                 "unit": "weeks",
-                "description": "Prebook now - Production begins upon order confirmation"
+                "description": "Production begins upon order confirmation"
             }
         },
         "shipping": {
@@ -237,21 +237,15 @@
         "items": [
             {
                 "id": "faq-1",
-                "question": "What is a prebook product?",
-                "answer": "Prebook products are exclusive pieces that we create upon order confirmation. By prebooking, you reserve your piece and we'll notify you when production begins and when it's ready to ship.",
+                "question": "How long will production take?",
+                "answer": "This is a made-to-order piece. Production typically takes 3-4 weeks after order confirmation. We'll keep you updated throughout the process.",
                 "order": 1
             },
             {
                 "id": "faq-2",
-                "question": "How long will production take?",
-                "answer": "Once we confirm your prebook, production typically takes 3-4 weeks. We'll keep you updated throughout the process.",
-                "order": 2
-            },
-            {
-                "id": "faq-3",
                 "question": "What architectural style does this represent?",
                 "answer": "The Mahal Archiva is inspired by the fusion of Mughal and Rajput palace architecture, featuring characteristic domes, arches, and courtyard elements that define royal Indian palaces.",
-                "order": 3
+                "order": 2
             }
         ]
     },

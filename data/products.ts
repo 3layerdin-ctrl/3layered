@@ -60,8 +60,7 @@ export const products: Product[] = [
         categoryId: kalingaArchivaData.categoryId,
         isFeatured: false,
         inStock: true,
-        status: kalingaArchivaData.status as 'draft' | 'published' | 'archived',
-        isPrebook: true
+        status: kalingaArchivaData.status as 'draft' | 'published' | 'archived'
     },
     {
         id: gopuramArchivaData.id,
@@ -76,8 +75,7 @@ export const products: Product[] = [
         categoryId: gopuramArchivaData.categoryId,
         isFeatured: false,
         inStock: true,
-        status: gopuramArchivaData.status as 'draft' | 'published' | 'archived',
-        isPrebook: true
+        status: gopuramArchivaData.status as 'draft' | 'published' | 'archived'
     },
     {
         id: mahalArchivaData.id,
@@ -92,8 +90,7 @@ export const products: Product[] = [
         categoryId: mahalArchivaData.categoryId,
         isFeatured: false,
         inStock: true,
-        status: mahalArchivaData.status as 'draft' | 'published' | 'archived',
-        isPrebook: true
+        status: mahalArchivaData.status as 'draft' | 'published' | 'archived'
     }
 ];
 

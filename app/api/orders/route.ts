@@ -29,7 +29,9 @@ export async function POST(request: NextRequest) {
             paymentMethod = 'cod',
             razorpayOrderId,
             razorpayPaymentId,
-            razorpaySignature
+            razorpaySignature,
+            couponCode,
+            discount
         } = body;
 
         // Debug logging
@@ -126,6 +128,8 @@ export async function POST(request: NextRequest) {
                 payment_status: initialPaymentStatus,
                 payment_method: paymentMethod,
                 notes: sanitizedNotes,
+                coupon_code: couponCode || null,
+                discount: discount || 0,
                 razorpay_order_id: razorpayOrderId || null,
                 razorpay_payment_id: razorpayPaymentId || null,
                 razorpay_signature: razorpaySignature || null

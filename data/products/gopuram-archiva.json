@@ -3,10 +3,9 @@
     "slug": "gopuram-archiva",
     "categoryId": "architect-models",
     "status": "published",
-    "isPrebook": true,
     "seo": {
-        "title": "Gopuram Archiva - South Indian Temple Tower Model | Prebook Now",
-        "description": "Striking architectural miniature inspired by South Indian temple gopuram towers. Crafted for premium display and design visualization. Prebook this exclusive piece.",
+        "title": "Gopuram Archiva - South Indian Temple Tower Model | Premium Display Piece",
+        "description": "Striking architectural miniature inspired by South Indian temple gopuram towers. Crafted for premium display and design visualization. Order this exclusive piece.",
         "keywords": [
             "gopuram architecture model",
             "south indian temple tower",
@@ -25,8 +24,8 @@
         "tagline": "South Indian Temple Tower Excellence",
         "badge": {
             "enabled": true,
-            "text": "Prebook Now",
-            "variant": "prebook"
+            "text": "25% OFF",
+            "variant": "discount"
         },
         "price": {
             "amount": 2499,
@@ -36,8 +35,9 @@
             "discountPercent": 25
         },
         "cta": {
-            "primaryLabel": "Prebook Now",
-            "primaryAction": "inquire"
+            "primaryLabel": "Add to Cart",
+            "primaryAction": "add-to-cart",
+            "secondaryLabel": "Buy Now"
         },
         "gallery": [
             {
@@ -196,7 +196,7 @@
                 "min": 3,
                 "max": 4,
                 "unit": "weeks",
-                "description": "Prebook now - Production begins upon order confirmation"
+                "description": "Production begins upon order confirmation"
             }
         },
         "shipping": {
@@ -237,21 +237,15 @@
         "items": [
             {
                 "id": "faq-1",
-                "question": "What is a prebook product?",
-                "answer": "Prebook products are exclusive pieces that we create upon order confirmation. By prebooking, you reserve your piece and we'll notify you when production begins and when it's ready to ship.",
+                "question": "How long will production take?",
+                "answer": "This is a made-to-order piece. Production typically takes 3-4 weeks after order confirmation. We'll keep you updated throughout the process.",
                 "order": 1
             },
             {
                 "id": "faq-2",
-                "question": "How long will production take?",
-                "answer": "Once we confirm your prebook, production typically takes 3-4 weeks. We'll keep you updated throughout the process.",
-                "order": 2
-            },
-            {
-                "id": "faq-3",
                 "question": "What makes the Gopuram Archiva special?",
                 "answer": "This model captures the intricate details of South Indian gopuram towers, featuring multiple tiers of sculptural elements that are characteristic of Dravidian temple architecture. Each piece is hand-finished to museum quality standards.",
-                "order": 3
+                "order": 2
             }
         ]
     },

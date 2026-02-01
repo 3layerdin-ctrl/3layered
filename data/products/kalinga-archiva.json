@@ -3,10 +3,9 @@
     "slug": "kalinga-archiva",
     "categoryId": "architect-models",
     "status": "published",
-    "isPrebook": true,
     "seo": {
-        "title": "Kalinga Archiva - Ancient Indian Temple Architecture Model | Prebook Now",
-        "description": "Finely detailed architectural display model inspired by ancient Indian temple structures. Perfect for collectors, designers, and cultural enthusiasts. Prebook this exclusive piece.",
+        "title": "Kalinga Archiva - Ancient Indian Temple Architecture Model | Premium Display Piece",
+        "description": "Finely detailed architectural display model inspired by ancient Indian temple structures. Perfect for collectors, designers, and cultural enthusiasts. Order this exclusive piece.",
         "keywords": [
             "kalinga architecture model",
             "ancient indian temple replica",
@@ -25,8 +24,8 @@
         "tagline": "Ancient Temple Architecture Reimagined",
         "badge": {
             "enabled": true,
-            "text": "Prebook Now",
-            "variant": "prebook"
+            "text": "25% OFF",
+            "variant": "discount"
         },
         "price": {
             "amount": 2099,
@@ -36,8 +35,9 @@
             "discountPercent": 25
         },
         "cta": {
-            "primaryLabel": "Prebook Now",
-            "primaryAction": "inquire"
+            "primaryLabel": "Add to Cart",
+            "primaryAction": "add-to-cart",
+            "secondaryLabel": "Buy Now"
         },
         "gallery": [
             {
@@ -196,7 +196,7 @@
                 "min": 3,
                 "max": 4,
                 "unit": "weeks",
-                "description": "Prebook now - Production begins upon order confirmation"
+                "description": "Production begins upon order confirmation"
             }
         },
         "shipping": {
@@ -237,21 +237,15 @@
         "items": [
             {
                 "id": "faq-1",
-                "question": "What is a prebook product?",
-                "answer": "Prebook products are exclusive pieces that we create upon order confirmation. By prebooking, you reserve your piece and we'll notify you when production begins and when it's ready to ship.",
+                "question": "How long will production take?",
+                "answer": "This is a made-to-order piece. Production typically takes 3-4 weeks after order confirmation. We'll keep you updated throughout the process.",
                 "order": 1
             },
             {
                 "id": "faq-2",
-                "question": "How long will production take?",
-                "answer": "Once we confirm your prebook, production typically takes 3-4 weeks. We'll keep you updated throughout the process.",
-                "order": 2
-            },
-            {
-                "id": "faq-3",
                 "question": "Can I customize this model?",
-                "answer": "For prebook items, customization options may be available. Please contact us after prebooking to discuss your specific requirements.",
-                "order": 3
+                "answer": "Customization options may be available. Please contact us to discuss your specific requirements.",
+                "order": 2
             }
         ]
     },

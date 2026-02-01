@@ -6,8 +6,9 @@ import { Navbar } from '@/components/Navbar';
 import { SlideProvider } from '@/contexts/SlideContext';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Lock, CreditCard, Truck, Package } from 'lucide-react';
+import { ArrowLeft, Lock, CreditCard, Truck, Package, X, Tag } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { CelebrationAnimation } from '@/components/CelebrationAnimation';
 
 
 export default function CheckoutPage() {
@@ -16,6 +17,12 @@ export default function CheckoutPage() {
     const [step, setStep] = useState<'information' | 'shipping' | 'payment'>('information');
     const [isProcessing, setIsProcessing] = useState(false);
     const [razorpayLoaded, setRazorpayLoaded] = useState(false);
+
+    // Coupon code state
+    const [couponCode, setCouponCode] = useState('');
+    const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discount: number } | null>(null);
+    const [couponError, setCouponError] = useState('');
+    const [showCelebration, setShowCelebration] = useState(false);
     const [formData, setFormData] = useState({
         // Contact Information
         email: '',
@@ -39,6 +46,57 @@ export default function CheckoutPage() {
     });
 
     const COD_CHARGE = 25;
+
+    // Coupon validation function
+    const validateCoupon = (code: string): { valid: boolean; discount: number; message?: string } => {
+        // Remove all whitespace and convert to uppercase
+        const cleanCode = code.replace(/\s/g, '').toUpperCase();
+
+        if (cleanCode === 'WELCOME150') {
+            return { valid: true, discount: 150 };
+        }
+
+        return { valid: false, discount: 0, message: 'Invalid coupon code' };
+    };
+
+    // Apply coupon function
+    const handleApplyCoupon = () => {
+        if (!couponCode.trim()) {
+            setCouponError('Please enter a coupon code');
+            return;
+        }
+
+        const validation = validateCoupon(couponCode);
+
+        if (validation.valid) {
+            setAppliedCoupon({ code: couponCode.toUpperCase().trim(), discount: validation.discount });
+            setCouponError('');
+            setCouponCode('');
+            setShowCelebration(true);
+        } else {
+            setCouponError(validation.message || 'Invalid coupon code');
+            setAppliedCoupon(null);
+        }
+    };
+
+    // Remove coupon function
+    const handleRemoveCoupon = () => {
+        setAppliedCoupon(null);
+        setCouponCode('');
+        setCouponError('');
+    };
+
+    // Calculate final total with discount
+    const calculateTotal = () => {
+        let total = cart.subtotal;
+        if (formData.paymentMethod === 'cod') {
+            total += COD_CHARGE;
+        }
+        if (appliedCoupon) {
+            total -= appliedCoupon.discount;
+        }
+        return Math.max(total, 0); // Ensure total doesn't go negative
+    };
 
     // Load Razorpay script
     useEffect(() => {
@@ -77,7 +135,7 @@ export default function CheckoutPage() {
         }
 
         setIsProcessing(true);
-        const finalTotal = cart.subtotal;
+        const finalTotal = calculateTotal();
 
         try {
             // Create Razorpay order
@@ -144,6 +202,8 @@ export default function CheckoutPage() {
                                     items: cart.items,
                                     subtotal: cart.subtotal,
                                     total: finalTotal,
+                                    couponCode: appliedCoupon?.code || null,
+                                    discount: appliedCoupon?.discount || 0,
                                     notes: formData.orderNotes,
                                     paymentMethod: 'online',
                                     razorpayOrderId: response.razorpay_order_id,
@@ -211,7 +271,7 @@ export default function CheckoutPage() {
             // COD flow
             setIsProcessing(true);
             const codCharge = COD_CHARGE;
-            const finalTotal = cart.subtotal + codCharge;
+            const finalTotal = calculateTotal();
 
             try {
                 const response = await fetch('/api/orders', {
@@ -232,6 +292,8 @@ export default function CheckoutPage() {
                         items: cart.items,
                         subtotal: cart.subtotal,
                         total: finalTotal,
+                        couponCode: appliedCoupon?.code || null,
+                        discount: appliedCoupon?.discount || 0,
                         notes: formData.orderNotes,
                         paymentMethod: 'cod',
                     }),
@@ -258,7 +320,7 @@ export default function CheckoutPage() {
         return (
             <SlideProvider>
                 <Navbar />
-                <main className="min-h-screen bg-gray-50 pt-24">
+                <main className="min-h-screen bg-gray-50 pt-20 md:pt-24 pb-8 md:pb-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
                         <Package className="w-24 h-24 text-gray-300 mx-auto mb-6" />
                         <h1 className="font-serif text-4xl font-bold mb-4">Your cart is empty</h1>
@@ -279,35 +341,35 @@ export default function CheckoutPage() {
         <SlideProvider>
             <Navbar />
             <main className="min-h-screen bg-gray-50 pt-24 pb-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
                     {/* Header */}
-                    <div className="mb-8">
+                    <div className="mb-4 md:mb-8">
                         <Link
                             href="/cart"
-                            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors mb-6"
+                            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors mb-3 md:mb-6"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             Back to Cart
                         </Link>
-                        <h1 className="font-serif text-5xl md:text-6xl font-bold">Checkout</h1>
+                        <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold">Checkout</h1>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        {/* Checkout Form */}
+                    <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-6 md:gap-12">
+                        {/* Checkout Form - Shows second on mobile, first on desktop */}
                         <div>
-                            <form onSubmit={handleSubmit} className="space-y-8">
+                            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
                                 {/* Contact Information */}
-                                <div className="bg-white border border-gray-200 p-8">
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                <div className="bg-white border border-gray-200 p-4 md:p-8">
+                                    <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                                        <div className="w-6 h-6 md:w-8 md:h-8 bg-black text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">
                                             1
                                         </div>
-                                        <h2 className="font-serif text-2xl font-bold">Contact Information</h2>
+                                        <h2 className="font-serif text-lg md:text-2xl font-bold">Contact Information</h2>
                                     </div>
 
-                                    <div className="space-y-4">
+                                    <div className="space-y-3 md:space-y-4">
                                         <div>
-                                            <label htmlFor="email" className="block text-sm font-medium mb-2">
+                                            <label htmlFor="email" className="block text-xs md:text-sm font-medium mb-1 md:mb-2">
                                                 Email Address *
                                             </label>
                                             <input
@@ -323,11 +385,11 @@ export default function CheckoutPage() {
                                         </div>
 
                                         <div>
-                                            <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                                            <label htmlFor="phone" className="block text-xs md:text-sm font-medium mb-1 md:mb-2">
                                                 Mobile Number * (10 digits)
                                             </label>
                                             <div className="flex">
-                                                <span className="inline-flex items-center px-4 py-3 border-2 border-r-0 border-gray-200 bg-gray-50 text-gray-700 font-medium">
+                                                <span className="inline-flex items-center px-2 py-2 md:px-4 md:py-3 text-xs md:text-base border-2 border-r-0 border-gray-200 bg-gray-50 text-gray-700 font-medium">
                                                     +91
                                                 </span>
                                                 <input
@@ -337,7 +399,7 @@ export default function CheckoutPage() {
                                                     required
                                                     value={formData.phone}
                                                     onChange={handlePhoneChange}
-                                                    className="flex-1 border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors"
+                                                    className="flex-1 border-2 border-gray-200 px-3 py-2 md:px-4 md:py-3 text-sm md:text-base focus:border-black focus:outline-none transition-colors"
                                                     placeholder="9876543210"
                                                     maxLength={10}
                                                     pattern="[0-9]{10}"
@@ -355,16 +417,16 @@ export default function CheckoutPage() {
                                 {/* Shipping Address */}
                                 <div className="bg-white border border-gray-200 p-8">
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                        <div className="w-6 h-6 md:w-8 md:h-8 bg-black text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">
                                             2
                                         </div>
-                                        <h2 className="font-serif text-2xl font-bold">Shipping Address</h2>
+                                        <h2 className="font-serif text-lg md:text-2xl font-bold">Shipping Address</h2>
                                     </div>
 
                                     <div className="space-y-4">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label htmlFor="firstName" className="block text-sm font-medium mb-2">
+                                                <label htmlFor="firstName" className="block text-xs md:text-sm font-medium mb-1 md:mb-2">
                                                     First Name *
                                                 </label>
                                                 <input
@@ -553,14 +615,14 @@ export default function CheckoutPage() {
 
                                 {/* Order Notes */}
                                 <div className="bg-white border border-gray-200 p-8">
-                                    <h3 className="font-serif text-xl font-bold mb-4">Order Notes (Optional)</h3>
+                                    <h3 className="font-serif text-base md:text-xl font-bold mb-3 md:mb-4">Order Notes (Optional)</h3>
                                     <textarea
                                         id="orderNotes"
                                         name="orderNotes"
                                         value={formData.orderNotes}
                                         onChange={handleInputChange}
-                                        rows={4}
-                                        className="w-full border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors resize-none"
+                                        rows={3}
+                                        className="w-full border-2 border-gray-200 px-3 py-2 md:px-4 md:py-3 text-sm md:text-base focus:border-black focus:outline-none transition-colors resize-none"
                                         placeholder="Any special instructions for your order..."
                                     />
                                 </div>
@@ -569,7 +631,7 @@ export default function CheckoutPage() {
                                 <button
                                     type="submit"
                                     disabled={isProcessing || (formData.paymentMethod === 'online' && !razorpayLoaded)}
-                                    className="w-full bg-black text-white py-4 px-6 text-lg font-light tracking-wide hover:bg-gray-900 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                    className="w-full bg-black text-white py-3 md:py-4 px-6 text-base md:text-lg font-light tracking-wide hover:bg-gray-900 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
                                 >
                                     {isProcessing ? (
                                         <span className="flex items-center justify-center gap-2">
@@ -592,13 +654,13 @@ export default function CheckoutPage() {
                             </form>
                         </div>
 
-                        {/* Order Summary - Sticky */}
+                        {/* Order Summary - Shows first on mobile, second on desktop */}
                         <div>
-                            <div className="bg-white border border-gray-200 p-8 sticky top-32">
-                                <h2 className="font-serif text-2xl font-bold mb-6">Order Summary</h2>
+                            <div className="bg-white border border-gray-200 p-4 md:p-8 lg:sticky lg:top-32">
+                                <h2 className="font-serif text-xl md:text-2xl font-bold mb-4 md:mb-6">Order Summary</h2>
 
                                 {/* Cart Items */}
-                                <div className="space-y-4 mb-6 max-h-96 overflow-y-auto">
+                                <div className="space-y-3 md:space-y-4 mb-4 md:mb-6 max-h-96 overflow-y-auto">
                                     {cart.items.map(item => (
                                         <div key={item.id} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0">
                                             <div className="relative w-20 h-20 bg-gray-100 flex-shrink-0">
@@ -628,7 +690,7 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* Pricing Breakdown */}
-                                <div className="space-y-3 mb-6 pb-6 border-b border-gray-200">
+                                <div className="space-y-2 md:space-y-3 mb-4 md:mb-6 pb-4 md:pb-6 border-b border-gray-200">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-gray-600">Subtotal</span>
                                         <span>{formatPrice(cart.subtotal)}</span>
@@ -643,13 +705,78 @@ export default function CheckoutPage() {
                                             <span>{formatPrice(COD_CHARGE)}</span>
                                         </div>
                                     )}
+                                    {appliedCoupon && (
+                                        <div className="flex justify-between text-sm text-green-600">
+                                            <span className="font-medium">Coupon Discount ({appliedCoupon.code})</span>
+                                            <span>-{formatPrice(appliedCoupon.discount)}</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Coupon Code Section */}
+                                <div className="mb-4 md:mb-6 pb-4 md:pb-6 border-b border-gray-200">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <Tag className="w-4 h-4 text-gray-600" />
+                                        <h3 className="font-medium text-sm">Have a coupon code?</h3>
+                                    </div>
+
+                                    {!appliedCoupon ? (
+                                        <div>
+                                            <div className="flex gap-2">
+                                                <input
+                                                    type="text"
+                                                    value={couponCode}
+                                                    onChange={(e) => {
+                                                        setCouponCode(e.target.value);
+                                                        setCouponError('');
+                                                    }}
+                                                    onKeyPress={(e) => {
+                                                        if (e.key === 'Enter') {
+                                                            e.preventDefault();
+                                                            handleApplyCoupon();
+                                                        }
+                                                    }}
+                                                    placeholder="Enter coupon code"
+                                                    className="flex-1 border-2 border-gray-200 px-3 py-2 text-sm focus:border-black focus:outline-none transition-colors uppercase"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={handleApplyCoupon}
+                                                    className="bg-black text-white px-4 py-2 text-sm hover:bg-gray-900 transition-colors"
+                                                >
+                                                    Apply
+                                                </button>
+                                            </div>
+                                            {couponError && (
+                                                <p className="text-red-600 text-xs mt-2">{couponError}</p>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center justify-between bg-green-50 border border-green-200 px-3 py-2 rounded">
+                                            <div className="flex items-center gap-2">
+                                                <Tag className="w-4 h-4 text-green-600" />
+                                                <div>
+                                                    <p className="text-sm font-medium text-green-900">{appliedCoupon.code}</p>
+                                                    <p className="text-xs text-green-700">You saved {formatPrice(appliedCoupon.discount)}!</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={handleRemoveCoupon}
+                                                className="text-red-600 hover:text-red-800 transition-colors"
+                                                aria-label="Remove coupon"
+                                            >
+                                                <X className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Total */}
-                                <div className="flex justify-between items-baseline mb-6">
+                                <div className="flex justify-between items-baseline mb-4 md:mb-6">
                                     <span className="text-lg font-medium">Total</span>
                                     <span className="font-serif text-3xl font-bold">
-                                        {formatPrice(cart.subtotal + (formData.paymentMethod === 'cod' ? COD_CHARGE : 0))}
+                                        {formatPrice(calculateTotal())}
                                     </span>
                                 </div>
 
@@ -673,6 +800,12 @@ export default function CheckoutPage() {
                     </div>
                 </div>
             </main>
+
+            {/* Celebration Animation */}
+            <CelebrationAnimation
+                show={showCelebration}
+                onComplete={() => setShowCelebration(false)}
+            />
         </SlideProvider>
     );
 }
