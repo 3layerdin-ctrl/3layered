@@ -6,7 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { SlideProvider } from '@/contexts/SlideContext';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Lock, CreditCard, Truck, Package, X, Tag } from 'lucide-react';
+import { ArrowLeft, Lock, CreditCard, Truck, Package, X, Tag, Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { CelebrationAnimation } from '@/components/CelebrationAnimation';
 
@@ -722,6 +722,29 @@ export default function CheckoutPage() {
 
                                     {!appliedCoupon ? (
                                         <div>
+                                            {/* Available Coupon Banner */}
+                                            <div className="mb-3 bg-green-50 border border-green-200 rounded p-3">
+                                                <div className="flex items-center justify-between gap-3">
+                                                    <div className="flex-1">
+                                                        <p className="text-xs text-green-800 font-medium mb-1">💰 Save ₹150 on your order!</p>
+                                                        <div className="flex items-center gap-2">
+                                                            <code className="text-sm font-bold font-mono bg-white px-2 py-1 rounded border border-green-300">WELCOME150</code>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    navigator.clipboard.writeText('WELCOME150');
+                                                                    setCouponCode('WELCOME150');
+                                                                }}
+                                                                className="text-green-700 hover:text-green-900 transition-colors"
+                                                                title="Copy code"
+                                                            >
+                                                                <Copy className="w-4 h-4" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div className="flex gap-2">
                                                 <input
                                                     type="text"

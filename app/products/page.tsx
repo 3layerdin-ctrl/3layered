@@ -8,6 +8,7 @@ import { products } from '@/data/products';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
+import { CouponNotification } from '@/components/CouponBanner';
 
 export default function ProductsPage() {
     const categories = getHomepageCategories();
@@ -21,6 +22,7 @@ export default function ProductsPage() {
     return (
         <SlideProvider>
             <Navbar />
+            <CouponNotification />
             <main className="min-h-screen bg-gray-50">
                 {/* Hero Slideshow */}
                 <ProductsHeroSlideshow />
