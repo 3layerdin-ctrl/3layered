@@ -91,11 +91,11 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
     };
 
     return (
-        <section className="min-h-screen bg-white pt-24 pb-16">
+        <section className="min-h-screen bg-white pt-8 md:pt-24 pb-8 md:pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
                     {/* Image Gallery */}
-                    <div className="space-y-4">
+                    <div className="space-y-3 md:space-y-4">
                         {/* Main Image */}
                         <div
                             className="relative aspect-square bg-gray-50 overflow-hidden group touch-pan-y"
