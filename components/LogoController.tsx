@@ -80,7 +80,7 @@ export function LogoController() {
     // On desktop: original animation
     const logoVariantsMobile = {
         initial: {
-            scale: 2.5,
+            scale: 1.8,
             y: 80, // Reduced from 150 for less travel on mobile
         },
         docked: {

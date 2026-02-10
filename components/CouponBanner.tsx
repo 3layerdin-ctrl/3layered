@@ -46,7 +46,7 @@ export function CouponNotification() {
 
     return (
         <div
-            className={`fixed bottom-24 md:bottom-auto md:top-1/2 md:-translate-y-1/2 right-4 z-50 transition-all duration-500 ease-out max-w-[280px] sm:max-w-sm ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+            className={`fixed bottom-24 md:bottom-auto md:top-1/2 md:-translate-y-1/2 right-2 sm:right-4 z-50 transition-all duration-500 ease-out max-w-[calc(100vw-16px)] sm:max-w-sm ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
                 }`}
         >
             <div className="bg-white border-2 border-black text-black rounded shadow-2xl p-3 sm:p-4 relative">

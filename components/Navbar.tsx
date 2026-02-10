@@ -167,7 +167,7 @@ export function Navbar() {
 
                     {/* Menu Panel - Better mobile spacing */}
                     <motion.div
-                        className="fixed top-20 right-0 bottom-0 w-80 bg-white shadow-xl z-[110] md:hidden overflow-y-auto"
+                        className="fixed top-20 right-0 bottom-0 w-[min(80vw,320px)] bg-white shadow-xl z-[110] md:hidden overflow-y-auto"
                         style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}

@@ -16,7 +16,7 @@ export function TaglineSection() {
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="max-w-4xl mx-auto text-center"
             >
-                <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6">
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                     You dream it. We 3D it.
                 </h2>
                 <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">

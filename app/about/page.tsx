@@ -15,7 +15,7 @@ export default function AboutPage() {
                 {/* Hero Section */}
                 <section className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
+                        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
                             About 3 Layered
                         </h1>
                         <p className="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed">
@@ -28,7 +28,7 @@ export default function AboutPage() {
                 <section className="py-24 bg-gray-50">
                     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="mb-16">
-                            <h2 className="font-serif text-5xl md:text-6xl font-bold mb-12 text-center">
+                            <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-12 text-center">
                                 Our Philosophy
                             </h2>
                             <div className="space-y-8 text-lg md:text-xl leading-relaxed text-gray-700">
@@ -59,7 +59,7 @@ export default function AboutPage() {
                 {/* Core Principles */}
                 <section className="py-24 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="font-serif text-5xl md:text-6xl font-bold mb-16 text-center">
+                        <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-16 text-center">
                             Three Core Principles
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -120,7 +120,7 @@ export default function AboutPage() {
                             <div className="order-1 lg:order-2">
                                 <div className="mb-8">
                                     <p className="text-sm uppercase tracking-widest text-gray-500 mb-4">Founder</p>
-                                    <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6">
+                                    <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                                         Jay Gehlot
                                     </h2>
                                 </div>
@@ -151,10 +151,10 @@ export default function AboutPage() {
                 </section>
 
                 {/* What We Create - Expanded Premium Version */}
-                <section className="py-32 bg-white">
+                <section className="py-16 md:py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.h2
-                            className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold mb-24 text-center"
+                            className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-12 md:mb-24 text-center"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
@@ -163,7 +163,7 @@ export default function AboutPage() {
                             What We Create
                         </motion.h2>
 
-                        <div className="space-y-32">
+                        <div className="space-y-16 md:space-y-32">
                             {/* Category 1: Architectural Miniatures */}
                             <motion.div
                                 className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
@@ -191,7 +191,7 @@ export default function AboutPage() {
                                 >
                                     <div className="space-y-6">
                                         <p className="text-sm uppercase tracking-widest text-gray-500">Category 01</p>
-                                        <h3 className="font-serif text-5xl md:text-6xl font-bold leading-tight">
+                                        <h3 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                                             Architectural Miniatures
                                         </h3>
                                         <div className="w-24 h-1 bg-black"></div>
@@ -227,7 +227,7 @@ export default function AboutPage() {
                                 >
                                     <div className="space-y-6">
                                         <p className="text-sm uppercase tracking-widest text-gray-500">Category 02</p>
-                                        <h3 className="font-serif text-5xl md:text-6xl font-bold leading-tight">
+                                        <h3 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                                             Custom Print
                                         </h3>
                                         <div className="w-24 h-1 bg-black"></div>
@@ -284,7 +284,7 @@ export default function AboutPage() {
                                 >
                                     <div className="space-y-6">
                                         <p className="text-sm uppercase tracking-widest text-gray-500">Category 03</p>
-                                        <h3 className="font-serif text-5xl md:text-6xl font-bold leading-tight">
+                                        <h3 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                                             Custom Parts
                                         </h3>
                                         <div className="w-24 h-1 bg-black"></div>

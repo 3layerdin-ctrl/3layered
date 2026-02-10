@@ -27,7 +27,7 @@ export function CustomPrintCTA() {
         <section className="py-16 md:py-32 px-6 bg-black text-white">
             <div className="max-w-6xl mx-auto">
                 <motion.h2
-                    className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-center mb-6"
+                    className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-6"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}

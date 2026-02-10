@@ -98,7 +98,7 @@ export default function ContactPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     {/* Hero Section */}
                     <div className="text-center mb-16">
-                        <h1 className="font-serif text-5xl md:text-6xl font-bold mb-6">
+                        <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                             Get In Touch
                         </h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
