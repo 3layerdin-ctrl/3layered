@@ -5,9 +5,8 @@ import { motion, useScroll } from "framer-motion";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { useSlide } from "@/contexts/SlideContext";
 import { useCart } from "@/contexts/CartContext";
-import { useAuth } from "@/contexts/AuthContext";
-import { ShoppingCart, User } from "lucide-react";
-import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
+
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
@@ -23,7 +22,7 @@ export function Navbar() {
     const { scrollY } = useScroll();
     const { isDarkSlide } = useSlide();
     const { cart, openCart } = useCart();
-    const { user } = useAuth();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
     const isProductsPage = pathname === '/products';
@@ -133,22 +132,7 @@ export function Navbar() {
                             </span>
                         )}
                     </button>
-                    <Link
-                        href={user ? "/account/dashboard" : "/account"}
-                        className="p-3 hover:opacity-60 transition-all duration-300 flex items-center gap-2 min-w-[44px] min-h-[44px]"
-                        aria-label="Account"
-                    >
-                        {user ? (
-                            <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${textColor === "text-black" ? "bg-black text-white" : "bg-white text-black"
-                                    }`}
-                            >
-                                {user.email?.[0].toUpperCase()}
-                            </div>
-                        ) : (
-                            <User className="w-6 h-6" style={{ color: textColor === "text-white" ? "white" : "black" }} />
-                        )}
-                    </Link>
+
                 </div>
 
                 {/* Mobile Menu Button - 48x48px touch target */}
