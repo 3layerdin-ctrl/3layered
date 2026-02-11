@@ -1,6 +1,14 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 export function WhatsAppButton() {
+    const pathname = usePathname();
+
+    // Only show on home, about, and contact pages
+    const allowedPages = ['/', '/about', '/contact'];
+    if (!allowedPages.includes(pathname)) return null;
+
     const phoneNumber = '919982781000'; // +91 99827 81000
     const message = 'Hi! I would like to inquire about your products.';
 
