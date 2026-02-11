@@ -1,0 +1,306 @@
+{
+    "id": "bake-bihari-mandir",
+    "slug": "bake-bihari",
+    "categoryId": "miniature-temples",
+    "status": "published",
+    "seo": {
+        "title": "Bake Bihari–Inspired 3D Printed Mandir | Special Edition | Three Layered",
+        "description": "Bring home divine grace with our Bake Bihari–inspired Special Edition Mandir. Fully 3D printed with intricate architectural details, premium hand-finished accents, and vibrant deity detailing. Perfect for daily puja, home décor, and gifting.",
+        "keywords": [
+            "Bake Bihari mandir",
+            "3D printed mandir",
+            "miniature temple",
+            "Bake Bihari temple replica",
+            "special edition mandir",
+            "3D printed temple",
+            "puja mandir",
+            "home temple",
+            "devotional decor",
+            "Indian temple miniature"
+        ],
+        "ogImage": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6575.jpg",
+        "ogType": "product"
+    },
+    "hero": {
+        "productName": "Bake Bihari–Inspired 3D Printed Mandir | Special Edition",
+        "tagline": "A perfect harmony of tradition × technology — an expression of faith, devotion, and modern craftsmanship",
+        "badge": {
+            "enabled": true,
+            "text": "25% OFF",
+            "variant": "discount"
+        },
+        "price": {
+            "amount": 699,
+            "currency": "INR",
+            "displayFormat": "₹{amount}",
+            "originalAmount": 932,
+            "discountPercent": 25
+        },
+        "cta": {
+            "primaryLabel": "Add to Cart",
+            "primaryAction": "add-to-cart",
+            "secondaryLabel": "Buy Now"
+        },
+        "gallery": [
+            {
+                "id": "hero-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6575.jpg",
+                "alt": "Bake Bihari–Inspired 3D Printed Mandir - Front view showing intricate architectural details",
+                "order": 1,
+                "isHero": true
+            },
+            {
+                "id": "detail-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6574.jpg",
+                "alt": "Bake Bihari Mandir - Close-up of ornate pillars and carved motifs",
+                "order": 2,
+                "isHero": false
+            },
+            {
+                "id": "detail-2",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6571.jpg",
+                "alt": "Bake Bihari Mandir - Detailed view of sanctum design and deity detailing",
+                "order": 3,
+                "isHero": false
+            },
+            {
+                "id": "detail-3",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6570.jpg",
+                "alt": "Bake Bihari Mandir - Side perspective showing temple architecture",
+                "order": 4,
+                "isHero": false
+            },
+            {
+                "id": "detail-4",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6568.jpg",
+                "alt": "Bake Bihari Mandir - Premium hand-finished accents and vibrant detailing",
+                "order": 5,
+                "isHero": false
+            },
+            {
+                "id": "lifestyle-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/bake%20bihari%20gemini.png",
+                "alt": "Bake Bihari Mandir - Styled lifestyle shot showcasing the special edition design",
+                "order": 6,
+                "isHero": false
+            }
+        ]
+    },
+    "story": {
+        "enabled": true,
+        "title": "Inspired by the Sacred Bake Bihari Temple",
+        "paragraphs": [
+            "Bring home divine grace and timeless artistry with our Bake Bihari–inspired Special Edition Mandir, thoughtfully designed and fully 3D printed with intricate architectural details. Inspired by the sacred aesthetics of the Bake Bihari Temple, this piece beautifully blends devotion, craftsmanship, and modern manufacturing.",
+            "Every element—from the ornate pillars and carved motifs to the sanctum design—reflects traditional temple architecture, making it a spiritually uplifting addition to any space. The vibrant detailing of the deity and the rich hand-finished accents enhance its visual depth, giving it a truly premium and devotional presence.",
+            "Perfect for daily puja, home décor, or as a meaningful gift for festivals, housewarmings, weddings, or spiritual occasions, this special edition mandir is designed to stand out as both a sacred centerpiece and a collectible decor piece."
+        ],
+        "quote": {
+            "enabled": true,
+            "text": "A perfect harmony of tradition × technology — not just a product, but an expression of faith, devotion, and modern craftsmanship.",
+            "attribution": "— Three Layered Design Studio"
+        }
+    },
+    "craftsmanship": {
+        "material": {
+            "name": "Premium 3D Printing Material",
+            "description": "High-quality 3D printing material with vibrant hand-finished accents",
+            "properties": [
+                "Lightweight and durable",
+                "Vibrant color retention",
+                "Premium hand-finished accents",
+                "Long-lasting devotional quality"
+            ]
+        },
+        "finish": {
+            "type": "Vibrant Hand-Finished Accents",
+            "description": "Rich hand-painted deity detailing with premium color finishing for a devotional presence",
+            "handFinished": true
+        },
+        "process": {
+            "method": "Precision 3D Printing + Artisan Hand-Finishing",
+            "description": "Fully 3D printed with precision detailing, followed by expert hand-finishing for vibrant accents and devotional quality",
+            "steps": [
+                "High-resolution 3D printing with precision detailing",
+                "Post-processing and surface finishing",
+                "Hand-painting of deity and ornamental details",
+                "Premium accent application",
+                "Quality inspection and final detailing"
+            ]
+        },
+        "care": {
+            "durability": "Designed for daily devotional use and long-term display",
+            "instructions": [
+                "Dust gently with a soft, dry cloth",
+                "Avoid prolonged direct sunlight",
+                "Place on a stable, flat surface",
+                "Handle with care to preserve intricate details"
+            ]
+        }
+    },
+    "specifications": {
+        "dimensions": {
+            "height": {
+                "value": 20,
+                "unit": "cm"
+            },
+            "width": {
+                "value": 15,
+                "unit": "cm"
+            },
+            "depth": {
+                "value": 12,
+                "unit": "cm"
+            },
+            "displayUnits": "metric"
+        },
+        "weight": {
+            "value": 300,
+            "unit": "g"
+        },
+        "comparison": {
+            "enabled": true,
+            "text": "Compact and lightweight — easy to place in any puja room, shelf, or office desk"
+        },
+        "additionalSpecs": [
+            {
+                "label": "Style",
+                "value": "Bake Bihari Temple–Inspired Architecture"
+            },
+            {
+                "label": "Edition",
+                "value": "Special Edition"
+            },
+            {
+                "label": "Manufacturing",
+                "value": "Fully 3D Printed"
+            },
+            {
+                "label": "Finish",
+                "value": "Premium Hand-Finished Accents"
+            }
+        ]
+    },
+    "customization": {
+        "enabled": false,
+        "options": [],
+        "customRequest": {
+            "enabled": true,
+            "ctaLabel": "Request Custom Design",
+            "formUrl": "/contact?ref=custom-bake-bihari"
+        }
+    },
+    "useCases": {
+        "enabled": true,
+        "title": "Perfect For",
+        "cases": [
+            {
+                "id": "puja",
+                "title": "Daily Puja & Worship",
+                "description": "A spiritually uplifting centerpiece for your daily devotional practice",
+                "imageUrl": "",
+                "order": 1
+            },
+            {
+                "id": "decor",
+                "title": "Home & Office Décor",
+                "description": "A stunning sacred centerpiece that elevates any space with divine grace",
+                "imageUrl": "",
+                "order": 2
+            },
+            {
+                "id": "gift",
+                "title": "Meaningful Gifting",
+                "description": "An unforgettable gift for festivals, housewarmings, weddings, or spiritual occasions",
+                "imageUrl": "",
+                "order": 3
+            }
+        ],
+        "displayStyle": "grid"
+    },
+    "assurance": {
+        "production": {
+            "type": "made-to-order",
+            "leadTime": {
+                "min": 5,
+                "max": 7,
+                "unit": "days",
+                "description": "Crafted to order in 5-7 business days"
+            }
+        },
+        "shipping": {
+            "description": "Secure packaging with insured shipping across India",
+            "methods": [
+                "Standard Shipping (5-7 days)",
+                "Express Shipping (2-3 days)"
+            ]
+        },
+        "returns": {
+            "policy": "Satisfaction guaranteed. Damaged in transit? We'll replace it free, no questions asked.",
+            "linkUrl": "/policies/returns"
+        },
+        "guarantees": [
+            {
+                "icon": "shield-check",
+                "text": "Quality Guaranteed"
+            },
+            {
+                "icon": "lock",
+                "text": "Secure Payment"
+            },
+            {
+                "icon": "package",
+                "text": "Premium Packaging"
+            },
+            {
+                "icon": "refresh-cw",
+                "text": "Easy Returns"
+            }
+        ]
+    },
+    "reviews": {
+        "enabled": false,
+        "averageRating": 0,
+        "totalReviews": 0,
+        "reviews": []
+    },
+    "faqs": {
+        "enabled": true,
+        "title": "Frequently Asked Questions",
+        "items": [
+            {
+                "id": "faq-1",
+                "question": "How long does production and delivery take?",
+                "answer": "Each Bake Bihari Mandir is crafted to order. Production takes 5-7 business days, followed by shipping (5-7 days standard or 2-3 days express). We'll keep you updated throughout the process!",
+                "order": 1
+            },
+            {
+                "id": "faq-2",
+                "question": "What material is this made from?",
+                "answer": "This mandir is fully 3D printed using premium-quality material, followed by expert hand-finishing with vibrant accents for the deity and ornamental details. It is lightweight, durable, and designed for daily use.",
+                "order": 2
+            },
+            {
+                "id": "faq-3",
+                "question": "Is this suitable as a gift?",
+                "answer": "Absolutely! This Special Edition Mandir makes a perfect gift for festivals, housewarmings, weddings, or any spiritual occasion. It comes in premium packaging, ready to delight your loved ones.",
+                "order": 3
+            },
+            {
+                "id": "faq-4",
+                "question": "How do I care for this mandir?",
+                "answer": "Simply dust gently with a soft, dry cloth. Avoid prolonged direct sunlight and place on a stable surface. With minimal care, your mandir will maintain its beauty for years to come.",
+                "order": 4
+            }
+        ]
+    },
+    "relatedProducts": {
+        "enabled": true,
+        "title": "More from the Temple Collection",
+        "selectionType": "category",
+        "products": [],
+        "displayLimit": 3,
+        "layout": "carousel"
+    },
+    "createdAt": "2026-02-11T00:00:00Z",
+    "updatedAt": "2026-02-11T00:00:00Z"
+}

@@ -5,9 +5,11 @@ import traditionalIndianTemple from '@/data/products/traditional-indian-temple.j
 import kalingaArchiva from '@/data/products/kalinga-archiva.json';
 import gopuramArchiva from '@/data/products/gopuram-archiva.json';
 import mahalArchiva from '@/data/products/mahal-archiva.json';
+import bakeBihari from '@/data/products/bake-bihari.json';
 
 // In-memory product database (will be replaced with actual database later)
 const products: ProductPage[] = [
+    bakeBihari as ProductPage,
     southIndianTemple as ProductPage,
     miniGaneshaMandir as ProductPage,
     traditionalIndianTemple as ProductPage,

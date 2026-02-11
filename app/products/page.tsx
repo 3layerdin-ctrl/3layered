@@ -81,7 +81,7 @@ export default function ProductsPage() {
                                                     </p>
 
                                                     <div className="flex items-center justify-between">
-                                                        {product.isPrebook ? (
+                                                        {(product.isPrebook || product.discountPercent) ? (
                                                             <div className="space-y-2">
                                                                 {/* Discount Badge */}
                                                                 {product.discountPercent && (

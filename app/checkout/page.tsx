@@ -53,6 +53,10 @@ export default function CheckoutPage() {
         const cleanCode = code.replace(/\s/g, '').toUpperCase();
 
         if (cleanCode === 'WELCOME150') {
+            // Minimum cart value of ₹1000 required for WELCOME150
+            if (cart.subtotal < 1000) {
+                return { valid: false, discount: 0, message: 'Minimum cart value of ₹1,000 required to use this coupon' };
+            }
             return { valid: true, discount: 150 };
         }
 

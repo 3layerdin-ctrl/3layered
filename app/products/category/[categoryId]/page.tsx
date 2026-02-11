@@ -139,7 +139,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                             </p>
                                             <div className="flex justify-between items-center">
                                                 <div className="text-xl font-light">
-                                                    {product.isPrebook ? (
+                                                    {(product.isPrebook || product.hero.price.discountPercent) ? (
                                                         <div className="space-y-2">
                                                             {/* Discount Badge */}
                                                             {product.hero.price.discountPercent && (

@@ -5,9 +5,25 @@ import traditionalIndianTempleData from './products/traditional-indian-temple.js
 import kalingaArchivaData from './products/kalinga-archiva.json';
 import gopuramArchivaData from './products/gopuram-archiva.json';
 import mahalArchivaData from './products/mahal-archiva.json';
+import bakeBihariData from './products/bake-bihari.json';
 
 // Convert JSON data to Product type with simplified structure for the list page
 export const products: Product[] = [
+    {
+        id: bakeBihariData.id,
+        slug: bakeBihariData.slug,
+        name: bakeBihariData.hero.productName,
+        shortDescription: bakeBihariData.hero.tagline,
+        price: bakeBihariData.hero.price.amount,
+        compareAtPrice: (bakeBihariData.hero.price as any).compareAtPrice,
+        originalPrice: (bakeBihariData.hero.price as any).originalAmount,
+        discountPercent: (bakeBihariData.hero.price as any).discountPercent,
+        images: bakeBihariData.hero.gallery.map(img => img.url),
+        categoryId: bakeBihariData.categoryId,
+        isFeatured: true,
+        inStock: true,
+        status: bakeBihariData.status as 'draft' | 'published' | 'archived'
+    },
     {
         id: southIndianTempleData.id,
         slug: southIndianTempleData.slug,

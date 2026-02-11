@@ -23,6 +23,7 @@ export const categories: ProductCategory[] = [
         extendedDescription: 'From the golden spires of Asian pagodas to the intricate carvings of ancient temples, we transform architectural heritage into tangible art. Every detail is preserved, every proportion honored.',
         imageUrl: '/temples.png',
         productIds: [
+            'bake-bihari-mandir',
             'south-indian-temple',
             'mini-ganesha-mandir',
             'traditional-indian-temple'
