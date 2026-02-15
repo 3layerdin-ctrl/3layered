@@ -12,6 +12,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { BlogJsonLd, OrganizationJsonLd, WebSiteJsonLd } from "@/components/StructuredData";
 import Script from "next/script";
 import MetaPixel from "./meta-pixel";
+import GoogleAnalytics from "./google-analytics";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -127,11 +128,30 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
+
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-FSFPSVJX1N"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FSFPSVJX1N');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${playfair.variable} antialiased`}
       >
         <MetaPixel />
+        <GoogleAnalytics />
         <AuthProvider>
           <SlideProvider>
             <LogoController />
