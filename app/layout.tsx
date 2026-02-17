@@ -56,12 +56,12 @@ export const metadata: Metadata = {
     "3D printing architecture models"
   ],
   alternates: {
-    canonical: siteUrl,
+    canonical: 'https://www.3layered.com',
   },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: siteUrl,
+    url: 'https://www.3layered.com',
     siteName: '3 Layered',
     title: "3D Printing Services | Miniature Temple Models & Architectural Replicas",
     description: "Professional 3D printing services specializing in miniature temple models and architectural replicas. Custom 3D printed temples and museum-quality architectural heritage pieces.",
