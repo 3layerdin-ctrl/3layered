@@ -101,19 +101,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=936978879005002&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
-      </head>
-      <body
-        className={`${inter.variable} ${playfair.variable} antialiased`}
-      >
         {/* Meta Pixel base script */}
         <Script
           id="meta-pixel-base"
@@ -133,7 +120,15 @@ export default function RootLayout({
             `,
           }}
         />
-        <MetaPixel />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=936978879005002&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
 
         {/* Google Analytics (gtag.js) */}
         <Script
@@ -152,6 +147,11 @@ export default function RootLayout({
             `,
           }}
         />
+      </head>
+      <body
+        className={`${inter.variable} ${playfair.variable} antialiased`}
+      >
+        <MetaPixel />
         <GoogleAnalytics />
         <AuthProvider>
           <SlideProvider>
