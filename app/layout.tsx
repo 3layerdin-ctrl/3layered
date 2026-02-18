@@ -11,8 +11,7 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Analytics } from "@vercel/analytics/react";
 import { BlogJsonLd, OrganizationJsonLd, WebSiteJsonLd } from "@/components/StructuredData";
 import Script from "next/script";
-import MetaPixel from "./meta-pixel";
-import GoogleAnalytics from "./google-analytics";
+
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -120,15 +119,7 @@ export default function RootLayout({
             `,
           }}
         />
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=936978879005002&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
+
 
         {/* Google Analytics (gtag.js) */}
         <Script
@@ -151,8 +142,15 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased`}
       >
-        <MetaPixel />
-        <GoogleAnalytics />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=936978879005002&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
         <AuthProvider>
           <SlideProvider>
             <LogoController />
