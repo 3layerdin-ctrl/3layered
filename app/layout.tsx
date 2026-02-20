@@ -11,6 +11,7 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Analytics } from "@vercel/analytics/react";
 import { BlogJsonLd, OrganizationJsonLd, WebSiteJsonLd } from "@/components/StructuredData";
 import Script from "next/script";
+import MetaPixel from "./meta-pixel";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -226,6 +227,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <WebSiteJsonLd />
 
+        <MetaPixel />
         <Analytics />
       </body>
     </html>
