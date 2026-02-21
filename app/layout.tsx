@@ -79,6 +79,9 @@ export const metadata: Metadata = {
     description: "Professional 3D printing services specializing in miniature temple models and architectural replicas.",
     images: ['/og-image.jpg'],
   },
+  other: {
+    'facebook-domain-verification': 'f92b466814u5ckyn8wo35ea3ucby4n',
+  },
   robots: {
     index: true,
     follow: true,
