@@ -23,8 +23,11 @@ export async function POST(request: NextRequest) {
             .update(`${razorpay_order_id}|${razorpay_payment_id}`)
             .digest('hex');
 
-        // Compare signatures
-        const isValid = generatedSignature === razorpay_signature;
+        // Compare signatures using timing-safe comparison to prevent timing attacks
+        const isValid = crypto.timingSafeEqual(
+            Buffer.from(generatedSignature),
+            Buffer.from(razorpay_signature)
+        );
 
         if (isValid) {
             return NextResponse.json({

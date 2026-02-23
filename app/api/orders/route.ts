@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
             console.error('Full Error Object:', JSON.stringify(error, null, 2));
             console.error('=== END ERROR DETAILS ===');
             return NextResponse.json(
-                { error: 'Failed to create order', details: error.message },
+                { error: 'Failed to create order' },
                 { status: 500 }
             );
         }
