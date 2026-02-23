@@ -102,7 +102,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
+      <head />
+      <body
+        className={`${inter.variable} ${playfair.variable} antialiased`}
+      >
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"
@@ -137,10 +140,6 @@ export default function RootLayout({
             `,
           }}
         />
-      </head>
-      <body
-        className={`${inter.variable} ${playfair.variable} antialiased`}
-      >
         {/* Google Tag Manager (noscript fallback) */}
         <noscript>
           <iframe
