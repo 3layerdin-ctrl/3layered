@@ -23,10 +23,6 @@
                     "value": "nosniff"
                 },
                 {
-                    "key": "Content-Security-Policy",
-                    "value": "frame-ancestors 'self' https://www.facebook.com https://web.facebook.com https://business.facebook.com"
-                },
-                {
                     "key": "X-XSS-Protection",
                     "value": "1; mode=block"
                 },

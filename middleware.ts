@@ -17,13 +17,13 @@ export function middleware(request: NextRequest) {
     response.headers.set(
         'Content-Security-Policy',
         "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://maps.googleapis.com https://www.instagram.com; " +
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://maps.googleapis.com https://www.instagram.com https://connect.facebook.net; " +
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
         "img-src 'self' data: https: blob:; " +
         "font-src 'self' https://fonts.gstatic.com; " +
-        "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lumberjack.razorpay.com https://www.instagram.com; " +
+        "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lumberjack.razorpay.com https://www.instagram.com https://connect.facebook.net https://www.facebook.com; " +
         "frame-src https://api.razorpay.com https://www.instagram.com; " +
-        "frame-ancestors 'self'; " +
+        "frame-ancestors 'self' https://www.facebook.com https://web.facebook.com https://business.facebook.com; " +
         "object-src 'none'; " +
         "base-uri 'self'; " +
         "form-action 'self';"
