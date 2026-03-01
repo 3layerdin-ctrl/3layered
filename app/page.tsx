@@ -14,6 +14,7 @@ export default function Home() {
       <Navbar />
       <CouponNotification />
       <main>
+        <h1 className="sr-only">3D Printed Miniature Temple Models & Architectural Replicas | 3 Layered, Pimpri-Chinchwad</h1>
         <HeroSection />
         <ProductCategories />
         <SEOContent />

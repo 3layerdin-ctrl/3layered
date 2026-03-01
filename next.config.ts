@@ -19,8 +19,7 @@ const nextConfig: NextConfig = {
         pathname: '/storage/v1/object/public/**',
       },
     ],
-    // Increase timeout for slow Supabase storage responses
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 86400,
     // Add unoptimized for development if timeouts persist
     // unoptimized: process.env.NODE_ENV === 'development',
   },

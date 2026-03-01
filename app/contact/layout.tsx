@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com';
 
 export const metadata: Metadata = {
     title: 'Contact Us - 3 Layered | Premium 3D Printing Services in Pimpri-Chinchwad',

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
         return { title: 'Category Not Found' };
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com';
     const categoryUrl = `${siteUrl}/products/category/${categoryId}`;
 
     return {

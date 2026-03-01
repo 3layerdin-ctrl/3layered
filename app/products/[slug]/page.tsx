@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
         };
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com';
     const productUrl = `${siteUrl}/products/${slug}`;
 
     return {
@@ -151,7 +151,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                 // Product Schema
                                 {
                                     '@type': 'Product',
-                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}#product`,
+                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com'}/products/${product.slug}#product`,
                                     name: product.hero.productName,
                                     description: product.hero.tagline,
                                     image: product.hero.gallery.map(img => img.url),
@@ -161,7 +161,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                     },
                                     offers: {
                                         '@type': 'Offer',
-                                        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}`,
+                                        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com'}/products/${product.slug}`,
                                         priceCurrency: product.hero.price.currency,
                                         price: product.hero.price.amount,
                                         priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
@@ -179,32 +179,32 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                 // Breadcrumb Schema
                                 {
                                     '@type': 'BreadcrumbList',
-                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}#breadcrumb`,
+                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com'}/products/${product.slug}#breadcrumb`,
                                     itemListElement: [
                                         {
                                             '@type': 'ListItem',
                                             position: 1,
                                             name: 'Home',
-                                            item: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
+                                            item: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com',
                                         },
                                         {
                                             '@type': 'ListItem',
                                             position: 2,
                                             name: 'Miniature Temples',
-                                            item: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/category/miniature-temples`,
+                                            item: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com'}/products/category/miniature-temples`,
                                         },
                                         {
                                             '@type': 'ListItem',
                                             position: 3,
                                             name: product.hero.productName,
-                                            item: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}`,
+                                            item: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com'}/products/${product.slug}`,
                                         },
                                     ],
                                 },
                                 // FAQ Schema (if FAQs exist)
                                 ...(product.faqs?.enabled && product.faqs.items.length > 0 ? [{
                                     '@type': 'FAQPage',
-                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/products/${product.slug}#faq`,
+                                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com'}/products/${product.slug}#faq`,
                                     mainEntity: product.faqs.items.map(faq => ({
                                         '@type': 'Question',
                                         name: faq.question,

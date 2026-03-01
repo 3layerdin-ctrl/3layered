@@ -30,6 +30,7 @@ export default function ProductsPage() {
                 {/* Categories and Products */}
                 <div id="categories" className="py-24 px-6">
                     <div className="max-w-7xl mx-auto space-y-24">
+                        <h1 className="sr-only">3D Printed Miniature Temple Models & Architectural Replicas — Browse All Products | 3 Layered</h1>
                         {productsByCategory.map((category) => (
                             <section key={category.id} className="scroll-mt-24">
                                 {/* Category Header */}
