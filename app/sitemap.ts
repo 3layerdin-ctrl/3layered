@@ -3,7 +3,7 @@ import { getAllProducts } from '@/lib/products';
 import { categories } from '@/data/categories';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.3layered.com';
+    const baseUrl = 'https://www.3layered.com';
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
