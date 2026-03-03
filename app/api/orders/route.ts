@@ -207,7 +207,7 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
     try {
         const body = await request.json();
-        const { orderId, status, adminPassword } = body;
+        const { orderId, status, tracking_number, admin_notes, adminPassword } = body;
 
         // Verify admin password
         if (adminPassword !== process.env.ADMIN_PASSWORD) {
@@ -217,10 +217,16 @@ export async function PATCH(request: NextRequest) {
             );
         }
 
-        // Update order status
+        // Build update object with only provided fields
+        const updateData: Record<string, unknown> = {};
+        if (status !== undefined) updateData.status = status;
+        if (tracking_number !== undefined) updateData.tracking_number = tracking_number;
+        if (admin_notes !== undefined) updateData.admin_notes = admin_notes;
+
+        // Update order
         const { data, error } = await supabase
             .from('orders')
-            .update({ status })
+            .update(updateData)
             .eq('id', orderId)
             .select()
             .single();
