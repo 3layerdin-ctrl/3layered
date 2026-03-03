@@ -4,7 +4,6 @@ import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SlideProvider } from "@/contexts/SlideContext";
-import { LogoController } from "@/components/LogoController";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -181,7 +180,6 @@ export default function RootLayout({
 
         <AuthProvider>
           <SlideProvider>
-            <LogoController />
             <CartProvider>
               {children}
               <CartDrawer />
