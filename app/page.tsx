@@ -6,13 +6,11 @@ import { BrandMarquee } from "@/components/BrandMarquee";
 import { InstagramReels } from "@/components/InstagramReels";
 import { SEOContent } from "@/components/SEOContent";
 import { SlideProvider } from "@/contexts/SlideContext";
-import { CouponNotification } from "@/components/CouponBanner";
 
 export default function Home() {
   return (
     <SlideProvider>
       <Navbar />
-      <CouponNotification />
       <main>
         <h1 className="sr-only">3D Printed Miniature Temple Models & Architectural Replicas | 3 Layered, Pimpri-Chinchwad</h1>
         <HeroSection />
