@@ -143,24 +143,24 @@ export function HeroSection() {
 
                 {/* Scroll indicator */}
                 {mounted && (
-                    <motion.div
+                    <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 1.5 }}
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+                        onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+                        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+                        aria-label="Scroll down"
                     >
-                        <div className="flex flex-col items-center gap-2 text-white/40">
-                            <span className="text-xs uppercase tracking-widest">Scroll</span>
-                            <motion.div
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </motion.div>
-                        </div>
-                    </motion.div>
+                        <span className="text-xs uppercase tracking-widest">Scroll</span>
+                        <motion.div
+                            animate={{ y: [0, 8, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </motion.div>
+                    </motion.button>
                 )}
             </section>
         </>
