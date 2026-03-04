@@ -8,6 +8,7 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BlogJsonLd, OrganizationJsonLd, WebSiteJsonLd } from "@/components/StructuredData";
 import Script from "next/script";
 import MetaPixel from "./meta-pixel";
@@ -247,6 +248,7 @@ export default function RootLayout({
 
         <MetaPixel />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
