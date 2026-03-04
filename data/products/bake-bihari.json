@@ -18,7 +18,7 @@
             "devotional decor",
             "Indian temple miniature"
         ],
-        "ogImage": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6575.jpg",
+        "ogImage": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/bake%20Bihari%201.jpeg",
         "ogType": "product"
     },
     "hero": {
@@ -44,44 +44,23 @@
         "gallery": [
             {
                 "id": "hero-1",
-                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6575.jpg",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/bake%20Bihari%201.jpeg",
                 "alt": "Bake Bihari–Inspired 3D Printed Mandir - Front view showing intricate architectural details",
                 "order": 1,
                 "isHero": true
             },
             {
                 "id": "detail-1",
-                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6574.jpg",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/bake%20Bihari%202.jpeg",
                 "alt": "Bake Bihari Mandir - Close-up of ornate pillars and carved motifs",
                 "order": 2,
                 "isHero": false
             },
             {
                 "id": "detail-2",
-                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6571.jpg",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/bake%20Bihari%203.jpeg",
                 "alt": "Bake Bihari Mandir - Detailed view of sanctum design and deity detailing",
                 "order": 3,
-                "isHero": false
-            },
-            {
-                "id": "detail-3",
-                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6570.jpg",
-                "alt": "Bake Bihari Mandir - Side perspective showing temple architecture",
-                "order": 4,
-                "isHero": false
-            },
-            {
-                "id": "detail-4",
-                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/IMG_6568.jpg",
-                "alt": "Bake Bihari Mandir - Premium hand-finished accents and vibrant detailing",
-                "order": 5,
-                "isHero": false
-            },
-            {
-                "id": "lifestyle-1",
-                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Miniature%20Temples/bake%20bihari/bake%20bihari%20gemini.png",
-                "alt": "Bake Bihari Mandir - Styled lifestyle shot showcasing the special edition design",
-                "order": 6,
                 "isHero": false
             }
         ]
