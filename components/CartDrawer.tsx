@@ -73,15 +73,15 @@ export function CartDrawer() {
                                 </button>
                             </div>
                         ) : (
-                            <div className="space-y-6">
+                            <div className="space-y-5">
                                 {cart.items.map(item => (
-                                    <div key={item.id} className="border-b border-gray-200 pb-6">
-                                        <div className="flex gap-4">
+                                    <div key={item.id} className="border-b border-gray-200 pb-5">
+                                        <div className="flex gap-3">
                                             {/* Product Image */}
                                             <Link
                                                 href={`/products/${item.productSlug}`}
                                                 onClick={closeCart}
-                                                className="relative w-24 h-24 bg-gray-100 flex-shrink-0 overflow-hidden"
+                                                className="relative w-20 h-20 bg-gray-100 flex-shrink-0 overflow-hidden"
                                             >
                                                 <Image
                                                     src={item.productImage}
@@ -91,19 +91,25 @@ export function CartDrawer() {
                                                 />
                                             </Link>
 
-                                            {/* Product Info */}
-                                            <div className="flex-1">
-                                                <Link
-                                                    href={`/products/${item.productSlug}`}
-                                                    onClick={closeCart}
-                                                    className="font-light text-lg hover:underline"
-                                                >
-                                                    {item.productName}
-                                                </Link>
+                                            {/* Product Info — full remaining width */}
+                                            <div className="flex-1 min-w-0">
+                                                {/* Name + Price on same row */}
+                                                <div className="flex items-start justify-between gap-2 mb-1">
+                                                    <Link
+                                                        href={`/products/${item.productSlug}`}
+                                                        onClick={closeCart}
+                                                        className="font-medium text-sm leading-snug hover:underline line-clamp-2 min-w-0"
+                                                    >
+                                                        {item.productName}
+                                                    </Link>
+                                                    <div className="font-medium text-sm flex-shrink-0">
+                                                        {formatPrice(item.totalPrice, item.displayFormat)}
+                                                    </div>
+                                                </div>
 
                                                 {/* Customizations */}
                                                 {Object.keys(item.customizations).length > 0 && (
-                                                    <div className="mt-2 space-y-1">
+                                                    <div className="space-y-0.5 mb-2">
                                                         {Object.values(item.customizations).map((custom, idx) => (
                                                             <div key={idx} className="text-xs text-gray-600">
                                                                 {custom.variantName}
@@ -117,39 +123,32 @@ export function CartDrawer() {
                                                     </div>
                                                 )}
 
-                                                {/* Quantity Controls */}
-                                                <div className="flex items-center gap-3 mt-3">
+                                                {/* Quantity Controls + Remove */}
+                                                <div className="flex items-center justify-between mt-2">
                                                     <div className="flex items-center border border-gray-300">
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                            className="p-2 hover:bg-gray-100 transition-colors"
+                                                            className="p-1.5 hover:bg-gray-100 transition-colors"
                                                             aria-label="Decrease quantity"
                                                         >
-                                                            <Minus className="w-4 h-4" />
+                                                            <Minus className="w-3.5 h-3.5" />
                                                         </button>
-                                                        <span className="px-4 text-sm">{item.quantity}</span>
+                                                        <span className="px-3 text-sm">{item.quantity}</span>
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                            className="p-2 hover:bg-gray-100 transition-colors"
+                                                            className="p-1.5 hover:bg-gray-100 transition-colors"
                                                             aria-label="Increase quantity"
                                                         >
-                                                            <Plus className="w-4 h-4" />
+                                                            <Plus className="w-3.5 h-3.5" />
                                                         </button>
                                                     </div>
 
                                                     <button
                                                         onClick={() => removeFromCart(item.id)}
-                                                        className="text-sm text-red-600 hover:underline"
+                                                        className="text-xs text-red-600 hover:underline"
                                                     >
                                                         Remove
                                                     </button>
-                                                </div>
-                                            </div>
-
-                                            {/* Price */}
-                                            <div className="text-right">
-                                                <div className="font-light">
-                                                    {formatPrice(item.totalPrice, item.displayFormat)}
                                                 </div>
                                             </div>
                                         </div>

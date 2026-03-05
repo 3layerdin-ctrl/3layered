@@ -60,11 +60,11 @@ export default function CartPage() {
                                         key={item.id}
                                         className="bg-white border border-gray-200 p-4 sm:p-6"
                                     >
-                                        <div className="flex gap-3 sm:gap-6">
+                                        <div className="flex gap-3 sm:gap-4">
                                             {/* Product Image */}
                                             <Link
                                                 href={`/products/${item.productSlug}`}
-                                                className="relative w-24 h-24 sm:w-32 sm:h-32 bg-gray-100 flex-shrink-0 overflow-hidden"
+                                                className="relative w-20 h-20 sm:w-28 sm:h-28 bg-gray-100 flex-shrink-0 overflow-hidden"
                                             >
                                                 <Image
                                                     src={item.productImage}
@@ -74,23 +74,36 @@ export default function CartPage() {
                                                 />
                                             </Link>
 
-                                            {/* Product Details */}
-                                            <div className="flex-1">
-                                                <Link
-                                                    href={`/products/${item.productSlug}`}
-                                                    className="font-serif text-lg sm:text-2xl font-bold hover:underline mb-2 block"
-                                                >
-                                                    {item.productName}
-                                                </Link>
+                                            {/* Product Details — takes full remaining width */}
+                                            <div className="flex-1 min-w-0">
+                                                {/* Name + Price on same row */}
+                                                <div className="flex items-start justify-between gap-2 mb-1">
+                                                    <Link
+                                                        href={`/products/${item.productSlug}`}
+                                                        className="font-serif text-sm sm:text-xl font-bold hover:underline leading-snug line-clamp-2 min-w-0"
+                                                    >
+                                                        {item.productName}
+                                                    </Link>
+                                                    <div className="text-right flex-shrink-0">
+                                                        <div className="font-serif text-sm sm:text-xl font-bold">
+                                                            {formatPrice(item.totalPrice, item.displayFormat)}
+                                                        </div>
+                                                        {item.quantity > 1 && (
+                                                            <div className="text-xs text-gray-500 mt-0.5">
+                                                                {formatPrice(item.totalPrice / item.quantity, item.displayFormat)} each
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
 
                                                 {/* Customizations */}
                                                 {Object.keys(item.customizations).length > 0 && (
-                                                    <div className="space-y-1 mb-4">
+                                                    <div className="space-y-0.5 mb-2">
                                                         {Object.values(item.customizations).map((custom, idx) => (
-                                                            <div key={idx} className="text-sm text-gray-600">
+                                                            <div key={idx} className="text-xs text-gray-600">
                                                                 <span className="font-medium">{custom.variantName}</span>
                                                                 {custom.priceModifier !== 0 && (
-                                                                    <span className="ml-2">
+                                                                    <span className="ml-1">
                                                                         (+{formatPrice(custom.priceModifier, item.displayFormat)})
                                                                     </span>
                                                                 )}
@@ -99,46 +112,33 @@ export default function CartPage() {
                                                     </div>
                                                 )}
 
-                                                <div className="flex items-center gap-3 sm:gap-6 mt-2">
-                                                    {/* Quantity Controls */}
+                                                {/* Quantity Controls + Remove */}
+                                                <div className="flex items-center justify-between mt-3">
                                                     <div className="flex items-center border-2 border-gray-200">
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                            className="p-2 sm:p-3 hover:bg-gray-100 transition-colors"
+                                                            className="p-2 hover:bg-gray-100 transition-colors"
                                                             aria-label="Decrease quantity"
                                                         >
-                                                            <Minus className="w-4 h-4" />
+                                                            <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                                         </button>
-                                                        <span className="px-3 sm:px-6 text-base font-medium">{item.quantity}</span>
+                                                        <span className="px-3 text-sm font-medium">{item.quantity}</span>
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                            className="p-2 sm:p-3 hover:bg-gray-100 transition-colors"
+                                                            className="p-2 hover:bg-gray-100 transition-colors"
                                                             aria-label="Increase quantity"
                                                         >
-                                                            <Plus className="w-4 h-4" />
+                                                            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                                         </button>
                                                     </div>
 
-                                                    {/* Remove Button */}
                                                     <button
                                                         onClick={() => removeFromCart(item.id)}
-                                                        className="text-sm text-red-600 hover:underline"
+                                                        className="text-xs sm:text-sm text-red-600 hover:underline"
                                                     >
                                                         Remove
                                                     </button>
                                                 </div>
-                                            </div>
-
-                                            {/* Price */}
-                                            <div className="text-right flex-shrink-0">
-                                                <div className="font-serif text-lg sm:text-2xl font-bold">
-                                                    {formatPrice(item.totalPrice, item.displayFormat)}
-                                                </div>
-                                                {item.quantity > 1 && (
-                                                    <div className="text-sm text-gray-500 mt-1">
-                                                        {formatPrice(item.totalPrice / item.quantity, item.displayFormat)} each
-                                                    </div>
-                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -150,25 +150,25 @@ export default function CartPage() {
                                 <div className="bg-white border border-gray-200 p-4 md:p-8 lg:sticky lg:top-32">
                                     <h2 className="font-serif text-2xl font-bold mb-6">Order Summary</h2>
 
-                                    <div className="space-y-4 mb-6">
-                                        <div className="flex justify-between text-base">
-                                            <span className="text-gray-600">Subtotal</span>
+                                    <div className="space-y-3 mb-6">
+                                        <div className="flex justify-between items-center gap-2 text-sm sm:text-base">
+                                            <span className="text-gray-600 flex-shrink-0">Subtotal</span>
                                             <span className="font-medium">₹{cart.subtotal.toLocaleString()}</span>
                                         </div>
-                                        <div className="flex justify-between text-base">
-                                            <span className="text-gray-600">Shipping</span>
-                                            <span className="text-sm text-gray-500">Calculated at checkout</span>
+                                        <div className="flex justify-between items-start gap-2 text-sm sm:text-base">
+                                            <span className="text-gray-600 flex-shrink-0">Shipping</span>
+                                            <span className="text-xs sm:text-sm text-gray-500 text-right">Calculated at checkout</span>
                                         </div>
-                                        <div className="flex justify-between text-base">
-                                            <span className="text-gray-600">Tax</span>
-                                            <span className="text-sm text-gray-500">Calculated at checkout</span>
+                                        <div className="flex justify-between items-start gap-2 text-sm sm:text-base">
+                                            <span className="text-gray-600 flex-shrink-0">Tax</span>
+                                            <span className="text-xs sm:text-sm text-gray-500 text-right">Calculated at checkout</span>
                                         </div>
                                     </div>
 
-                                    <div className="border-t border-gray-200 pt-6 mb-6">
-                                        <div className="flex justify-between items-baseline">
-                                            <span className="text-lg font-medium">Total</span>
-                                            <span className="font-serif text-3xl font-bold">
+                                    <div className="border-t border-gray-200 pt-4 mb-6">
+                                        <div className="flex justify-between items-baseline gap-2">
+                                            <span className="text-base sm:text-lg font-medium">Total</span>
+                                            <span className="font-serif text-2xl sm:text-3xl font-bold">
                                                 ₹{cart.subtotal.toLocaleString()}
                                             </span>
                                         </div>
