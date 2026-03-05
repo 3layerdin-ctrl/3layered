@@ -93,7 +93,7 @@ export function ProductsHeroSlideshow() {
 
             {/* Main Text Content */}
             <div className="relative z-10 h-full flex flex-col justify-center">
-                <div className="px-8 md:px-16 lg:px-24 max-w-2xl">
+                <div className="px-5 sm:px-8 md:px-16 lg:px-24 max-w-2xl">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={currentSlide}
@@ -109,7 +109,7 @@ export function ProductsHeroSlideshow() {
 
                             {/* Headline */}
                             <h1
-                                className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] mb-5"
+                                className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] mb-4 md:mb-5"
                                 style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}
                             >
                                 {slide.title}{' '}
@@ -118,7 +118,7 @@ export function ProductsHeroSlideshow() {
 
                             {/* Description */}
                             <p
-                                className="text-base md:text-lg text-white/75 leading-relaxed mb-8 max-w-lg"
+                                className="text-sm sm:text-base md:text-lg text-white/75 leading-relaxed mb-6 md:mb-8 max-w-lg"
                                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
                             >
                                 {slide.description}

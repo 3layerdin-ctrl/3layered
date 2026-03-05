@@ -25,24 +25,24 @@ export default function ProductsPage() {
                 <ProductsHeroSlideshow />
 
                 {/* Categories and Products */}
-                <div id="categories" className="py-24 px-6">
-                    <div className="max-w-7xl mx-auto space-y-24">
+                <div id="categories" className="py-10 md:py-24 px-4 sm:px-6">
+                    <div className="max-w-7xl mx-auto space-y-12 md:space-y-24">
                         <h1 className="sr-only">3D Printed Miniature Temple Models & Architectural Replicas — Browse All Products | 3 Layered</h1>
                         {productsByCategory.map((category) => (
                             <section key={category.id} className="scroll-mt-24">
                                 {/* Category Header */}
-                                <div className="mb-12">
-                                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
+                                <div className="mb-6 md:mb-12">
+                                    <h2 className="font-serif text-3xl md:text-5xl font-bold mb-3 md:mb-4">
                                         {category.name}
                                     </h2>
-                                    <p className="text-xl text-gray-600 max-w-3xl">
+                                    <p className="text-base md:text-xl text-gray-600 max-w-3xl">
                                         {category.description}
                                     </p>
                                 </div>
 
                                 {/* Products Grid */}
                                 {category.products.length > 0 ? (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                                         {category.products.map((product) => (
                                             <Link
                                                 key={product.id}
@@ -50,7 +50,7 @@ export default function ProductsPage() {
                                                 className="group bg-white border border-gray-200 hover:border-black transition-all duration-300 overflow-hidden"
                                             >
                                                 {/* Product Image */}
-                                                <div className="relative h-80 w-full overflow-hidden bg-gray-100">
+                                                <div className="relative h-52 sm:h-64 md:h-80 w-full overflow-hidden bg-gray-100">
                                                     <Image
                                                         src={product.images[0]}
                                                         alt={product.name}
@@ -70,8 +70,8 @@ export default function ProductsPage() {
                                                 </div>
 
                                                 {/* Product Info */}
-                                                <div className="p-6">
-                                                    <h3 className="font-serif text-2xl font-bold mb-2 group-hover:underline">
+                                                <div className="p-4 md:p-6">
+                                                    <h3 className="font-serif text-xl md:text-2xl font-bold mb-2 group-hover:underline">
                                                         {product.name}
                                                     </h3>
                                                     <p className="text-gray-600 mb-4 line-clamp-2">

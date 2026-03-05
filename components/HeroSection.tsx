@@ -63,7 +63,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white max-w-5xl leading-[1.05] mb-6"
+                            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white max-w-5xl leading-[1.05] mb-4 md:mb-6"
                             style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}
                         >
                             Bring Sacred{" "}
@@ -76,7 +76,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                            className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-8"
+                            className="text-sm sm:text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-6 md:mb-8"
                             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
                         >
                             Precision 3D printed temple models & architectural replicas — every detail captured, every proportion honoured.
@@ -87,7 +87,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.6 }}
-                            className="flex items-center gap-2 text-white/70 text-sm mb-10"
+                            className="flex flex-wrap items-center justify-center gap-2 text-white/70 text-sm mb-8 md:mb-10"
                         >
                             <span className="text-yellow-400 tracking-wider">★★★★★</span>
                             <span className="text-white/40">·</span>

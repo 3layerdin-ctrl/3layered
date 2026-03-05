@@ -246,17 +246,17 @@ export default function CustomPrintPage() {
             <main className="min-h-screen bg-gray-50 pt-24 pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     {/* Hero Section */}
-                    <div className="text-center mb-16">
-                        <h1 className="font-serif text-5xl md:text-6xl font-bold mb-6">
+                    <div className="text-center mb-8 md:mb-16">
+                        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-6">
                             Custom Print Request
                         </h1>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
                             Share your vision with us. Upload your designs, specifications, and details — our team will bring your ideas to life with precision 3D printing.
                         </p>
                     </div>
 
                     {/* Book a Call CTA */}
-                    <div className="max-w-5xl mx-auto mb-16">
+                    <div className="max-w-5xl mx-auto mb-8 md:mb-16">
                         <div className="bg-gradient-to-br from-gray-900 to-black text-white p-8 md:p-10 border border-gray-800">
                             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                                 <div className="text-center md:text-left">
@@ -298,7 +298,7 @@ export default function CustomPrintPage() {
                         {/* File Upload Sections */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             {/* Reference Images */}
-                            <div className="bg-white border border-gray-200 p-8">
+                            <div className="bg-white border border-gray-200 p-4 md:p-8">
                                 <div className="flex items-center gap-3 mb-6">
                                     <FileImage className="w-6 h-6" />
                                     <h2 className="font-serif text-2xl font-bold">Reference Images</h2>
@@ -368,12 +368,12 @@ export default function CustomPrintPage() {
                             </div>
 
                             {/* 3D Model Files */}
-                            <div className="bg-white border border-gray-200 p-8">
-                                <div className="flex items-center gap-3 mb-6">
+                            <div className="bg-white border border-gray-200 p-4 md:p-8">
+                                <div className="flex items-center gap-3 mb-4 md:mb-6">
                                     <Box className="w-6 h-6" />
-                                    <h2 className="font-serif text-2xl font-bold">3D Model Files</h2>
+                                    <h2 className="font-serif text-xl md:text-2xl font-bold">3D Model Files</h2>
                                 </div>
-                                <p className="text-sm text-gray-600 mb-6">
+                                <p className="text-sm text-gray-600 mb-4 md:mb-6">
                                     Upload your 3D model files if you have them ready
                                 </p>
 
@@ -432,8 +432,8 @@ export default function CustomPrintPage() {
                         </div>
 
                         {/* Project Description */}
-                        <div className="bg-white border border-gray-200 p-8">
-                            <h2 className="font-serif text-2xl font-bold mb-6">Project Description</h2>
+                        <div className="bg-white border border-gray-200 p-4 md:p-8">
+                            <h2 className="font-serif text-xl md:text-2xl font-bold mb-4 md:mb-6">Project Description</h2>
                             <p className="text-sm text-gray-600 mb-4">
                                 Tell us about your project, including dimensions, material preferences, color requirements, and any special instructions
                             </p>
@@ -449,12 +449,12 @@ export default function CustomPrintPage() {
                         </div>
 
                         {/* Contact Information */}
-                        <div className="bg-white border border-gray-200 p-8">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        <div className="bg-white border border-gray-200 p-4 md:p-8">
+                            <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                                <div className="w-7 h-7 md:w-8 md:h-8 bg-black text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">
                                     1
                                 </div>
-                                <h2 className="font-serif text-2xl font-bold">Contact Information</h2>
+                                <h2 className="font-serif text-xl md:text-2xl font-bold">Contact Information</h2>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

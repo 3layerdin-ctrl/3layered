@@ -419,8 +419,8 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* Shipping Address */}
-                                <div className="bg-white border border-gray-200 p-8">
-                                    <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-white border border-gray-200 p-4 md:p-8">
+                                    <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                                         <div className="w-6 h-6 md:w-8 md:h-8 bg-black text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">
                                             2
                                         </div>
@@ -562,12 +562,12 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* Payment Information */}
-                                <div className="bg-white border border-gray-200 p-8">
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                <div className="bg-white border border-gray-200 p-4 md:p-8">
+                                    <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                                        <div className="w-6 h-6 md:w-8 md:h-8 bg-black text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">
                                             3
                                         </div>
-                                        <h2 className="font-serif text-2xl font-bold">Payment Method</h2>
+                                        <h2 className="font-serif text-lg md:text-2xl font-bold">Payment Method</h2>
                                     </div>
 
                                     <div className="space-y-4">
@@ -618,7 +618,7 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* Order Notes */}
-                                <div className="bg-white border border-gray-200 p-8">
+                                <div className="bg-white border border-gray-200 p-4 md:p-8">
                                     <h3 className="font-serif text-base md:text-xl font-bold mb-3 md:mb-4">Order Notes (Optional)</h3>
                                     <textarea
                                         id="orderNotes"

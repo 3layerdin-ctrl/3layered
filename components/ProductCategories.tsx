@@ -31,11 +31,11 @@ export function ProductCategories() {
                 }
             `}</style>
 
-            <section id="products" className="py-16 md:py-32 px-6 bg-white">
+            <section id="products" className="py-12 md:py-32 px-4 sm:px-6 bg-white">
                 <div className="max-w-7xl mx-auto">
                     {/* What We Create Heading */}
                     <motion.h2
-                        className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center mb-12 md:mb-16"
+                        className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center mb-8 md:mb-16"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}

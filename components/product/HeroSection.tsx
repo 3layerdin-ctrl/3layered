@@ -100,7 +100,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                 }
             `}</style>
 
-            <section className="min-h-screen bg-white pt-8 md:pt-24 pb-8 md:pb-16">
+            <section className="min-h-screen bg-white pt-20 md:pt-24 pb-24 md:pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
                         {/* Image Gallery */}
@@ -172,7 +172,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                         </div>
 
                         {/* Product Info */}
-                        <div className="space-y-8 lg:sticky lg:top-32">
+                        <div className="space-y-5 md:space-y-8 lg:sticky lg:top-32">
                             {/* Badges */}
                             <div className="flex flex-wrap gap-3">
                                 {data.badge.enabled && (
@@ -189,10 +189,10 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
 
                             {/* Product Name */}
                             <div>
-                                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
+                                <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 tracking-tight">
                                     {data.productName}
                                 </h1>
-                                <p className="text-xl text-gray-600 font-light leading-relaxed">
+                                <p className="text-base md:text-xl text-gray-600 font-light leading-relaxed">
                                     {data.tagline}
                                 </p>
                             </div>

@@ -13,12 +13,12 @@ export default function AboutPage() {
             <Navbar />
             <main className="min-h-screen bg-white">
                 {/* Hero Section */}
-                <section className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+                <section className="pt-24 md:pt-32 pb-12 md:pb-24 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
+                        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-8 tracking-tight">
                             About 3 Layered
                         </h1>
-                        <p className="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed">
+                        <p className="text-xl md:text-3xl text-gray-600 font-light leading-relaxed">
                             Where architectural philosophy meets modern manufacturing
                         </p>
                     </div>

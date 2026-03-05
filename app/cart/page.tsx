@@ -18,17 +18,17 @@ export default function CartPage() {
         <SlideProvider>
             <Navbar />
             <main className="min-h-screen bg-gray-50 pt-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
                     {/* Header */}
-                    <div className="mb-12">
+                    <div className="mb-6 md:mb-12">
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors mb-6"
+                            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors mb-4 md:mb-6"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             Continue Shopping
                         </Link>
-                        <h1 className="font-serif text-5xl md:text-6xl font-bold mb-4">
+                        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4">
                             Shopping Cart
                         </h1>
                         <p className="text-gray-600 text-lg">
@@ -38,7 +38,7 @@ export default function CartPage() {
 
                     {cart.items.length === 0 ? (
                         /* Empty Cart State */
-                        <div className="bg-white border border-gray-200 rounded-lg p-16 text-center">
+                        <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-16 text-center">
                             <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-6" />
                             <h2 className="font-serif text-3xl font-bold mb-4">Your cart is empty</h2>
                             <p className="text-gray-600 mb-8">
@@ -58,13 +58,13 @@ export default function CartPage() {
                                 {cart.items.map(item => (
                                     <div
                                         key={item.id}
-                                        className="bg-white border border-gray-200 p-6"
+                                        className="bg-white border border-gray-200 p-4 sm:p-6"
                                     >
-                                        <div className="flex gap-6">
+                                        <div className="flex gap-3 sm:gap-6">
                                             {/* Product Image */}
                                             <Link
                                                 href={`/products/${item.productSlug}`}
-                                                className="relative w-32 h-32 bg-gray-100 flex-shrink-0 overflow-hidden"
+                                                className="relative w-24 h-24 sm:w-32 sm:h-32 bg-gray-100 flex-shrink-0 overflow-hidden"
                                             >
                                                 <Image
                                                     src={item.productImage}
@@ -78,7 +78,7 @@ export default function CartPage() {
                                             <div className="flex-1">
                                                 <Link
                                                     href={`/products/${item.productSlug}`}
-                                                    className="font-serif text-2xl font-bold hover:underline mb-2 block"
+                                                    className="font-serif text-lg sm:text-2xl font-bold hover:underline mb-2 block"
                                                 >
                                                     {item.productName}
                                                 </Link>
@@ -99,20 +99,20 @@ export default function CartPage() {
                                                     </div>
                                                 )}
 
-                                                <div className="flex items-center gap-6">
+                                                <div className="flex items-center gap-3 sm:gap-6 mt-2">
                                                     {/* Quantity Controls */}
                                                     <div className="flex items-center border-2 border-gray-200">
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                            className="p-3 hover:bg-gray-100 transition-colors"
+                                                            className="p-2 sm:p-3 hover:bg-gray-100 transition-colors"
                                                             aria-label="Decrease quantity"
                                                         >
                                                             <Minus className="w-4 h-4" />
                                                         </button>
-                                                        <span className="px-6 text-base font-medium">{item.quantity}</span>
+                                                        <span className="px-3 sm:px-6 text-base font-medium">{item.quantity}</span>
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                            className="p-3 hover:bg-gray-100 transition-colors"
+                                                            className="p-2 sm:p-3 hover:bg-gray-100 transition-colors"
                                                             aria-label="Increase quantity"
                                                         >
                                                             <Plus className="w-4 h-4" />
@@ -130,8 +130,8 @@ export default function CartPage() {
                                             </div>
 
                                             {/* Price */}
-                                            <div className="text-right">
-                                                <div className="font-serif text-2xl font-bold">
+                                            <div className="text-right flex-shrink-0">
+                                                <div className="font-serif text-lg sm:text-2xl font-bold">
                                                     {formatPrice(item.totalPrice, item.displayFormat)}
                                                 </div>
                                                 {item.quantity > 1 && (
@@ -147,7 +147,7 @@ export default function CartPage() {
 
                             {/* Order Summary */}
                             <div className="lg:col-span-1">
-                                <div className="bg-white border border-gray-200 p-8 sticky top-32">
+                                <div className="bg-white border border-gray-200 p-4 md:p-8 lg:sticky lg:top-32">
                                     <h2 className="font-serif text-2xl font-bold mb-6">Order Summary</h2>
 
                                     <div className="space-y-4 mb-6">
