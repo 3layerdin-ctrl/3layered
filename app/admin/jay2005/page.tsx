@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
+import { flushSync } from 'react-dom';
+import { motion } from "framer-motion";
 const ADMIN_PASS = 'jaygehlot20053layeredadmin//200590()';
 
 interface Order {
@@ -108,7 +109,7 @@ const formatDate = (d: string) =>
 function StatusBadge({ status }: { status: string }) {
     const cfg = STATUS_CONFIG[status] || { label: status, bg: 'bg-gray-100', text: 'text-gray-800' };
     return (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cfg.bg} ${cfg.text}`}>
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cfg.bg} ${cfg.text} keep-color`}>
             {cfg.label}
         </span>
     );
@@ -120,6 +121,7 @@ export default function AdminPanel() {
     const [loginError, setLoginError] = useState('');
     const [activeTab, setActiveTab] = useState<Tab>('dashboard');
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
     const [orders, setOrders] = useState<Order[]>([]);
     const [customRequests, setCustomRequests] = useState<CustomRequest[]>([]);
@@ -159,6 +161,14 @@ export default function AdminPanel() {
             setIsAuthenticated(true);
             fetchAllData();
         }
+        if (typeof window !== 'undefined') {
+            const savedTheme = localStorage.getItem('admin_theme') as 'dark' | 'light';
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                setTheme('dark');
+            }
+        }
     }, []);
 
     useEffect(() => {
@@ -182,6 +192,47 @@ export default function AdminPanel() {
         } else {
             setLoginError('Invalid password');
         }
+    };
+
+    const toggleTheme = (e: React.MouseEvent) => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        
+        const applyThemeChange = () => {
+            setTheme(newTheme);
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('admin_theme', newTheme);
+            }
+        };
+
+        const doc = document as any;
+        if (!doc.startViewTransition) {
+            applyThemeChange();
+            return;
+        }
+
+        const x = e.clientX;
+        const y = e.clientY;
+        const right = window.innerWidth - x;
+        const bottom = window.innerHeight - y;
+        const maxRadius = Math.hypot(Math.max(x, right), Math.max(y, bottom));
+
+        document.documentElement.style.setProperty('--click-x', `${x}px`);
+        document.documentElement.style.setProperty('--click-y', `${y}px`);
+        document.documentElement.style.setProperty('--click-r', `${maxRadius}px`);
+        
+        if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark-transition');
+            document.documentElement.classList.remove('light-transition');
+        } else {
+            document.documentElement.classList.add('light-transition');
+            document.documentElement.classList.remove('dark-transition');
+        }
+
+        doc.startViewTransition(() => {
+            flushSync(() => {
+                applyThemeChange();
+            });
+        });
     };
 
     const handleLogout = () => {
@@ -231,42 +282,58 @@ export default function AdminPanel() {
     };
 
     const fetchOrders = async () => {
-        const res = await fetch(`/api/orders?password=${encodeURIComponent(ADMIN_PASS)}`);
-        const data = await res.json();
-        if (data.orders) setOrders(data.orders);
+        try {
+            const res = await fetch(`/api/orders?password=${encodeURIComponent(ADMIN_PASS)}`);
+            const data = await res.json();
+            if (data.orders) setOrders(data.orders);
+        } catch {}
     };
 
     const fetchCustomRequests = async () => {
-        const res = await fetch(`/api/custom-requests?password=${encodeURIComponent(ADMIN_PASS)}`);
-        const data = await res.json();
-        if (data.requests) setCustomRequests(data.requests);
+        try {
+            const res = await fetch(`/api/custom-requests?password=${encodeURIComponent(ADMIN_PASS)}`);
+            const data = await res.json();
+            if (data.requests) setCustomRequests(data.requests);
+        } catch {}
     };
 
     const fetchContactSubmissions = async () => {
-        const res = await fetch(`/api/contact?password=${encodeURIComponent(ADMIN_PASS)}`);
-        const data = await res.json();
-        if (data.submissions) setContactSubmissions(data.submissions);
+        try {
+            const res = await fetch(`/api/contact?password=${encodeURIComponent(ADMIN_PASS)}`);
+            const data = await res.json();
+            if (data.submissions) setContactSubmissions(data.submissions);
+        } catch {}
     };
 
     const fetchBookedCalls = async () => {
-        const res = await fetch(`/api/booked-calls?password=${encodeURIComponent(ADMIN_PASS)}`);
-        const data = await res.json();
-        if (data.bookings) setBookedCalls(data.bookings);
+        try {
+            const res = await fetch(`/api/booked-calls?password=${encodeURIComponent(ADMIN_PASS)}`);
+            const data = await res.json();
+            if (data.bookings) setBookedCalls(data.bookings);
+        } catch {}
     };
 
     const fetchPrebookRequests = async () => {
-        const res = await fetch(`/api/prebook-requests?password=${encodeURIComponent(ADMIN_PASS)}`);
-        const data = await res.json();
-        if (data.requests) setPrebookRequests(data.requests);
+        try {
+            const res = await fetch(`/api/prebook-requests?password=${encodeURIComponent(ADMIN_PASS)}`);
+            const data = await res.json();
+            if (data.requests) setPrebookRequests(data.requests);
+        } catch {}
     };
 
     const patchOrder = async (orderId: string, payload: object) => {
-        await fetch('/api/orders', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ orderId, adminPassword: ADMIN_PASS, ...payload }),
-        });
-        await fetchOrders();
+        try {
+            const res = await fetch('/api/orders', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, adminPassword: ADMIN_PASS, ...payload }),
+            });
+            if (!res.ok) throw new Error('Failed to update order');
+            await fetchOrders();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update order. Please try again.');
+        }
     };
 
     const saveTrackingNumber = async (orderId: string) => {
@@ -283,68 +350,122 @@ export default function AdminPanel() {
 
     const deleteOrder = async (orderId: string) => {
         if (!confirm('Delete this order?')) return;
-        await fetch(`/api/orders?orderId=${orderId}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
-        await fetchOrders();
+        try {
+            const res = await fetch(`/api/orders?orderId=${orderId}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete order');
+            await fetchOrders();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to delete order.');
+        }
     };
 
     const updateCustomRequestStatus = async (id: string, status: string) => {
-        await fetch('/api/custom-requests', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ requestId: id, status, adminPassword: ADMIN_PASS }),
-        });
-        await fetchCustomRequests();
+        try {
+            const res = await fetch('/api/custom-requests', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ requestId: id, status, adminPassword: ADMIN_PASS }),
+            });
+            if (!res.ok) throw new Error('Failed to update request');
+            await fetchCustomRequests();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update request status.');
+        }
     };
 
     const deleteCustomRequest = async (id: string) => {
         if (!confirm('Delete this request?')) return;
-        await fetch(`/api/custom-requests?requestId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
-        await fetchCustomRequests();
+        try {
+            const res = await fetch(`/api/custom-requests?requestId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete request');
+            await fetchCustomRequests();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to delete custom request.');
+        }
     };
 
     const updateContactStatus = async (id: string, status: string) => {
-        await fetch('/api/contact', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ submissionId: id, status, adminPassword: ADMIN_PASS }),
-        });
-        await fetchContactSubmissions();
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ submissionId: id, status, adminPassword: ADMIN_PASS }),
+            });
+            if (!res.ok) throw new Error('Failed to update message');
+            await fetchContactSubmissions();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update message status.');
+        }
     };
 
-    const deleteContact = async (id: string) => {
+    const deleteContactSubmission = async (id: string) => {
         if (!confirm('Delete this message?')) return;
-        await fetch(`/api/contact?submissionId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
-        await fetchContactSubmissions();
+        try {
+            const res = await fetch(`/api/contact?submissionId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete message');
+            await fetchContactSubmissions();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to delete message.');
+        }
     };
 
     const updateCallStatus = async (id: string, status: string) => {
-        await fetch('/api/booked-calls', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ bookingId: id, status, adminPassword: ADMIN_PASS }),
-        });
-        await fetchBookedCalls();
+        try {
+            const res = await fetch('/api/booked-calls', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookingId: id, status, adminPassword: ADMIN_PASS }),
+            });
+            if (!res.ok) throw new Error('Failed to update call');
+            await fetchBookedCalls();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update booked call status.');
+        }
     };
 
-    const deleteCall = async (id: string) => {
-        if (!confirm('Delete this booking?')) return;
-        await fetch(`/api/booked-calls?bookingId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
-        await fetchBookedCalls();
+    const deleteBookedCall = async (id: string) => {
+        if (!confirm('Delete this call?')) return;
+        try {
+            const res = await fetch(`/api/booked-calls?bookingId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete call');
+            await fetchBookedCalls();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to delete booked call.');
+        }
     };
 
     const updatePrebookStatus = async (id: string, status: string) => {
-        await fetch('/api/prebook-requests', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ requestId: id, status, adminPassword: ADMIN_PASS }),
-        });
-        await fetchPrebookRequests();
+        try {
+            const res = await fetch('/api/prebook-requests', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ requestId: id, status, adminPassword: ADMIN_PASS }),
+            });
+            if (!res.ok) throw new Error('Failed to update prebook request');
+            await fetchPrebookRequests();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update prebook request status.');
+        }
     };
 
-    const deletePrebook = async (id: string) => {
-        if (!confirm('Delete this prebook?')) return;
-        await fetch(`/api/prebook-requests?requestId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
-        await fetchPrebookRequests();
+    const deletePrebookRequest = async (id: string) => {
+        if (!confirm('Delete this prebook request?')) return;
+        try {
+            const res = await fetch(`/api/prebook-requests?requestId=${id}&password=${encodeURIComponent(ADMIN_PASS)}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete prebook request');
+            await fetchPrebookRequests();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to delete prebook request.');
+        }
     };
 
     const copy = (text: string) => navigator.clipboard.writeText(text);
@@ -450,32 +571,82 @@ export default function AdminPanel() {
 
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-                <div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8">
-                    <div className="text-center mb-8">
-                        <div className="text-5xl mb-3">🏛️</div>
-                        <h1 className="text-2xl font-bold text-gray-900">3 Layered Admin</h1>
-                        <p className="text-gray-400 text-sm mt-1">Sign in to continue</p>
-                    </div>
-                    <div className="space-y-4">
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            onKeyDown={e => e.key === 'Enter' && handleLogin()}
-                            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
-                            placeholder="Admin password"
-                            autoFocus
-                        />
-                        {loginError && <p className="text-red-600 text-sm">{loginError}</p>}
-                        <button
-                            onClick={handleLogin}
-                            className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors"
-                        >
-                            Sign In
-                        </button>
-                    </div>
+            <div className={theme === 'light' ? 'theme-light' : ''}>
+                <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 font-sans antialiased text-zinc-100 selection:bg-zinc-800 relative overflow-hidden transition-all duration-700">
+                {/* Background Static Gradients */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="absolute -top-[40%] -right-[20%] w-[70%] h-[70%] bg-blue-600/20 rounded-full blur-[140px] opacity-80" />
+                    <div className="absolute -bottom-[40%] -left-[20%] w-[70%] h-[70%] bg-emerald-600/20 rounded-full blur-[140px] opacity-80" />
                 </div>
+
+                {/* Login Card */}
+                <div className="relative z-10 w-full max-w-[400px]">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="bg-zinc-900/40 backdrop-blur-[40px] border-t border-l border-white/20 border-r border-b border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.6)] rounded-[2rem] p-8 overflow-hidden relative group/card"
+                    >
+                        {/* Liquid highlight shifting on card hover */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                        <div className="flex flex-col items-center text-center space-y-6 relative z-10">
+                            
+                            {/* Animated Lock Icon */}
+                            <div className="relative group/icon cursor-default mt-2 keep-color">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full blur-xl opacity-50 animate-pulse group-hover/icon:opacity-100 transition-opacity duration-500" />
+                                <div className="relative bg-zinc-950/50 backdrop-blur-xl border border-white/20 text-white p-4 rounded-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] transition-transform duration-700 group-hover/icon:scale-110">
+                                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div className="space-y-2 w-full">
+                                <h1 className="text-2xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 font-serif">
+                                    Admin Portal
+                                </h1>
+                                <p className="text-sm text-zinc-400 font-light">
+                                    Authenticate to access 3 Layered
+                                </p>
+                            </div>
+
+                            <div className="w-full space-y-5 mt-2">
+                                <div className="space-y-4">
+                                    <div className="relative group/input">
+                                        <div className="absolute inset-0 bg-white/5 rounded-xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity duration-500" />
+                                        <input
+                                            type="password"
+                                            value={password}
+                                            onChange={e => setPassword(e.target.value)}
+                                            onKeyDown={e => e.key === 'Enter' && handleLogin()}
+                                            className="relative w-full bg-zinc-950/50 border border-white/10 text-white rounded-xl px-5 py-3.5 text-sm outline-none transition-all placeholder:text-zinc-500 focus:border-white/30 focus:shadow-[inset_0_0_20px_rgba(255,255,255,0.05)]"
+                                            placeholder="Enter access key"
+                                            autoFocus
+                                        />
+                                    </div>
+                                    {loginError && (
+                                        <motion.p 
+                                            initial={{ opacity: 0, y: -5 }} 
+                                            animate={{ opacity: 1, y: 0 }} 
+                                            className="text-red-400 text-xs font-medium text-left px-1"
+                                        >
+                                            {loginError}
+                                        </motion.p>
+                                    )}
+                                </div>
+
+                                <button
+                                    onClick={handleLogin}
+                                    className="relative w-full bg-white text-zinc-950 rounded-xl px-4 py-3.5 text-sm font-semibold hover:bg-zinc-200 transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]"
+                                >
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
             </div>
         );
     }
@@ -485,102 +656,113 @@ export default function AdminPanel() {
         const isActive = ACTIVE_ORDER_STATUSES.includes(order.status);
 
         return (
-            <div key={order.id} className={`bg-white rounded-xl shadow-sm border-l-4 ${cfg.border} border border-gray-100 p-5 ${!isActive ? 'opacity-70' : ''}`}>
-                <div className="flex items-start justify-between mb-4">
+            <div key={order.id} className={`bg-zinc-900/40 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-l-4 ${cfg.border} border-y border-r border-white/5 p-5 mt-4 group transition-all hover:bg-zinc-900/60 ${!isActive ? 'opacity-70' : ''}`}>
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                     <div>
-                        <StatusBadge status={order.status} />
-                        <div className="font-bold text-gray-900 mt-1 font-mono text-sm">{order.order_number}</div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <StatusBadge status={order.status} />
+                            <span className="font-mono text-sm font-bold text-zinc-400">#{order.order_number || order.id.slice(0,8)}</span>
+                        </div>
                     </div>
                     <div className="text-right">
                         {order.discount && order.discount > 0 ? (
                             <>
-                                <div className="text-xs text-gray-400 line-through">₹{(order.total + order.discount).toLocaleString('en-IN')}</div>
-                                <div className="text-xl font-bold text-green-700">₹{order.total.toLocaleString('en-IN')}</div>
-                                {order.coupon_code && <div className="text-xs text-green-600 font-medium">{order.coupon_code} −₹{order.discount}</div>}
+                                <div className="text-xs text-zinc-500 line-through">₹{(order.total + order.discount).toLocaleString('en-IN')}</div>
+                                <div className="text-xl font-bold tracking-tight text-emerald-400 keep-color">₹{order.total.toLocaleString('en-IN')}</div>
+                                {order.coupon_code && <div className="text-xs text-emerald-500 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md inline-block mt-1 keep-color">{order.coupon_code} −₹{order.discount}</div>}
                             </>
                         ) : (
-                            <div className="text-xl font-bold text-gray-900">₹{order.total.toLocaleString('en-IN')}</div>
+                            <div className="text-xl font-bold tracking-tight text-white mb-1">₹{order.total.toLocaleString('en-IN')}</div>
                         )}
-                        <div className="text-xs text-gray-400 mt-0.5">{formatDate(order.created_at)}</div>
+                        <div className="text-xs text-zinc-500 font-medium mt-1">
+                            {formatDate(order.created_at)}
+                        </div>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4 text-sm">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Customer</div>
-                        <div className="font-semibold text-gray-900">{order.customer_name}</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-5">
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Customer</div>
+                        <div className="font-bold text-white text-sm">{order.customer_name}</div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Email</div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-gray-700 truncate">{order.customer_email}</span>
-                            <button onClick={() => copy(order.customer_email)} title="Copy" className="text-gray-300 hover:text-gray-600 flex-shrink-0">📋</button>
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-zinc-300 truncate text-sm font-medium">{order.customer_email}</span>
+                            <button onClick={() => copy(order.customer_email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
                         </div>
                     </div>
                     {order.customer_phone && (
-                        <div className="bg-gray-50 rounded-lg p-3">
-                            <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Phone</div>
+                        <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                            <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                             <div className="flex items-center gap-2">
-                                <span className="text-gray-700">{order.customer_phone}</span>
-                                <button onClick={() => copy(order.customer_phone || '')} title="Copy" className="text-gray-300 hover:text-gray-600">📋</button>
-                                <a href={getWhatsAppLink(order.customer_phone)} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700 text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full">WA</a>
+                                <span className="text-zinc-300 text-sm font-medium">{order.customer_phone}</span>
+                                <button onClick={() => copy(order.customer_phone || '')} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                                <a href={getWhatsAppLink(order.customer_phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     )}
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Payment</div>
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Payment</div>
                         <div className="flex items-center gap-2">
-                            <span className="text-gray-700">{order.payment_method === 'cod' ? 'COD' : 'Online'}</span>
-                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                            <span className="text-zinc-300 text-sm font-medium">{order.payment_method === 'cod' ? 'COD' : 'Online'}</span>
+                            <span className={`text-xs px-2.5 py-1 rounded-lg font-bold border keep-color ${
                                 order.payment_status === 'paid' || order.payment_status === 'completed'
-                                    ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
                             }`}>
                                 {order.payment_status || 'pending'}
                             </span>
                         </div>
                     </div>
                     {order.razorpay_payment_id && (
-                        <div className="bg-gray-50 rounded-lg p-3 sm:col-span-2">
-                            <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Razorpay ID</div>
-                            <div className="flex items-center gap-1">
-                                <span className="font-mono text-xs text-gray-600">{order.razorpay_payment_id}</span>
-                                <button onClick={() => copy(order.razorpay_payment_id || '')} className="text-gray-300 hover:text-gray-600">📋</button>
+                        <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4 sm:col-span-2 lg:col-span-3">
+                            <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Razorpay ID</div>
+                            <div className="flex items-center gap-2">
+                                <span className="font-mono text-sm text-zinc-300">{order.razorpay_payment_id}</span>
+                                <button onClick={() => copy(order.razorpay_payment_id || '')} className="text-zinc-600 hover:text-white transition-colors">📋</button>
                             </div>
                         </div>
                     )}
                 </div>
 
                 {order.customer_address && (
-                    <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm">
-                        <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Shipping Address</span>
+                    <div className="mb-5 p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl">
+                        <div className="flex items-center justify-between mb-2">
+                            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Shipping Address</span>
                             <button onClick={() => {
                                 const a = order.customer_address;
                                 copy(`${a.address}${a.apartment ? ', ' + a.apartment : ''}, ${a.city}, ${a.state} ${a.pincode}, ${a.country}`);
-                            }} className="text-xs text-blue-400 hover:text-blue-600">📋 Copy</button>
+                            }} className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors">📋 Copy Details</button>
                         </div>
-                        <div className="text-gray-700">
+                        <div className="text-zinc-300 text-sm leading-relaxed">
                             {order.customer_address.address}{order.customer_address.apartment && `, ${order.customer_address.apartment}`},{' '}
                             {order.customer_address.city}, {order.customer_address.state} {order.customer_address.pincode}, {order.customer_address.country}
                         </div>
                     </div>
                 )}
 
-                <div className="mb-4">
-                    <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Items Ordered</div>
-                    <div className="space-y-1">
+                <div className="mb-5">
+                    <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Items Ordered</div>
+                    <div className="space-y-2">
                         {order.items.map((item: any, i: number) => (
-                            <div key={i} className="flex justify-between text-sm">
-                                <span className="text-gray-700">{item.productName} × {item.quantity}</span>
-                                <span className="font-medium text-gray-900">₹{item.totalPrice?.toLocaleString('en-IN')}</span>
+                            <div key={i} className="flex justify-between text-sm items-center bg-zinc-950/50 p-3 rounded-xl border border-white/5">
+                                <span className="text-zinc-300 font-medium">
+                                    <span className="bg-zinc-800 text-zinc-400 px-2 py-1 rounded-md text-xs mr-3">{item.quantity}x</span> 
+                                    {item.productName}
+                                </span>
+                                <span className="font-bold text-white shadow-sm">₹{item.totalPrice?.toLocaleString('en-IN')}</span>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                    <div>
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 block">Tracking Number</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 block">Tracking Number</label>
                         <div className="flex gap-2">
                             <input
                                 type="text"
@@ -588,19 +770,19 @@ export default function AdminPanel() {
                                 onChange={e => setTrackingInputs(p => ({ ...p, [order.id]: e.target.value }))}
                                 onKeyDown={e => e.key === 'Enter' && saveTrackingNumber(order.id)}
                                 placeholder="e.g. DTDC1234567890"
-                                className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 min-w-0"
+                                className="flex-1 bg-zinc-900/50 border border-white/10 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-white/30 min-w-0 transition-colors placeholder:text-zinc-600"
                             />
                             <button
                                 onClick={() => saveTrackingNumber(order.id)}
                                 disabled={savingTracking[order.id]}
-                                className="bg-gray-900 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-gray-700 disabled:opacity-50 whitespace-nowrap"
+                                className="bg-white text-zinc-900 px-4 py-2 rounded-lg text-xs font-bold hover:bg-zinc-200 disabled:opacity-50 whitespace-nowrap transition-colors"
                             >
                                 {savingTracking[order.id] ? '...' : 'Save'}
                             </button>
                         </div>
                     </div>
-                    <div>
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 block">Admin Notes</label>
+                    <div className="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4">
+                        <label className="text-xs font-semibold text-amber-500 uppercase tracking-wider mb-2 block">Admin Notes</label>
                         <div className="flex gap-2">
                             <input
                                 type="text"
@@ -608,12 +790,12 @@ export default function AdminPanel() {
                                 onChange={e => setNotesInputs(p => ({ ...p, [order.id]: e.target.value }))}
                                 onKeyDown={e => e.key === 'Enter' && saveAdminNotes(order.id)}
                                 placeholder="Internal notes..."
-                                className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 min-w-0"
+                                className="flex-1 bg-zinc-900/50 border border-amber-500/20 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-500/50 min-w-0 transition-colors placeholder:text-zinc-600 shadow-[inset_0_0_10px_rgba(245,158,11,0.05)]"
                             />
                             <button
                                 onClick={() => saveAdminNotes(order.id)}
                                 disabled={savingNotes[order.id]}
-                                className="bg-gray-900 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-gray-700 disabled:opacity-50 whitespace-nowrap"
+                                className="bg-amber-500 text-zinc-950 px-4 py-2 rounded-lg text-xs font-bold hover:bg-amber-400 disabled:opacity-50 whitespace-nowrap transition-colors shadow-[0_0_10px_rgba(245,158,11,0.2)]"
                             >
                                 {savingNotes[order.id] ? '...' : 'Save'}
                             </button>
@@ -621,23 +803,23 @@ export default function AdminPanel() {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100 flex-wrap gap-2">
-                    <div className="flex flex-wrap gap-1.5">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10 flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2">
                         {(['pending', 'processing', 'shipped', 'delivered', 'cancelled'] as const).map(s => (
                             <button
                                 key={s}
                                 onClick={() => patchOrder(order.id, { status: s })}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     order.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-offset-1 ring-gray-300`
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
                                 {STATUS_CONFIG[s]?.label}
                             </button>
                         ))}
                     </div>
-                    <button onClick={() => deleteOrder(order.id)} className="text-red-400 hover:text-red-600 text-sm font-medium transition-colors">
+                    <button onClick={() => deleteOrder(order.id)} className="text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-1.5 hover:bg-red-500/10 rounded-lg transition-colors">
                         Delete
                     </button>
                 </div>
@@ -648,56 +830,60 @@ export default function AdminPanel() {
     const renderCustomCard = (req: CustomRequest) => {
         const cfg = STATUS_CONFIG[req.status] || { label: req.status, bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-l-gray-300' };
         return (
-            <div key={req.id} className={`bg-white rounded-xl shadow-sm border-l-4 ${cfg.border} border border-gray-100 p-5`}>
-                <div className="flex items-start justify-between mb-3">
+            <div key={req.id} className={`bg-zinc-900/40 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-l-4 ${cfg.border} border-y border-r border-white/5 p-5 group transition-all hover:bg-zinc-900/60`}>
+                <div className="flex items-start justify-between mb-4">
                     <div>
                         <StatusBadge status={req.status} />
-                        <div className="font-bold text-gray-900 mt-1">{req.name}</div>
+                        <div className="font-bold text-lg text-white mt-2">{req.name}</div>
                     </div>
-                    <div className="text-xs text-gray-400">{formatDate(req.created_at)}</div>
+                    <div className="text-xs font-medium text-zinc-500">{formatDate(req.created_at)}</div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Email</div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-gray-700 truncate">{req.email}</span>
-                            <button onClick={() => copy(req.email)} className="text-gray-300 hover:text-gray-600">📋</button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5 text-sm">
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-zinc-300 truncate font-medium">{req.email}</span>
+                            <button onClick={() => copy(req.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
                         </div>
                     </div>
                     {req.phone && (
-                        <div className="bg-gray-50 rounded-lg p-3">
-                            <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Phone</div>
+                        <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                            <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                             <div className="flex items-center gap-2">
-                                <span className="text-gray-700">{req.phone}</span>
-                                <button onClick={() => copy(req.phone || '')} className="text-gray-300 hover:text-gray-600">📋</button>
-                                <a href={getWhatsAppLink(req.phone)} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700 text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full">WA</a>
+                                <span className="text-zinc-300 font-medium">{req.phone}</span>
+                                <button onClick={() => copy(req.phone || '')} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                                <a href={getWhatsAppLink(req.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     )}
                     {req.budget_range && (
-                        <div className="bg-gray-50 rounded-lg p-3">
-                            <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Budget</div>
-                            <div className="text-gray-700">{req.budget_range}</div>
+                        <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                            <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Budget</div>
+                            <div className="text-zinc-300 font-medium">{req.budget_range}</div>
                         </div>
                     )}
                     {req.timeline && (
-                        <div className="bg-gray-50 rounded-lg p-3">
-                            <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Timeline</div>
-                            <div className="text-gray-700">{req.timeline}</div>
+                        <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                            <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Timeline</div>
+                            <div className="text-zinc-300 font-medium">{req.timeline}</div>
                         </div>
                     )}
                 </div>
 
-                <div className="mb-4 p-3 bg-gray-50 rounded-lg text-sm">
-                    <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide">Project Description</div>
-                    <div className="text-gray-700 whitespace-pre-wrap">{req.project_description}</div>
+                <div className="mb-5 p-4 bg-zinc-950/50 border border-white/5 rounded-xl text-sm">
+                    <div className="text-xs text-zinc-500 mb-2 uppercase tracking-wider font-semibold">Project Description</div>
+                    <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap">{req.project_description}</div>
                 </div>
 
                 {(req.address || req.city) && (
-                    <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm">
-                        <div className="text-xs font-semibold text-blue-600 mb-1 uppercase tracking-wide">Address</div>
-                        <div className="text-gray-700">
+                    <div className="mb-5 p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl text-sm">
+                        <div className="text-xs font-semibold text-blue-400 mb-2 uppercase tracking-wider">Address</div>
+                        <div className="text-zinc-300 leading-relaxed">
                             {req.address && <>{req.address}, </>}
                             {req.city && <>{req.city}, </>}
                             {req.state && <>{req.state} </>}
@@ -707,23 +893,23 @@ export default function AdminPanel() {
                     </div>
                 )}
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100 flex-wrap gap-2">
-                    <div className="flex flex-wrap gap-1.5">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10 flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2">
                         {(['new', 'reviewing', 'quoted', 'accepted', 'rejected', 'completed'] as const).map(s => (
                             <button
                                 key={s}
                                 onClick={() => updateCustomRequestStatus(req.id, s)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     req.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-offset-1 ring-gray-300`
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
                                 {STATUS_CONFIG[s]?.label}
                             </button>
                         ))}
                     </div>
-                    <button onClick={() => deleteCustomRequest(req.id)} className="text-red-400 hover:text-red-600 text-sm font-medium">Delete</button>
+                    <button onClick={() => deleteCustomRequest(req.id)} className="text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-1.5 hover:bg-red-500/10 rounded-lg transition-colors">Delete</button>
                 </div>
             </div>
         );
@@ -732,57 +918,61 @@ export default function AdminPanel() {
     const renderContactCard = (sub: ContactSubmission) => {
         const cfg = STATUS_CONFIG[sub.status] || { label: sub.status, bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-l-gray-300' };
         return (
-            <div key={sub.id} className={`bg-white rounded-xl shadow-sm border-l-4 ${cfg.border} border border-gray-100 p-5`}>
-                <div className="flex items-start justify-between mb-3">
+            <div key={sub.id} className={`bg-zinc-900/40 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-l-4 ${cfg.border} border-y border-r border-white/5 p-5 group transition-all hover:bg-zinc-900/60`}>
+                <div className="flex items-start justify-between mb-4">
                     <div>
                         <StatusBadge status={sub.status} />
-                        <div className="font-bold text-gray-900 mt-1">{sub.name}</div>
-                        {sub.subject && <div className="text-sm text-gray-500 mt-0.5">{sub.subject}</div>}
+                        <div className="font-bold text-lg text-white mt-2">{sub.name}</div>
+                        {sub.subject && <div className="text-sm text-zinc-400 font-medium mt-0.5">{sub.subject}</div>}
                     </div>
-                    <div className="text-xs text-gray-400">{formatDate(sub.created_at)}</div>
+                    <div className="text-xs font-medium text-zinc-500">{formatDate(sub.created_at)}</div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Email</div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-gray-700 truncate">{sub.email}</span>
-                            <button onClick={() => copy(sub.email)} className="text-gray-300 hover:text-gray-600">📋</button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-zinc-300 truncate text-sm font-medium">{sub.email}</span>
+                            <button onClick={() => copy(sub.email)} className="text-zinc-600 hover:text-white transition-colors">📋</button>
                         </div>
                     </div>
                     {sub.phone && (
-                        <div className="bg-gray-50 rounded-lg p-3">
-                            <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Phone</div>
+                        <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                            <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                             <div className="flex items-center gap-2">
-                                <span className="text-gray-700">{sub.phone}</span>
-                                <a href={getWhatsAppLink(sub.phone)} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700 text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full">WA</a>
+                                <span className="text-zinc-300 text-sm font-medium">{sub.phone}</span>
+                                <a href={getWhatsAppLink(sub.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     )}
                 </div>
 
-                <div className="mb-4 p-3 bg-gray-50 rounded-lg text-sm">
-                    <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide">Message</div>
-                    <div className="text-gray-700 whitespace-pre-wrap">{sub.message}</div>
+                <div className="mb-5 p-4 bg-zinc-950/50 border border-white/5 rounded-xl">
+                    <div className="text-xs text-zinc-500 mb-2 uppercase tracking-wider font-semibold">Message</div>
+                    <div className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap">{sub.message}</div>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100 flex-wrap gap-2">
-                    <div className="flex flex-wrap gap-1.5">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10 flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2">
                         {(['unread', 'read', 'replied', 'resolved'] as const).map(s => (
                             <button
                                 key={s}
                                 onClick={() => updateContactStatus(sub.id, s)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     sub.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-offset-1 ring-gray-300`
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
                                 {STATUS_CONFIG[s]?.label}
                             </button>
                         ))}
                     </div>
-                    <button onClick={() => deleteContact(sub.id)} className="text-red-400 hover:text-red-600 text-sm font-medium">Delete</button>
+                    <button onClick={() => deleteContactSubmission(sub.id)} className="text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-1.5 hover:bg-red-500/10 rounded-lg transition-colors">Delete</button>
                 </div>
             </div>
         );
@@ -791,57 +981,61 @@ export default function AdminPanel() {
     const renderCallCard = (call: BookedCall) => {
         const cfg = STATUS_CONFIG[call.status] || { label: call.status, bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-l-gray-300' };
         return (
-            <div key={call.id} className={`bg-white rounded-xl shadow-sm border-l-4 ${cfg.border} border border-gray-100 p-5`}>
-                <div className="flex items-start justify-between mb-3">
+            <div key={call.id} className={`bg-zinc-900/40 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-l-4 ${cfg.border} border-y border-r border-white/5 p-5 group transition-all hover:bg-zinc-900/60`}>
+                <div className="flex items-start justify-between mb-4">
                     <div>
                         <StatusBadge status={call.status} />
-                        <div className="font-bold text-gray-900 mt-1">{call.name}</div>
+                        <div className="font-bold text-lg text-white mt-2">{call.name}</div>
                     </div>
-                    <div className="text-xs text-gray-400">{formatDate(call.created_at)}</div>
+                    <div className="text-xs font-medium text-zinc-500">{formatDate(call.created_at)}</div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Email</div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-gray-700 truncate">{call.email}</span>
-                            <button onClick={() => copy(call.email)} className="text-gray-300 hover:text-gray-600">📋</button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-zinc-300 truncate text-sm font-medium">{call.email}</span>
+                            <button onClick={() => copy(call.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Phone</div>
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                         <div className="flex items-center gap-2">
-                            <span className="text-gray-700">{call.phone}</span>
-                            <button onClick={() => copy(call.phone)} className="text-gray-300 hover:text-gray-600">📋</button>
-                            <a href={getWhatsAppLink(call.phone)} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700 text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full">WA</a>
+                            <span className="text-zinc-300 text-sm font-medium">{call.phone}</span>
+                            <button onClick={() => copy(call.phone)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                            <a href={getWhatsAppLink(call.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                    </svg>
+                                </a>
                         </div>
                     </div>
                 </div>
 
                 {call.admin_notes && (
-                    <div className="mb-4 p-3 bg-yellow-50 rounded-lg text-sm">
-                        <div className="text-xs text-yellow-600 mb-1 uppercase tracking-wide font-semibold">Notes</div>
-                        <div className="text-gray-700">{call.admin_notes}</div>
+                    <div className="mb-5 p-4 bg-amber-500/5 border border-amber-500/10 rounded-xl">
+                        <div className="text-xs text-amber-400 mb-2 uppercase tracking-wider font-semibold">Admin Notes</div>
+                        <div className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap">{call.admin_notes}</div>
                     </div>
                 )}
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100 flex-wrap gap-2">
-                    <div className="flex flex-wrap gap-1.5">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10 flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2">
                         {(['new', 'contacted', 'scheduled', 'completed', 'cancelled'] as const).map(s => (
                             <button
                                 key={s}
                                 onClick={() => updateCallStatus(call.id, s)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     call.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-offset-1 ring-gray-300`
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
                                 {STATUS_CONFIG[s]?.label}
                             </button>
                         ))}
                     </div>
-                    <button onClick={() => deleteCall(call.id)} className="text-red-400 hover:text-red-600 text-sm font-medium">Delete</button>
+                    <button onClick={() => deleteBookedCall(call.id)} className="text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-1.5 hover:bg-red-500/10 rounded-lg transition-colors">Delete</button>
                 </div>
             </div>
         );
@@ -850,64 +1044,68 @@ export default function AdminPanel() {
     const renderPrebookCard = (req: PrebookRequest) => {
         const cfg = STATUS_CONFIG[req.status] || { label: req.status, bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-l-gray-300' };
         return (
-            <div key={req.id} className={`bg-white rounded-xl shadow-sm border-l-4 ${cfg.border} border border-gray-100 p-5`}>
-                <div className="flex items-start justify-between mb-3">
+            <div key={req.id} className={`bg-zinc-900/40 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-l-4 ${cfg.border} border-y border-r border-white/5 p-5 group transition-all hover:bg-zinc-900/60`}>
+                <div className="flex items-start justify-between mb-4">
                     <div>
                         <StatusBadge status={req.status} />
-                        <div className="font-bold text-gray-900 mt-1">{req.first_name} {req.last_name}</div>
-                        <div className="text-sm text-gray-500 capitalize mt-0.5">{req.product_slug?.replace(/-/g, ' ')}</div>
+                        <div className="font-bold text-lg text-white mt-2">{req.first_name} {req.last_name}</div>
+                        <div className="text-sm text-blue-400 font-medium capitalize mt-0.5">{req.product_slug?.replace(/-/g, ' ')}</div>
                     </div>
-                    <div className="text-xs text-gray-400">{formatDate(req.created_at)}</div>
+                    <div className="text-xs font-medium text-zinc-500">{formatDate(req.created_at)}</div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Email</div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-gray-700 truncate">{req.email}</span>
-                            <button onClick={() => copy(req.email)} className="text-gray-300 hover:text-gray-600">📋</button>
-                        </div>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                        <div className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide">Phone</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
                         <div className="flex items-center gap-2">
-                            <span className="text-gray-700">{req.phone}</span>
-                            <button onClick={() => copy(req.phone)} className="text-gray-300 hover:text-gray-600">📋</button>
-                            <a href={getWhatsAppLink(req.phone)} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700 text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full">WA</a>
+                            <span className="text-zinc-300 truncate text-sm font-medium">{req.email}</span>
+                            <button onClick={() => copy(req.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
+                        </div>
+                    </div>
+                    <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
+                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-zinc-300 text-sm font-medium">{req.phone}</span>
+                            <button onClick={() => copy(req.phone)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                            <a href={getWhatsAppLink(req.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                    </svg>
+                                </a>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100 flex-wrap gap-2">
-                    <div className="flex flex-wrap gap-1.5">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10 flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2">
                         {(['new', 'contacted', 'confirmed', 'completed', 'cancelled'] as const).map(s => (
                             <button
                                 key={s}
                                 onClick={() => updatePrebookStatus(req.id, s)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     req.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-offset-1 ring-gray-300`
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
                                 {STATUS_CONFIG[s]?.label}
                             </button>
                         ))}
                     </div>
-                    <button onClick={() => deletePrebook(req.id)} className="text-red-400 hover:text-red-600 text-sm font-medium">Delete</button>
+                    <button onClick={() => deletePrebookRequest(req.id)} className="text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-1.5 hover:bg-red-500/10 rounded-lg transition-colors">Delete</button>
                 </div>
             </div>
         );
     };
 
     const SearchBar = ({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder: string }) => (
-        <div className="bg-white rounded-xl p-4 shadow-sm mb-4">
+        <div className="bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)] mb-6">
             <input
                 type="text"
                 value={value}
                 onChange={e => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                className="w-full bg-zinc-950/50 border border-white/5 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/30 focus:shadow-[inset_0_0_20px_rgba(255,255,255,0.05)] placeholder:text-zinc-500 transition-all"
             />
         </div>
     );
@@ -931,16 +1129,22 @@ export default function AdminPanel() {
         : null;
 
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className={theme === 'light' ? 'theme-light' : ''}>
+            <div className="min-h-screen bg-zinc-950 font-sans antialiased text-zinc-100 selection:bg-zinc-800 relative overflow-hidden flex transition-all duration-700">
+            {/* Background Static Gradients */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute -top-[40%] -right-[20%] w-[70%] h-[70%] bg-blue-600/10 rounded-full blur-[140px] opacity-60" />
+                <div className="absolute -bottom-[40%] -left-[20%] w-[70%] h-[70%] bg-emerald-600/10 rounded-full blur-[140px] opacity-60" />
+            </div>
 
-            {/* Dark Sidebar */}
-            <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 flex flex-col transform transition-transform duration-300 ease-in-out ${
+            {/* Dark Glass Sidebar */}
+            <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-zinc-950/50 backdrop-blur-2xl border-r border-white/10 flex flex-col transform transition-transform duration-300 ease-in-out ${
                 sidebarOpen ? 'translate-x-0' : '-translate-x-full'
             } lg:translate-x-0`}>
 
-                <div className="p-6 border-b border-gray-800">
-                    <div className="text-white font-bold text-lg tracking-tight">3 Layered</div>
-                    <div className="text-gray-500 text-xs mt-0.5">Admin Panel</div>
+                <div className="p-6 border-b border-white/10">
+                    <div className="text-white font-serif font-bold text-lg tracking-tight">3 Layered</div>
+                    <div className="text-zinc-500 text-xs mt-0.5 font-light">Admin Portal</div>
                 </div>
 
                 <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
@@ -948,10 +1152,10 @@ export default function AdminPanel() {
                         <button
                             key={item.id}
                             onClick={() => { setActiveTab(item.id); setSidebarOpen(false); }}
-                            className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                            className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all ${
                                 activeTab === item.id
-                                    ? 'bg-white text-gray-900 shadow-sm'
-                                    : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                                    ? 'bg-white/10 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] font-medium'
+                                    : 'text-zinc-400 hover:text-white hover:bg-white/5 font-light'
                             }`}
                         >
                             <span className="flex items-center gap-3">
@@ -959,7 +1163,7 @@ export default function AdminPanel() {
                                 <span>{item.label}</span>
                             </span>
                             {item.badge > 0 && (
-                                <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                                <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-semibold px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-[0_0_10px_rgba(59,130,246,0.3)] keep-color">
                                     {item.badge}
                                 </span>
                             )}
@@ -967,10 +1171,10 @@ export default function AdminPanel() {
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-gray-800">
+                <div className="p-4 border-t border-white/10">
                     <button
                         onClick={handleLogout}
-                        className="w-full text-gray-500 hover:text-white text-sm py-2 transition-colors rounded-lg hover:bg-gray-800"
+                        className="w-full text-zinc-500 hover:text-red-400 text-sm py-2.5 transition-colors rounded-xl hover:bg-red-500/10 font-medium"
                     >
                         Sign Out
                     </button>
@@ -978,37 +1182,44 @@ export default function AdminPanel() {
             </aside>
 
             {sidebarOpen && (
-                <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setSidebarOpen(false)} />
+                <div className="fixed inset-0 z-40 bg-zinc-950/80 backdrop-blur-sm lg:hidden" onClick={() => setSidebarOpen(false)} />
             )}
 
-            <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
+            <div className="flex-1 lg:ml-64 flex flex-col min-h-screen relative z-10 w-full overflow-x-hidden">
 
-                <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+                <header className="bg-zinc-950/40 backdrop-blur-xl border-b border-white/10 px-4 sm:px-6 py-4 flex items-center justify-between sticky top-0 z-30">
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-600 text-xl leading-none"
+                            className="lg:hidden p-2 rounded-xl border border-white/10 hover:bg-white/5 text-zinc-300 text-xl leading-none transition-colors"
                         >
                             ☰
                         </button>
-                        <h1 className="text-lg font-bold text-gray-900">{tabLabel[activeTab]}</h1>
+                        <h1 className="text-lg font-serif font-semibold text-white tracking-tight">{tabLabel[activeTab]}</h1>
                     </div>
                     <div className="flex items-center gap-3">
+                        <button
+                            onClick={toggleTheme}
+                            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all text-lg keep-color"
+                            title="Toggle Theme"
+                        >
+                            {theme === 'dark' ? '☀️' : '🌙'}
+                        </button>
                         {totalAlerts > 0 && (
-                            <span className="bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                            <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-semibold px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.2)] keep-color">
                                 {totalAlerts} new
                             </span>
                         )}
                         <button
                             onClick={fetchAllData}
-                            className="text-sm text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors font-medium"
+                            className="text-sm text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-xl transition-all font-medium active:scale-95"
                         >
                             Refresh
                         </button>
                         {/* Account Circle */}
                         <button
                             onClick={() => setShowAccountModal(true)}
-                            className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-900 to-gray-700 text-white text-sm font-bold flex items-center justify-center hover:from-gray-700 hover:to-gray-500 transition-all shadow-md ring-2 ring-gray-200 hover:ring-gray-400"
+                            className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-emerald-500 text-white text-sm font-bold flex items-center justify-center hover:scale-105 transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] ring-2 ring-white/20 keep-color"
                             title="My Subscription"
                         >
                             JG
@@ -1054,60 +1265,60 @@ export default function AdminPanel() {
                             {activeTab === 'dashboard' && (
                                 <div className="space-y-6">
                                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                        <div className="bg-white rounded-xl p-5 shadow-sm">
-                                            <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Active Orders</div>
-                                            <div className="text-3xl font-bold text-gray-900">{stats.activeOrders}</div>
-                                            <div className="text-xs text-amber-600 font-semibold mt-1">{stats.pendingOrders} pending</div>
+                                        <div className="bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                                            <div className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-medium">Active Orders</div>
+                                            <div className="text-3xl font-bold text-white">{stats.activeOrders}</div>
+                                            <div className="text-xs text-amber-400 font-semibold mt-1 keep-color">{stats.pendingOrders} pending</div>
                                         </div>
-                                        <div className="bg-white rounded-xl p-5 shadow-sm">
-                                            <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Revenue</div>
-                                            <div className="text-2xl font-bold text-gray-900">₹{stats.totalRevenue.toLocaleString('en-IN')}</div>
-                                            <div className="text-xs text-gray-400 mt-1">delivered orders</div>
+                                        <div className="bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                                            <div className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-medium">Revenue</div>
+                                            <div className="text-2xl font-bold text-white">₹{stats.totalRevenue.toLocaleString('en-IN')}</div>
+                                            <div className="text-xs text-zinc-500 mt-1">delivered orders</div>
                                         </div>
-                                        <div className="bg-white rounded-xl p-5 shadow-sm">
-                                            <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Today</div>
-                                            <div className="text-3xl font-bold text-gray-900">{stats.todayOrders.length}</div>
-                                            <div className="text-xs text-green-600 font-semibold mt-1">₹{stats.todayOrders.reduce((s, o) => s + o.total, 0).toLocaleString('en-IN')}</div>
+                                        <div className="bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                                            <div className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-medium">Today</div>
+                                            <div className="text-3xl font-bold text-white">{stats.todayOrders.length}</div>
+                                            <div className="text-xs text-emerald-400 font-semibold mt-1 keep-color">₹{stats.todayOrders.reduce((s, o) => s + o.total, 0).toLocaleString('en-IN')}</div>
                                         </div>
-                                        <div className="bg-white rounded-xl p-5 shadow-sm">
-                                            <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Needs Attention</div>
-                                            <div className={`text-3xl font-bold ${totalAlerts > 0 ? 'text-red-500' : 'text-green-500'}`}>{totalAlerts}</div>
-                                            <div className="text-xs text-gray-400 mt-1">{totalAlerts === 0 ? 'all clear!' : 'unread items'}</div>
+                                        <div className="bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                                            <div className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-medium">Needs Attention</div>
+                                            <div className={`text-3xl font-bold keep-color ${totalAlerts > 0 ? 'text-blue-400' : 'text-emerald-400'}`}>{totalAlerts}</div>
+                                            <div className="text-xs text-zinc-500 mt-1">{totalAlerts === 0 ? 'all clear!' : 'unread items'}</div>
                                         </div>
                                     </div>
 
                                     {totalAlerts > 0 && (
-                                        <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
-                                            <h3 className="font-bold text-amber-900 mb-3 text-sm uppercase tracking-wide">Action Required</h3>
-                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                        <div className="bg-blue-500/10 border border-blue-500/20 backdrop-blur-md rounded-2xl p-5 keep-color">
+                                            <h3 className="font-bold text-blue-400 mb-4 text-sm uppercase tracking-wider">Action Required</h3>
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                 {stats.pendingOrders > 0 && (
-                                                    <button onClick={() => setActiveTab('orders')} className="bg-white rounded-xl p-4 text-center hover:shadow-md transition-shadow border border-amber-100">
-                                                        <div className="text-2xl font-bold text-amber-600">{stats.pendingOrders}</div>
-                                                        <div className="text-xs text-gray-500 mt-1">Pending Orders</div>
+                                                    <button onClick={() => setActiveTab('orders')} className="bg-zinc-900/50 rounded-xl p-4 text-center hover:bg-zinc-800/50 transition-all border border-white/5 hover:border-white/10">
+                                                        <div className="text-2xl font-bold text-amber-400 keep-color">{stats.pendingOrders}</div>
+                                                        <div className="text-xs text-zinc-400 mt-1">Pending Orders</div>
                                                     </button>
                                                 )}
                                                 {stats.unreadContacts > 0 && (
-                                                    <button onClick={() => setActiveTab('contact')} className="bg-white rounded-xl p-4 text-center hover:shadow-md transition-shadow border border-amber-100">
-                                                        <div className="text-2xl font-bold text-red-500">{stats.unreadContacts}</div>
-                                                        <div className="text-xs text-gray-500 mt-1">Unread Messages</div>
+                                                    <button onClick={() => setActiveTab('contact')} className="bg-zinc-900/50 rounded-xl p-4 text-center hover:bg-zinc-800/50 transition-all border border-white/5 hover:border-white/10">
+                                                        <div className="text-2xl font-bold text-red-400 keep-color">{stats.unreadContacts}</div>
+                                                        <div className="text-xs text-zinc-400 mt-1">Unread Messages</div>
                                                     </button>
                                                 )}
                                                 {stats.newCustom > 0 && (
-                                                    <button onClick={() => setActiveTab('custom')} className="bg-white rounded-xl p-4 text-center hover:shadow-md transition-shadow border border-amber-100">
-                                                        <div className="text-2xl font-bold text-orange-500">{stats.newCustom}</div>
-                                                        <div className="text-xs text-gray-500 mt-1">Custom Requests</div>
+                                                    <button onClick={() => setActiveTab('custom')} className="bg-zinc-900/50 rounded-xl p-4 text-center hover:bg-zinc-800/50 transition-all border border-white/5 hover:border-white/10">
+                                                        <div className="text-2xl font-bold text-orange-400 keep-color">{stats.newCustom}</div>
+                                                        <div className="text-xs text-zinc-400 mt-1">Custom Requests</div>
                                                     </button>
                                                 )}
                                                 {stats.newCalls > 0 && (
-                                                    <button onClick={() => setActiveTab('calls')} className="bg-white rounded-xl p-4 text-center hover:shadow-md transition-shadow border border-amber-100">
-                                                        <div className="text-2xl font-bold text-blue-500">{stats.newCalls}</div>
-                                                        <div className="text-xs text-gray-500 mt-1">Booked Calls</div>
+                                                    <button onClick={() => setActiveTab('calls')} className="bg-zinc-900/50 rounded-xl p-4 text-center hover:bg-zinc-800/50 transition-all border border-white/5 hover:border-white/10">
+                                                        <div className="text-2xl font-bold text-blue-400 keep-color">{stats.newCalls}</div>
+                                                        <div className="text-xs text-zinc-400 mt-1">Booked Calls</div>
                                                     </button>
                                                 )}
                                                 {stats.newPrebooks > 0 && (
-                                                    <button onClick={() => setActiveTab('prebooks')} className="bg-white rounded-xl p-4 text-center hover:shadow-md transition-shadow border border-amber-100">
-                                                        <div className="text-2xl font-bold text-purple-500">{stats.newPrebooks}</div>
-                                                        <div className="text-xs text-gray-500 mt-1">Prebook Requests</div>
+                                                    <button onClick={() => setActiveTab('prebooks')} className="bg-zinc-900/50 rounded-xl p-4 text-center hover:bg-zinc-800/50 transition-all border border-white/5 hover:border-white/10">
+                                                        <div className="text-2xl font-bold text-purple-400 keep-color">{stats.newPrebooks}</div>
+                                                        <div className="text-xs text-zinc-400 mt-1">Prebook Requests</div>
                                                     </button>
                                                 )}
                                             </div>
@@ -1116,12 +1327,12 @@ export default function AdminPanel() {
 
                                     <div>
                                         <div className="flex items-center justify-between mb-4">
-                                            <h3 className="text-base font-bold text-gray-900">Recent Active Orders</h3>
-                                            <button onClick={() => setActiveTab('orders')} className="text-sm text-gray-500 hover:text-gray-900 font-medium">View all →</button>
+                                            <h3 className="text-base font-bold text-white tracking-wide">Recent Active Orders</h3>
+                                            <button onClick={() => setActiveTab('orders')} className="text-sm text-zinc-400 hover:text-white transition-colors font-medium">View all →</button>
                                         </div>
                                         {activeOrders.length === 0 ? (
-                                            <div className="bg-white rounded-xl p-10 text-center text-gray-400">
-                                                <div className="text-4xl mb-2">✅</div>
+                                            <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-10 text-center text-zinc-500 border border-white/5">
+                                                <div className="text-4xl mb-3 opacity-50">✅</div>
                                                 No active orders right now
                                             </div>
                                         ) : (
@@ -1133,27 +1344,27 @@ export default function AdminPanel() {
 
                             {activeTab === 'orders' && (
                                 <div className="space-y-6">
-                                    <div className="bg-white rounded-xl p-4 shadow-sm">
+                                    <div className="bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                                         <div className="flex flex-col sm:flex-row gap-3">
                                             <input
                                                 type="text"
                                                 placeholder="Search by name, email, or order number..."
                                                 value={orderSearch}
                                                 onChange={e => setOrderSearch(e.target.value)}
-                                                className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                                                className="flex-1 bg-zinc-950/50 border border-white/5 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/30 focus:shadow-[inset_0_0_20px_rgba(255,255,255,0.05)] placeholder:text-zinc-500 transition-all"
                                             />
                                             <select
                                                 value={sortBy}
                                                 onChange={e => setSortBy(e.target.value as any)}
-                                                className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+                                                className="bg-zinc-950/50 border border-white/5 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-all min-w-[160px]"
                                             >
-                                                <option value="newest">Newest First</option>
-                                                <option value="oldest">Oldest First</option>
-                                                <option value="amount">Highest Amount</option>
+                                                <option value="newest" className="bg-zinc-900">Newest First</option>
+                                                <option value="oldest" className="bg-zinc-900">Oldest First</option>
+                                                <option value="amount" className="bg-zinc-900">Highest Amount</option>
                                             </select>
                                             <button
                                                 onClick={exportOrdersCSV}
-                                                className="bg-gray-900 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-700 transition-colors whitespace-nowrap"
+                                                className="bg-white text-zinc-900 px-5 py-3 rounded-xl text-sm font-bold hover:bg-zinc-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] whitespace-nowrap active:scale-95"
                                             >
                                                 Export CSV
                                             </button>
@@ -1161,14 +1372,14 @@ export default function AdminPanel() {
                                     </div>
 
                                     <div>
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <h2 className="text-base font-bold text-gray-900">Active Orders</h2>
-                                            <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full">{activeOrders.length}</span>
+                                        <div className="flex items-center gap-3 mb-5">
+                                            <h2 className="text-lg font-bold text-white tracking-wide">Active Orders</h2>
+                                            <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-semibold px-3 py-1 rounded-full keep-color">{activeOrders.length}</span>
                                         </div>
                                         {activeOrders.length === 0 ? (
-                                            <div className="bg-white rounded-xl p-10 text-center text-gray-400">
-                                                <div className="text-4xl mb-2">📭</div>
-                                                No active orders
+                                            <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-10 text-center text-zinc-500 border border-white/5">
+                                                <div className="text-4xl mb-3 opacity-50">📭</div>
+                                                No active orders found
                                             </div>
                                         ) : (
                                             <div className="space-y-4">{activeOrders.map(renderOrderCard)}</div>
@@ -1178,15 +1389,15 @@ export default function AdminPanel() {
                                     <div>
                                         <button
                                             onClick={() => setShowPastOrders(!showPastOrders)}
-                                            className="flex items-center gap-3 mb-4 w-full text-left group"
+                                            className="flex items-center gap-3 mb-5 w-full text-left group"
                                         >
-                                            <h2 className="text-base font-bold text-gray-400 group-hover:text-gray-600 transition-colors">Past Orders</h2>
-                                            <span className="bg-gray-100 text-gray-500 text-xs font-bold px-2.5 py-1 rounded-full">{pastOrders.length}</span>
-                                            <span className="text-gray-300 ml-auto text-sm">{showPastOrders ? '▲ Hide' : '▼ Show'}</span>
+                                            <h2 className="text-lg font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors tracking-wide">Past Orders</h2>
+                                            <span className="bg-white/5 border border-white/10 text-zinc-400 text-xs font-semibold px-3 py-1 rounded-full keep-color">{pastOrders.length}</span>
+                                            <span className="text-zinc-600 group-hover:text-zinc-400 ml-auto text-sm transition-colors">{showPastOrders ? '▲ Hide' : '▼ Show'}</span>
                                         </button>
                                         {showPastOrders && (
                                             pastOrders.length === 0 ? (
-                                                <div className="bg-white rounded-xl p-8 text-center text-gray-400">No past orders</div>
+                                                <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-10 text-center text-zinc-500 border border-white/5">No past orders</div>
                                             ) : (
                                                 <div className="space-y-4">{pastOrders.map(renderOrderCard)}</div>
                                             )
@@ -1199,7 +1410,10 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={customSearch} onChange={setCustomSearch} placeholder="Search by name or email..." />
                                     {filteredCustom.length === 0 ? (
-                                        <div className="bg-white rounded-xl p-10 text-center text-gray-400">No custom requests</div>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
+                                            <div className="text-5xl mb-4 opacity-40">✨</div>
+                                            <p className="text-lg font-medium text-zinc-400">No custom requests yet</p>
+                                        </div>
                                     ) : (
                                         <div className="space-y-4">{filteredCustom.map(renderCustomCard)}</div>
                                     )}
@@ -1210,7 +1424,10 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={contactSearch} onChange={setContactSearch} placeholder="Search messages..." />
                                     {filteredContact.length === 0 ? (
-                                        <div className="bg-white rounded-xl p-10 text-center text-gray-400">No contact messages</div>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
+                                            <div className="text-5xl mb-4 opacity-40">📨</div>
+                                            <p className="text-lg font-medium text-zinc-400">No contact messages</p>
+                                        </div>
                                     ) : (
                                         <div className="space-y-4">{filteredContact.map(renderContactCard)}</div>
                                     )}
@@ -1221,7 +1438,10 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={callSearch} onChange={setCallSearch} placeholder="Search by name, email, or phone..." />
                                     {filteredCalls.length === 0 ? (
-                                        <div className="bg-white rounded-xl p-10 text-center text-gray-400">No booked calls</div>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
+                                            <div className="text-5xl mb-4 opacity-40">📞</div>
+                                            <p className="text-lg font-medium text-zinc-400">No booked calls</p>
+                                        </div>
                                     ) : (
                                         <div className="space-y-4">{filteredCalls.map(renderCallCard)}</div>
                                     )}
@@ -1232,7 +1452,10 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={prebookSearch} onChange={setPrebookSearch} placeholder="Search by name, email, or product..." />
                                     {filteredPrebooks.length === 0 ? (
-                                        <div className="bg-white rounded-xl p-10 text-center text-gray-400">No prebook requests</div>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
+                                            <div className="text-5xl mb-4 opacity-40">🎫</div>
+                                            <p className="text-lg font-medium text-zinc-400">No prebook requests</p>
+                                        </div>
                                     ) : (
                                         <div className="space-y-4">{filteredPrebooks.map(renderPrebookCard)}</div>
                                     )}
@@ -1246,17 +1469,20 @@ export default function AdminPanel() {
 
             {/* ── PP DEV Works Account Modal ── */}
             {showAccountModal && (
-                <div className="fixed inset-0 z-[200] bg-white flex flex-col overflow-y-auto">
+                <div className="fixed inset-0 z-[200] bg-zinc-950/80 backdrop-blur-3xl flex flex-col overflow-y-auto">
 
                     {/* Top bar */}
-                    <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between flex-shrink-0">
+                    <div className="sticky top-0 z-10 bg-zinc-950/50 border-b border-white/5 px-6 py-4 flex items-center justify-between flex-shrink-0 backdrop-blur-md">
                         <div className="flex items-center gap-2.5">
-                            <div className="w-5 h-5 rounded bg-gradient-to-br from-gray-700 to-gray-900 flex-shrink-0" />
-                            <span className="text-sm font-bold font-serif text-gray-900 tracking-tight">3 Layered</span>
+                            <div className="w-5 h-5 rounded bg-gradient-to-br from-blue-500 to-emerald-500 flex-shrink-0" />
+                            <div>
+                                <span className="text-sm font-bold font-serif text-white tracking-tight">3 Layered</span>
+                                <p className="text-[11px] text-zinc-400 font-medium leading-none mt-0.5">{subClientName}</p>
+                            </div>
                         </div>
                         <button
                             onClick={() => setShowAccountModal(false)}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-all text-lg leading-none"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-all text-lg leading-none"
                         >
                             ✕
                         </button>
@@ -1267,18 +1493,18 @@ export default function AdminPanel() {
 
                         {/* Owner */}
                         <div className="mb-10">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-5">Owner</p>
+                            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-5">Owner</p>
                             <div className="flex items-start justify-between gap-4">
                                 <div>
-                                    <h2 className="text-3xl font-bold text-gray-900 tracking-tight leading-none">{subClientName}</h2>
-                                    <p className="text-base text-gray-500 mt-2 font-medium">{subWebsiteName}</p>
+                                    <h2 className="text-3xl font-bold text-white tracking-tight leading-none">{subClientName}</h2>
+                                    <p className="text-base text-zinc-400 mt-2 font-medium">{subWebsiteName}</p>
                                 </div>
                                 {subWebsiteUrl && (
                                     <a
                                         href={subWebsiteUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex-shrink-0 flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 rounded-lg px-3 py-2 transition-all"
+                                        className="flex-shrink-0 flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 rounded-lg px-3 py-2 transition-all"
                                     >
                                         {subWebsiteUrl.replace('https://', '').replace('http://', '')}
                                         <span className="opacity-40">↗</span>
@@ -1287,35 +1513,35 @@ export default function AdminPanel() {
                             </div>
                         </div>
 
-                        <div className="border-t border-gray-100 mb-10" />
+                        <div className="border-t border-white/5 mb-10" />
 
                         {/* Subscription */}
                         <div className="mb-10">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-5">Subscription</p>
+                            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-5">Subscription</p>
                             <div className="grid grid-cols-3 gap-3">
-                                <div className="bg-gray-50 rounded-2xl p-5">
-                                    <p className="text-xs text-gray-400 mb-2">Plan</p>
-                                    <p className="text-base font-bold text-gray-900 leading-tight">{subPlanName}</p>
+                                <div className="bg-zinc-900/50 border border-white/5 rounded-2xl p-5">
+                                    <p className="text-xs text-zinc-500 mb-2">Plan</p>
+                                    <p className="text-base font-bold text-white leading-tight">{subPlanName}</p>
                                 </div>
-                                <div className="bg-gray-50 rounded-2xl p-5">
-                                    <p className="text-xs text-gray-400 mb-2">Monthly</p>
-                                    <p className="text-base font-bold text-gray-900 leading-tight">₹{Number(subAmount).toLocaleString('en-IN')}</p>
+                                <div className="bg-zinc-900/50 border border-white/5 rounded-2xl p-5">
+                                    <p className="text-xs text-zinc-500 mb-2">Monthly</p>
+                                    <p className="text-base font-bold text-white leading-tight">₹{Number(subAmount).toLocaleString('en-IN')}</p>
                                 </div>
                                 <div className={
-                                    'rounded-2xl p-5 ' + (
-                                        modalDaysUntil !== null && modalDaysUntil < 0 ? 'bg-red-50' :
-                                        modalDaysUntil !== null && modalDaysUntil <= 2 ? 'bg-amber-50' : 'bg-gray-50'
+                                    'rounded-2xl p-5 border ' + (
+                                        modalDaysUntil !== null && modalDaysUntil < 0 ? 'bg-red-500/10 border-red-500/20' :
+                                        modalDaysUntil !== null && modalDaysUntil <= 2 ? 'bg-amber-500/10 border-amber-500/20' : 'bg-zinc-900/50 border-white/5'
                                     )
                                 }>
-                                    <p className="text-xs text-gray-400 mb-2">Next Billing</p>
+                                    <p className="text-xs text-zinc-500 mb-2">Next Billing</p>
                                     {modalFormattedBilling ? (
                                         <>
-                                            <p className="text-base font-bold text-gray-900 leading-tight">{modalFormattedBilling}</p>
+                                            <p className="text-base font-bold text-white leading-tight">{modalFormattedBilling}</p>
                                             {modalDaysUntil !== null && (
                                                 <p className={
                                                     'text-[11px] mt-1.5 font-semibold ' + (
-                                                        modalDaysUntil < 0 ? 'text-red-500' :
-                                                        modalDaysUntil <= 2 ? 'text-amber-600' : 'text-gray-400'
+                                                        modalDaysUntil < 0 ? 'text-red-400' :
+                                                        modalDaysUntil <= 2 ? 'text-amber-400' : 'text-zinc-500'
                                                     )
                                                 }>
                                                     {modalDaysUntil < 0
@@ -1327,17 +1553,17 @@ export default function AdminPanel() {
                                             )}
                                         </>
                                     ) : (
-                                        <p className="text-base font-bold text-gray-300">—</p>
+                                        <p className="text-base font-bold text-zinc-600">—</p>
                                     )}
                                 </div>
                             </div>
                         </div>
 
-                        <div className="border-t border-gray-100 mb-10" />
+                        <div className="border-t border-white/5 mb-10" />
 
                         {/* Payment */}
                         <div className="mb-10">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-6">Pay This Month</p>
+                            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-6">Pay This Month</p>
                             {subQrCodeUrl || subPaymentLink ? (
                                 <div className="grid grid-cols-2 gap-8 items-start">
 
@@ -1347,21 +1573,21 @@ export default function AdminPanel() {
                                             <img
                                                 src={subQrCodeUrl}
                                                 alt="Payment QR Code"
-                                                className="w-full max-w-[200px] aspect-square rounded-2xl border border-gray-100 shadow-sm"
+                                                className="w-full max-w-[200px] aspect-square rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)]"
                                             />
                                         ) : (
-                                            <div className="w-full max-w-[200px] aspect-square rounded-2xl bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center text-xs text-gray-400">
+                                            <div className="w-full max-w-[200px] aspect-square rounded-2xl bg-zinc-900/50 border border-dashed border-white/10 flex items-center justify-center text-xs text-zinc-500">
                                                 No QR set
                                             </div>
                                         )}
-                                        <div className="space-y-2 pt-1">
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider w-14">UPI</span>
-                                                <span className="font-mono font-medium text-gray-900 text-xs">{subPaymentLink || '—'}</span>
+                                        <div className="space-y-2 pt-1 mt-2">
+                                            <div className="flex items-center gap-2 text-sm text-zinc-400">
+                                                <span className="text-zinc-500 text-xs font-semibold uppercase tracking-wider w-14">UPI</span>
+                                                <span className="font-mono font-bold text-emerald-400 text-xs">{subPaymentLink || '—'}</span>
                                             </div>
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider w-14">Phone</span>
-                                                <span className="font-medium text-gray-900">+91 99299 20521</span>
+                                            <div className="flex items-center gap-2 text-sm text-zinc-400">
+                                                <span className="text-zinc-500 text-xs font-semibold uppercase tracking-wider w-14">Phone</span>
+                                                <span className="font-bold text-emerald-400 text-xs">+91 99299 20521</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1369,9 +1595,9 @@ export default function AdminPanel() {
                                     {/* Right — amount + actions */}
                                     <div className="space-y-5 pt-1">
                                         <div>
-                                            <p className="text-4xl font-bold text-gray-900 tracking-tight">₹{Number(subAmount).toLocaleString('en-IN')}</p>
+                                            <p className="text-4xl font-bold text-white tracking-tight">₹{Number(subAmount).toLocaleString('en-IN')}</p>
                                             {modalFormattedBilling && (
-                                                <p className="text-sm text-gray-400 mt-1.5">Due {modalFormattedBilling}</p>
+                                                <p className="text-sm text-zinc-500 font-medium mt-1.5">Due {modalFormattedBilling}</p>
                                             )}
                                         </div>
                                         <div className="space-y-3">
@@ -1380,22 +1606,22 @@ export default function AdminPanel() {
                                                     href={subPaymentLink}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="flex items-center justify-center gap-2 w-full bg-gray-900 text-white py-3.5 rounded-xl font-semibold hover:bg-gray-700 transition-colors text-sm"
+                                                    className="flex items-center justify-center gap-2 w-full bg-blue-500/10 text-blue-400 border border-blue-500/20 py-3.5 rounded-xl font-semibold hover:bg-blue-500/20 transition-all text-sm keep-color"
                                                 >
-                                                    💳  Pay via Link
+                                                    💳  Pay via UPI App
                                                 </a>
                                             )}
                                             {subPaymentPending || payNotifSent ? (
-                                                <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                                <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner keep-color">
                                                     ⏳  Awaiting confirmation
                                                 </div>
                                             ) : (
                                                 <button
                                                     onClick={sendPaymentNotification}
                                                     disabled={payNotifSending}
-                                                    className="w-full py-3.5 rounded-xl font-semibold text-sm border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all disabled:opacity-40"
+                                                    className="w-full py-3.5 rounded-xl font-bold text-sm border-2 border-white/10 text-white hover:bg-white/10 hover:border-white/20 transition-all disabled:opacity-40"
                                                 >
-                                                    {payNotifSending ? 'Sending...' : "✓  I've Paid — Notify PP DEV Works"}
+                                                    {payNotifSending ? 'Sending...' : "✓  I've Paid — Notify Developer"}
                                                 </button>
                                             )}
                                         </div>
@@ -1403,29 +1629,29 @@ export default function AdminPanel() {
 
                                 </div>
                             ) : (
-                                <div className="bg-gray-50 rounded-2xl p-10 text-center text-sm text-gray-400">
+                                <div className="bg-zinc-900/50 border border-white/5 rounded-2xl p-10 text-center text-sm text-zinc-500">
                                     Payment details not configured yet
                                 </div>
                             )}
                         </div>
 
-                        <div className="border-t border-gray-100 mb-10" />
+                        <div className="border-t border-white/5 mb-10" />
 
                         {/* Contact Support */}
                         <div className="mb-12">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-5">Contact Support</p>
-                            <div className="flex items-center justify-between bg-gray-50 rounded-2xl px-5 py-4">
+                            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-5">Contact Developer</p>
+                            <div className="flex items-center justify-between bg-zinc-900/50 border border-white/5 rounded-2xl px-5 py-4">
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-900">PP DEV Works</p>
-                                    <p className="text-xs text-gray-400 mt-0.5">+91 99299 20521</p>
+                                    <p className="text-sm font-semibold text-white">PP DEV Works</p>
+                                    <p className="text-xs text-zinc-400 mt-0.5">+91 99299 20521</p>
                                 </div>
                                 <a
                                     href="https://wa.me/919929920521"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 bg-[#25D366] text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-[#1ebe5d] transition-colors"
+                                    className="flex items-center gap-2 bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] text-sm font-bold px-4 py-2.5 rounded-xl hover:bg-[#25D366]/30 transition-colors keep-color"
                                 >
-                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                                     </svg>
                                     Chat on WhatsApp
@@ -1434,14 +1660,16 @@ export default function AdminPanel() {
                         </div>
 
                         {/* Footer */}
-                        <div className="border-t border-gray-100 pt-6 pb-2 flex items-center justify-center gap-2">
-                            <div className="w-4 h-4 rounded bg-gradient-to-br from-amber-400 to-orange-500 flex-shrink-0" />
-                            <p className="text-xs text-gray-400">Managed by <span className="font-semibold text-gray-600">PP DEV Works</span></p>
+                        <div className="border-t border-white/5 pt-8 pb-4 flex items-center justify-center gap-2">
+                            <div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-emerald-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] flex-shrink-0" />
+                            <p className="text-xs text-zinc-500">Managed by <span className="font-bold text-zinc-300">PP DEV Works</span></p>
                         </div>
 
                     </div>
                 </div>
             )}
         </div>
+        </div>
     );
 }
+
