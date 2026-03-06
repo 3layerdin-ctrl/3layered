@@ -936,8 +936,11 @@ export default function AdminPanel() {
     const modalFormattedBilling = modalBillingDate
         ? modalBillingDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
         : null;
-    const modalUpiQrUrl = subUpiId
-        ? `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(`upi://pay?pa=${subUpiId}&pn=PPDEV&am=${subAmount}&tn=Pro+Plan+Renewal`)}`
+    const modalUpiPayload = subUpiId
+        ? 'upi://pay?pa=' + subUpiId + '&pn=PPDEV&am=' + subAmount + '&tn=Pro+Plan+Renewal'
+        : null;
+    const modalUpiQrUrl = modalUpiPayload
+        ? 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + encodeURIComponent(modalUpiPayload)
         : null;
 
     return (
