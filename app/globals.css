@@ -95,3 +95,68 @@ body {
   font-weight: 900;
   letter-spacing: 0.02em;
 }
+
+/* Light mode inversion filter for the admin panel */
+html.admin-theme-light {
+  filter: invert(1) hue-rotate(180deg);
+}
+/* Reverse the filter for images and specific media so they remain normal */
+html.admin-theme-light img,
+html.admin-theme-light video,
+html.admin-theme-light .keep-color {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ---------------------------------------------------- */
+/* Theme Toggle Circular Web Transition via View Transitions API */
+/* ---------------------------------------------------- */
+
+::view-transition-group(root) {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark-transition::view-transition-old(root) {
+  z-index: 9999;
+  animation: circle-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.dark-transition::view-transition-new(root) {
+  z-index: 1;
+}
+
+.light-transition::view-transition-new(root) {
+  animation: circle-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+  }
+  to {
+    clip-path: circle(var(--click-r, 100vw) at var(--click-x, 50%) var(--click-y, 50%));
+  }
+}
+
+@keyframes circle-out {
+  from {
+    clip-path: circle(var(--click-r, 100vw) at var(--click-x, 50%) var(--click-y, 50%));
+  }
+  to {
+    clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+  }
+}

@@ -172,6 +172,15 @@ export default function AdminPanel() {
     }, []);
 
     useEffect(() => {
+        if (theme === 'light') {
+            document.documentElement.classList.add('admin-theme-light');
+        } else {
+            document.documentElement.classList.remove('admin-theme-light');
+        }
+        return () => document.documentElement.classList.remove('admin-theme-light');
+    }, [theme]);
+
+    useEffect(() => {
         const t: Record<string, string> = {};
         const n: Record<string, string> = {};
         orders.forEach(o => {
@@ -571,8 +580,7 @@ export default function AdminPanel() {
 
     if (!isAuthenticated) {
         return (
-            <div className={theme === 'light' ? 'theme-light' : ''}>
-                <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 font-sans antialiased text-zinc-100 selection:bg-zinc-800 relative overflow-hidden transition-all duration-700">
+            <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 font-sans antialiased text-zinc-100 selection:bg-zinc-800 relative overflow-hidden transition-all duration-700">
                 {/* Background Static Gradients */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute -top-[40%] -right-[20%] w-[70%] h-[70%] bg-blue-600/20 rounded-full blur-[140px] opacity-80" />
@@ -646,7 +654,6 @@ export default function AdminPanel() {
                         </div>
                     </motion.div>
                 </div>
-            </div>
             </div>
         );
     }
@@ -1129,8 +1136,7 @@ export default function AdminPanel() {
         : null;
 
     return (
-        <div className={theme === 'light' ? 'theme-light' : ''}>
-            <div className="min-h-screen bg-zinc-950 font-sans antialiased text-zinc-100 selection:bg-zinc-800 relative overflow-hidden flex transition-all duration-700">
+        <div className="min-h-screen bg-zinc-950 font-sans antialiased text-zinc-100 selection:bg-zinc-800 relative overflow-hidden flex transition-all duration-700">
             {/* Background Static Gradients */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
                 <div className="absolute -top-[40%] -right-[20%] w-[70%] h-[70%] bg-blue-600/10 rounded-full blur-[140px] opacity-60" />
@@ -1668,7 +1674,6 @@ export default function AdminPanel() {
                     </div>
                 </div>
             )}
-        </div>
         </div>
     );
 }
