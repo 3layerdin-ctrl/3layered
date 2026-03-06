@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { ppdevworksCheck } from '@/lib/ppdevworks';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+    const suspended = await ppdevworksCheck(request);
+    if (suspended) return suspended;
+
     const response = NextResponse.next();
 
     // Security Headers

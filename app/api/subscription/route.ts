@@ -6,7 +6,7 @@ const ADMIN_PASS = 'jaygehlot20053layeredadmin//200590()';
 export async function GET() {
     const { data, error } = await supabase
         .from('client_subscription')
-        .select('client_name, plan_name, plan_amount, next_billing_date, payment_link, upi_id')
+        .select('client_name, website_name, website_url, plan_name, plan_amount, next_billing_date, payment_link, qr_code_url, payment_pending')
         .eq('id', 1)
         .single();
 
