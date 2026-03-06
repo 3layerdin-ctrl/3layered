@@ -132,7 +132,10 @@ export async function ppdevworksCheck(request: NextRequest): Promise<NextRespons
 
         if (!adminUrl || !clientId) return null;
 
-        const res = await fetch(`${adminUrl}/api/status/${clientId}`, { cache: 'no-store' });
+        const res = await fetch(`${adminUrl}/api/status/${clientId}`, {
+            cache: 'no-store',
+            signal: AbortSignal.timeout(3000),
+        });
         const data = await res.json();
 
         cachedStatus = { is_online: !!data.is_online, checked_at: now };
