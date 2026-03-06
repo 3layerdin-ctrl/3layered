@@ -77,7 +77,7 @@ interface PrebookRequest {
     created_at: string;
 }
 
-type Tab = 'dashboard' | 'orders' | 'custom' | 'contact' | 'calls' | 'prebooks';
+type Tab = 'dashboard' | 'orders' | 'custom' | 'contact' | 'calls' | 'prebooks' | 'subscription';
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string; border: string }> = {
     pending:    { label: 'Pending',    bg: 'bg-amber-100',  text: 'text-amber-800',  border: 'border-l-amber-400' },
@@ -141,6 +141,16 @@ export default function AdminPanel() {
     const [callSearch, setCallSearch] = useState('');
     const [prebookSearch, setPrebookSearch] = useState('');
 
+    const [showAccountModal, setShowAccountModal] = useState(false);
+    const [subBillingDate, setSubBillingDate] = useState('');
+    const [subAmount, setSubAmount] = useState('3000');
+    const [subClientName, setSubClientName] = useState('Jay Jehlot');
+    const [subPlanName, setSubPlanName] = useState('Pro Plan');
+    const [subPaymentLink, setSubPaymentLink] = useState('');
+    const [subUpiId, setSubUpiId] = useState('');
+    const [subSaving, setSubSaving] = useState(false);
+    const [subMsg, setSubMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
     useEffect(() => {
         if (sessionStorage.getItem('admin_authenticated') === 'true') {
             setIsAuthenticated(true);
@@ -180,9 +190,50 @@ export default function AdminPanel() {
     const fetchAllData = async () => {
         setLoading(true);
         try {
-            await Promise.all([fetchOrders(), fetchCustomRequests(), fetchContactSubmissions(), fetchBookedCalls(), fetchPrebookRequests()]);
+            await Promise.all([fetchOrders(), fetchCustomRequests(), fetchContactSubmissions(), fetchBookedCalls(), fetchPrebookRequests(), fetchSubscription()]);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchSubscription = async () => {
+        try {
+            const res = await fetch('/api/subscription');
+            const data = await res.json();
+            if (data.client_name) setSubClientName(data.client_name);
+            if (data.plan_name) setSubPlanName(data.plan_name);
+            if (data.plan_amount) setSubAmount(String(data.plan_amount));
+            if (data.next_billing_date) setSubBillingDate(data.next_billing_date);
+            if (data.payment_link) setSubPaymentLink(data.payment_link);
+            if (data.upi_id) setSubUpiId(data.upi_id);
+        } catch {}
+    };
+
+    const saveSubscription = async () => {
+        setSubSaving(true);
+        setSubMsg(null);
+        try {
+            const res = await fetch('/api/subscription', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', 'x-admin-password': ADMIN_PASS },
+                body: JSON.stringify({
+                    next_billing_date: subBillingDate || null,
+                    plan_amount: Number(subAmount),
+                    payment_link: subPaymentLink || null,
+                    upi_id: subUpiId || null,
+                }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setSubMsg({ type: 'success', text: 'Saved successfully!' });
+                setTimeout(() => setSubMsg(null), 3000);
+            } else {
+                setSubMsg({ type: 'error', text: data.error || 'Failed to update' });
+            }
+        } catch {
+            setSubMsg({ type: 'error', text: 'Network error. Please try again.' });
+        } finally {
+            setSubSaving(false);
         }
     };
 
@@ -875,7 +926,19 @@ export default function AdminPanel() {
         contact: 'Contact Messages',
         calls: 'Booked Calls',
         prebooks: 'Prebook Requests',
+        subscription: 'Subscription',
     };
+
+    const modalBillingDate = subBillingDate ? new Date(subBillingDate) : null;
+    const modalToday = new Date(); modalToday.setHours(0, 0, 0, 0);
+    if (modalBillingDate) modalBillingDate.setHours(0, 0, 0, 0);
+    const modalDaysUntil = modalBillingDate ? Math.round((modalBillingDate.getTime() - modalToday.getTime()) / 86400000) : null;
+    const modalFormattedBilling = modalBillingDate
+        ? modalBillingDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+        : null;
+    const modalUpiQrUrl = subUpiId
+        ? `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(`upi://pay?pa=${subUpiId}&pn=PPDEV&am=${subAmount}&tn=Pro+Plan+Renewal`)}`
+        : null;
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
@@ -951,6 +1014,14 @@ export default function AdminPanel() {
                             className="text-sm text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors font-medium"
                         >
                             Refresh
+                        </button>
+                        {/* Account Circle */}
+                        <button
+                            onClick={() => setShowAccountModal(true)}
+                            className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-900 to-gray-700 text-white text-sm font-bold flex items-center justify-center hover:from-gray-700 hover:to-gray-500 transition-all shadow-md ring-2 ring-gray-200 hover:ring-gray-400"
+                            title="My Subscription"
+                        >
+                            JG
                         </button>
                     </div>
                 </header>
@@ -1152,9 +1223,169 @@ export default function AdminPanel() {
                                     )}
                                 </div>
                             )}
+
                         </>
                     )}
                 </main>
+            </div>
+
+            {/* ── Account / Subscription Modal ── */}
+            {showAccountModal && (
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+                        {/* Backdrop */}
+                        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowAccountModal(false)} />
+
+                        {/* Modal */}
+                        <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl bg-white">
+
+                            {/* Header — dark gradient */}
+                            <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-6 pt-8 pb-10 rounded-t-2xl relative">
+                                <button
+                                    onClick={() => setShowAccountModal(false)}
+                                    className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+                                    aria-label="Close"
+                                >
+                                    ✕
+                                </button>
+                                {/* Avatar */}
+                                <div className="flex flex-col items-center text-center">
+                                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-2xl font-bold text-white shadow-xl mb-4 ring-4 ring-white/20">
+                                        JG
+                                    </div>
+                                    <h2 className="text-white text-2xl font-bold tracking-tight">{subClientName}</h2>
+                                    <div className="mt-2 flex items-center gap-2">
+                                        <span className="bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                                            {subPlanName}
+                                        </span>
+                                    </div>
+                                    <p className="text-gray-400 text-xs mt-2">Managed by PPDEV</p>
+                                </div>
+
+                                {/* Stats strip */}
+                                <div className="mt-6 grid grid-cols-2 gap-3">
+                                    <div className="bg-white/10 rounded-xl p-4 text-center">
+                                        <p className="text-white/50 text-xs uppercase tracking-wider mb-1">Monthly</p>
+                                        <p className="text-white text-xl font-bold">₹{Number(subAmount).toLocaleString('en-IN')}</p>
+                                    </div>
+                                    <div className={`rounded-xl p-4 text-center ${modalDaysUntil !== null && modalDaysUntil <= 2 ? 'bg-amber-500/30 border border-amber-400/40' : 'bg-white/10'}`}>
+                                        <p className="text-white/50 text-xs uppercase tracking-wider mb-1">Next Billing</p>
+                                        {modalFormattedBilling ? (
+                                            <>
+                                                <p className="text-white text-sm font-bold leading-tight">{modalFormattedBilling}</p>
+                                                {modalDaysUntil !== null && modalDaysUntil >= 0 && (
+                                                    <p className={`text-xs mt-0.5 font-medium ${modalDaysUntil <= 2 ? 'text-amber-300' : 'text-white/50'}`}>
+                                                        {modalDaysUntil === 0 ? 'Due today' : modalDaysUntil === 1 ? 'Due tomorrow' : `In ${modalDaysUntil} days`}
+                                                    </p>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <p className="text-white/40 text-sm">Not set</p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Pay Now Section */}
+                            <div className="px-6 py-6 border-b border-gray-100">
+                                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Pay Now</h3>
+                                <div className="space-y-3">
+                                    {subPaymentLink ? (
+                                        <a
+                                            href={subPaymentLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-center gap-2 w-full bg-gray-900 text-white py-3.5 rounded-xl font-semibold hover:bg-gray-700 transition-colors shadow-md"
+                                        >
+                                            💳 Pay with Payment Link
+                                        </a>
+                                    ) : (
+                                        <div className="text-center py-3 text-sm text-gray-400 bg-gray-50 rounded-xl">
+                                            Payment link not set yet
+                                        </div>
+                                    )}
+
+                                    {modalUpiQrUrl ? (
+                                        <div className="flex flex-col items-center bg-gray-50 rounded-xl p-5 border border-gray-200">
+                                            <img
+                                                src={modalUpiQrUrl}
+                                                alt="UPI QR Code"
+                                                className="w-44 h-44 rounded-lg mb-3"
+                                            />
+                                            <p className="text-xs text-gray-500 font-medium">Scan to pay via any UPI app</p>
+                                            <p className="text-xs text-gray-400 mt-1 font-mono">{subUpiId}</p>
+                                            <p className="text-xs font-bold text-gray-700 mt-2">Amount: ₹{Number(subAmount).toLocaleString('en-IN')}</p>
+                                        </div>
+                                    ) : (
+                                        <div className="text-center py-3 text-sm text-gray-400 bg-gray-50 rounded-xl">
+                                            UPI ID not set yet
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* PPDEV Settings */}
+                            <div className="px-6 py-6">
+                                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">PPDEV Settings</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wider">Next Billing Date</label>
+                                        <input
+                                            type="date"
+                                            value={subBillingDate}
+                                            onChange={e => setSubBillingDate(e.target.value)}
+                                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 bg-gray-50"
+                                        />
+                                        <p className="text-xs text-gray-400 mt-1">Strip reminder shows 2 days before.</p>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wider">Plan Amount (₹)</label>
+                                        <input
+                                            type="number"
+                                            value={subAmount}
+                                            onChange={e => setSubAmount(e.target.value)}
+                                            min={0}
+                                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 bg-gray-50"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wider">Payment Link</label>
+                                        <input
+                                            type="url"
+                                            value={subPaymentLink}
+                                            onChange={e => setSubPaymentLink(e.target.value)}
+                                            placeholder="https://rzp.io/l/your-link"
+                                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 bg-gray-50"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wider">UPI ID</label>
+                                        <input
+                                            type="text"
+                                            value={subUpiId}
+                                            onChange={e => setSubUpiId(e.target.value)}
+                                            placeholder="yourname@upi"
+                                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 bg-gray-50"
+                                        />
+                                    </div>
+
+                                    {subMsg && (
+                                        <div className={`text-sm px-4 py-3 rounded-xl font-medium ${subMsg.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                                            {subMsg.type === 'success' ? '✓ ' : '✗ '}{subMsg.text}
+                                        </div>
+                                    )}
+
+                                    <button
+                                        onClick={saveSubscription}
+                                        disabled={subSaving}
+                                        className="w-full bg-gray-900 text-white py-3.5 rounded-xl font-semibold hover:bg-gray-700 transition-colors disabled:opacity-50 shadow-md"
+                                    >
+                                        {subSaving ? 'Saving...' : 'Save Changes'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            )}
             </div>
         </div>
     );
