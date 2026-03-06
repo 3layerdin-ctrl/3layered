@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@supabase/supabase-js';
+
+// Service-role client — bypasses RLS for webhook-triggered writes
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 const SKIP_PATHS = ['/api/ppdevworks', '/suspended', '/_next', '/favicon'];
 
@@ -106,7 +112,7 @@ export async function ppdevworksWebhookHandler(request: NextRequest): Promise<Ne
                 plan_name: d.plan_name ?? null,
                 payment_link: d.payment_link ?? null,
                 qr_code_url: d.qr_code_url ?? null,
-                payment_pending: false,
+                payment_pending: true,
                 updated_at: new Date().toISOString(),
             })
             .eq('id', 1);
