@@ -13,13 +13,13 @@ export function UseCasesSection({ data }: UseCasesSectionProps) {
     const sortedCases = [...data.cases].sort((a, b) => a.order - b.order);
 
     return (
-        <section className="py-24 bg-gray-50">
+        <section className="py-24 bg-[#FAF7F2]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 tracking-tight">
                         {data.title || 'Where It Lives'}
                     </h2>
-                    <p className="text-lg text-gray-600 font-light">
+                    <p className="text-lg text-[#2A2320]/80 font-light">
                         Envision this piece in your space
                     </p>
                 </div>
@@ -31,7 +31,7 @@ export function UseCasesSection({ data }: UseCasesSectionProps) {
                     {sortedCases.map(useCase => (
                         <div
                             key={useCase.id}
-                            className="group relative bg-white overflow-hidden"
+                            className="group relative bg-[#FDFBF7] overflow-hidden"
                         >
                             {/* Image */}
                             <div className="relative aspect-[4/3] overflow-hidden">
@@ -46,7 +46,7 @@ export function UseCasesSection({ data }: UseCasesSectionProps) {
                             {/* Text */}
                             <div className="p-6">
                                 <h3 className="text-xl font-light mb-2">{useCase.title}</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <p className="text-[#2A2320]/80 text-sm leading-relaxed">
                                     {useCase.description}
                                 </p>
                             </div>

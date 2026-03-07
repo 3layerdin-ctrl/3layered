@@ -3,31 +3,33 @@
 import { Navbar } from '@/components/Navbar';
 import { SlideProvider } from '@/contexts/SlideContext';
 import { FileText, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function TermsPage() {
     return (
         <SlideProvider>
             <Navbar />
-            <main className="min-h-screen bg-gray-50 pt-24 pb-16">
+            <main className="min-h-screen bg-[#FAF7F2] pt-24 pb-16">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     {/* Header */}
                     <div className="text-center mb-12">
-                        <div className="inline-flex items-center justify-center w-20 h-20 bg-black text-white rounded-full mb-6">
+                        <div className="inline-flex items-center justify-center w-20 h-20 bg-[#1A110B] text-[#E8E1D5] rounded-full mb-6">
                             <FileText className="w-10 h-10" />
                         </div>
-                        <h1 className="font-serif text-5xl md:text-6xl font-bold mb-4">
+                        <h1 className="font-serif text-5xl md:text-6xl font-bold mb-4 text-[#1A110B]">
                             Terms & Conditions
                         </h1>
-                        <p className="text-gray-600 text-lg">
+                        <p className="text-[#2A2320]/70 text-lg">
                             Last updated: January 13, 2026
                         </p>
                     </div>
 
                     {/* Content */}
-                    <div className="bg-white border border-gray-200 p-8 md:p-12 space-y-8">
+                    <div className="bg-white border border-[#E8E1D5] rounded-xl shadow-sm p-8 md:p-12 space-y-8">
                         <section>
-                            <h2 className="font-serif text-2xl font-bold mb-4">1. Agreement to Terms</h2>
-                            <p className="text-gray-700 leading-relaxed mb-4">
+                            <h2 className="font-serif text-2xl font-bold mb-4 text-[#1A110B]">1. Agreement to Terms</h2>
+                            <p className="text-[#2A2320]/80 leading-relaxed mb-4">
                                 By accessing and using 3 Layered's services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
                             </p>
                         </section>

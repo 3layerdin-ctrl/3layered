@@ -27,7 +27,7 @@ export function HeroSection() {
 
             <section
                 id="home"
-                className="relative h-screen min-h-[600px] bg-gray-900"
+                className="relative h-screen min-h-[600px] bg-[#1A110B]"
             >
                 {/* Hero Background */}
                 <div className="absolute inset-0 overflow-hidden">
@@ -38,8 +38,8 @@ export function HeroSection() {
                         loading="eager"
                         decoding="async"
                     />
-                    {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+                    {/* Dark amber gradient overlay for premium warmth */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#1A110B]/85 via-[#2A1B12]/65 to-[#1A110B]/95" />
                 </div>
 
                 {/* Centered Hero Content */}
@@ -53,7 +53,7 @@ export function HeroSection() {
                             transition={{ duration: 0.6, delay: 0.1 }}
                             className="mb-5"
                         >
-                            <span className="inline-block border border-white/50 text-white/90 text-xs uppercase tracking-[0.25em] px-4 py-2 rounded-full backdrop-blur-sm bg-white/10">
+                            <span className="inline-block border border-amber-500/30 text-amber-50/90 text-xs uppercase tracking-[0.25em] px-4 py-2 rounded-full backdrop-blur-md bg-[#2A1B12]/40 shadow-[0_0_15px_rgba(255,180,100,0.1)]">
                                 Handcrafted in India · Since 2024
                             </span>
                         </motion.div>
@@ -76,8 +76,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                            className="text-sm sm:text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-6 md:mb-8"
-                            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+                            className="text-sm sm:text-lg md:text-xl text-[#E8E1D5]/90 max-w-2xl leading-relaxed mb-6 md:mb-8 font-light"
                         >
                             Precision 3D printed temple models & architectural replicas — every detail captured, every proportion honoured.
                         </motion.p>
@@ -101,18 +100,17 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.75 }}
-                            className="flex flex-col sm:flex-row gap-4 items-center"
+                            className="flex flex-col sm:flex-row gap-4 items-center w-full sm:w-auto px-4 sm:px-0"
                         >
                             {/* Primary CTA */}
                             <a
                                 href="/products"
-                                className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-base font-bold rounded-full hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-2xl group relative overflow-hidden"
+                                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#DFB374] to-[#C99144] text-[#2A1B12] px-8 py-4 text-base font-bold rounded-full hover:shadow-[0_0_30px_rgba(223,179,116,0.4)] hover:scale-105 transition-all duration-300 shadow-2xl relative overflow-hidden group"
                             >
                                 <span
-                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"
-                                    style={{ animation: 'shimmer 2.5s ease-in-out infinite' }}
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"
                                 />
-                                <span className="relative z-10">Products</span>
+                                <span className="relative z-10">Explore Our Collections</span>
                                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                                 </svg>
@@ -121,7 +119,7 @@ export function HeroSection() {
                             {/* Secondary CTA */}
                             <a
                                 href="/custom-print"
-                                className="inline-flex items-center gap-2 border-2 border-white/70 text-white px-8 py-4 text-base font-medium rounded-full hover:border-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-[#E8E1D5]/40 text-[#E8E1D5] px-8 py-4 text-base font-medium rounded-full hover:bg-white/5 hover:border-[#DFB374]/60 transition-all duration-300 backdrop-blur-sm"
                             >
                                 Custom Print
                             </a>
@@ -134,7 +132,7 @@ export function HeroSection() {
                             transition={{ duration: 0.7, delay: 1 }}
                             className="mt-8"
                         >
-                            <span className="inline-block bg-green-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg tracking-wide">
+                            <span className="inline-block bg-gradient-to-r from-green-800/90 to-emerald-900/90 border border-green-500/30 text-green-50 text-xs font-semibold px-5 py-2 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] tracking-widest uppercase">
                                 UP TO 25% OFF — Use Code: WELCOME150
                             </span>
                         </motion.div>

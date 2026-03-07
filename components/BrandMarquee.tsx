@@ -13,8 +13,8 @@ export function BrandMarquee() {
     const scrollerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <section id="work" className="py-16 border-t border-b border-gray-200 bg-white overflow-hidden">
-            <p className="text-center text-sm uppercase tracking-widest text-gray-500 mb-8">
+        <section id="work" className="py-16 border-t border-b border-[#E8E1D5] bg-[#FDFBF7] overflow-hidden">
+            <p className="text-center text-xs md:text-sm uppercase tracking-[0.25em] font-semibold text-amber-900/50 mb-10">
                 Trusted by Industry Leaders
             </p>
 
@@ -30,7 +30,7 @@ export function BrandMarquee() {
                             key={`${brand}-1-${index}`}
                             className="flex items-center justify-center min-w-[200px]"
                         >
-                            <span className="text-2xl font-bold text-gray-300 whitespace-nowrap">
+                            <span className="text-2xl md:text-3xl font-serif font-bold bg-gradient-to-r from-[#DFB374] to-[#C99144] bg-clip-text text-transparent opacity-60 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                                 {brand}
                             </span>
                         </div>
@@ -44,7 +44,7 @@ export function BrandMarquee() {
                             key={`${brand}-2-${index}`}
                             className="flex items-center justify-center min-w-[200px]"
                         >
-                            <span className="text-2xl font-bold text-gray-300 whitespace-nowrap">
+                            <span className="text-2xl md:text-3xl font-serif font-bold bg-gradient-to-r from-[#DFB374] to-[#C99144] bg-clip-text text-transparent opacity-60 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                                 {brand}
                             </span>
                         </div>

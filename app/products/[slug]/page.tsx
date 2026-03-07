@@ -73,21 +73,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <Navbar />
             <main className="min-h-screen">
                 {/* Breadcrumb Navigation */}
-                <nav className="bg-gray-50 border-b border-gray-200 pt-24 pb-4">
+                <nav className="bg-[#FAF7F2] border-b border-[#E8E1D5] pt-24 pb-4">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                            <a href="/" className="hover:text-black transition-colors">
+                        <div className="flex items-center gap-2 text-sm text-[#2A2320]/80">
+                            <a href="/" className="hover:text-[#DFB374] transition-colors">
                                 Home
                             </a>
                             <span>/</span>
                             <a
                                 href="/products/category/miniature-temples"
-                                className="hover:text-black transition-colors"
+                                className="hover:text-[#DFB374] transition-colors"
                             >
                                 Miniature Temples
                             </a>
                             <span>/</span>
-                            <span className="text-black">{product.hero.productName}</span>
+                            <span className="text-[#1A110B] font-medium">{product.hero.productName}</span>
                         </div>
                     </div>
                 </nav>

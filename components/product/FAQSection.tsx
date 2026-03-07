@@ -23,14 +23,14 @@ export function FAQSection({ data }: FAQSectionProps) {
     const sortedItems = [...data.items].sort((a, b) => a.order - b.order);
 
     return (
-        <section className="py-20 bg-gray-50 border-t border-gray-200">
+        <section className="py-20 bg-[#FAF7F2] border-t border-[#E8E1D5]">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className="mb-12 text-center">
                     <h2 className="font-algerian text-3xl md:text-4xl mb-4">
                         {data.title || 'Frequently Asked Questions'}
                     </h2>
-                    <p className="text-gray-600 font-light">
+                    <p className="text-[#2A2320]/80 font-light">
                         Everything you need to know about this product
                     </p>
                 </div>
@@ -42,12 +42,12 @@ export function FAQSection({ data }: FAQSectionProps) {
                         return (
                             <div
                                 key={item.id}
-                                className="bg-white border border-gray-200 overflow-hidden transition-shadow hover:shadow-md"
+                                className="bg-[#FDFBF7] border border-[#E8E1D5] overflow-hidden transition-shadow hover:shadow-md"
                             >
                                 {/* Question Button */}
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors hover:bg-gray-50"
+                                    className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors hover:bg-[#FAF7F2]"
                                     aria-expanded={isOpen}
                                 >
                                     <span className="font-medium text-lg pr-8">
@@ -66,7 +66,7 @@ export function FAQSection({ data }: FAQSectionProps) {
                                         }`}
                                 >
                                     <div className="px-6 pb-5 pt-2">
-                                        <p className="text-gray-700 leading-relaxed">
+                                        <p className="text-[#2A2320]/90 leading-relaxed">
                                             {item.answer}
                                         </p>
                                     </div>
@@ -78,12 +78,12 @@ export function FAQSection({ data }: FAQSectionProps) {
 
                 {/* Contact CTA */}
                 <div className="mt-12 text-center">
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-[#2A2320]/80 mb-4">
                         Still have questions?
                     </p>
                     <a
                         href="/contact"
-                        className="inline-block border-2 border-black px-6 py-3 hover:bg-black hover:text-white transition-colors font-medium"
+                        className="inline-block border-2 border-[#DFB374] px-6 py-3 hover:bg-black hover:text-white transition-colors font-medium"
                     >
                         Contact Us
                     </a>

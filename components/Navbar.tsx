@@ -42,17 +42,17 @@ export function Navbar() {
 
     // Determine navbar background color
     const getNavbarBg = () => {
-        if (isScrolled) return "bg-white shadow-md";
+        if (isScrolled) return "bg-[#FDFBF7]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-[#E8E1D5]/50";
         // Transparent background on all pages when not scrolled
         return "bg-transparent";
     };
 
     // Determine text color based on navbar background for proper contrast
     const getTextColor = () => {
-        // When scrolled, navbar is white, so use black text
-        if (isScrolled) return "text-black";
+        // When scrolled, navbar is always light so text is black
+        if (isScrolled) return "text-[#1A110B]";
         // Use slide darkness for dynamic text color on all pages
-        return isDarkSlide ? "text-white" : "text-black";
+        return isDarkSlide ? "text-white" : "text-[#1A110B]";
     };
 
     const textColor = getTextColor();
@@ -78,8 +78,8 @@ export function Navbar() {
                         <a
                             key={item.label}
                             href={item.href}
-                            className="text-sm font-medium hover:opacity-60 transition-all duration-300"
-                            style={{ color: textColor === "text-white" ? "white" : "black" }}
+                            className={`text-sm font-medium transition-all duration-300 hover:text-[#DFB374]`}
+                            style={{ color: textColor === "text-white" ? "white" : (isScrolled ? "#1A110B" : "black") }}
                         >
                             {item.label}
                         </a>
@@ -96,37 +96,36 @@ export function Navbar() {
                 <div className="flex items-center gap-4">
                     <a
                         href="/custom-print"
-                        className={`hidden sm:block px-6 py-2 text-sm font-medium transition-all duration-300 ${textColor === "text-white" ? "text-white" : "text-black"
+                        className={`hidden sm:block px-6 py-2 text-sm font-medium transition-all duration-300 rounded-full ${textColor === "text-white" ? "text-white" : "text-[#1A110B]"
                             }`}
                         style={{
-                            borderColor: textColor === "text-white" ? "white" : "black",
+                            borderColor: textColor === "text-white" ? "rgba(255,255,255,0.4)" : "rgba(223,179,116,0.6)",
                             borderWidth: '1px',
-                            borderStyle: 'solid'
+                            borderStyle: 'solid',
+                            backgroundColor: textColor === "text-white" ? "rgba(255,255,255,0.1)" : "transparent"
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = textColor === "text-white" ? "white" : "black";
-                            e.currentTarget.style.color = textColor === "text-black" ? "white" : "black";
+                            e.currentTarget.style.backgroundColor = textColor === "text-white" ? "white" : "#DFB374";
+                            e.currentTarget.style.color = textColor === "text-[#1A110B]" || isScrolled ? "#1A110B" : "black";
+                            e.currentTarget.style.borderColor = textColor === "text-white" ? "white" : "#DFB374";
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "transparent";
-                            e.currentTarget.style.color = textColor === "text-white" ? "white" : "black";
+                            e.currentTarget.style.backgroundColor = textColor === "text-white" ? "rgba(255,255,255,0.1)" : "transparent";
+                            e.currentTarget.style.color = textColor === "text-white" ? "white" : "#1A110B";
+                            e.currentTarget.style.borderColor = textColor === "text-white" ? "rgba(255,255,255,0.4)" : "rgba(223,179,116,0.6)";
                         }}
                     >
                         Custom Print
                     </a>
                     <button
-                        className="p-3 hover:opacity-60 transition-all duration-300 relative min-w-[44px] min-h-[44px] flex items-center justify-center"
+                        className="p-3 hover:text-[#DFB374] transition-colors duration-300 relative min-w-[44px] min-h-[44px] flex items-center justify-center group"
                         aria-label="Shopping cart"
                         onClick={openCart}
                     >
-                        <ShoppingCart className="w-6 h-6" style={{ color: textColor === "text-white" ? "white" : "black" }} />
+                        <ShoppingCart className="w-6 h-6 transition-colors duration-300 group-hover:text-[#DFB374]" style={{ color: textColor === "text-white" ? "white" : (isScrolled ? "#1A110B" : "black") }} />
                         {cart.totalItems > 0 && (
                             <span
-                                className="absolute -top-1 -right-1 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium"
-                                style={{
-                                    backgroundColor: textColor === "text-white" ? "white" : "black",
-                                    color: textColor === "text-white" ? "black" : "white"
-                                }}
+                                className="absolute -top-1 -right-1 bg-gradient-to-r from-[#DFB374] to-[#C99144] shadow-md text-[#1A110B] text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
                             >
                                 {cart.totalItems > 9 ? '9+' : cart.totalItems}
                             </span>
@@ -142,15 +141,15 @@ export function Navbar() {
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
                     <div className="w-6 h-0.5 mb-1.5 transition-all duration-300" style={{
-                        backgroundColor: textColor === "text-white" ? "white" : "black",
+                        backgroundColor: textColor === "text-white" ? "white" : (isScrolled ? "#1A110B" : "black"),
                         transform: isMenuOpen ? 'rotate(45deg) translateY(7px)' : 'none'
                     }}></div>
                     <div className="w-6 h-0.5 mb-1.5 transition-all duration-300" style={{
-                        backgroundColor: textColor === "text-white" ? "white" : "black",
+                        backgroundColor: textColor === "text-white" ? "white" : (isScrolled ? "#1A110B" : "black"),
                         opacity: isMenuOpen ? 0 : 1
                     }}></div>
                     <div className="w-6 h-0.5 transition-all duration-300" style={{
-                        backgroundColor: textColor === "text-white" ? "white" : "black",
+                        backgroundColor: textColor === "text-white" ? "white" : (isScrolled ? "#1A110B" : "black"),
                         transform: isMenuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none'
                     }}></div>
                 </button>
@@ -167,7 +166,7 @@ export function Navbar() {
 
                     {/* Menu Panel - Better mobile spacing */}
                     <motion.div
-                        className="fixed top-20 right-0 bottom-0 w-[min(80vw,320px)] bg-white shadow-xl z-[110] md:hidden overflow-y-auto"
+                        className="fixed top-20 right-0 bottom-0 w-[min(80vw,320px)] bg-[#FDFBF7] shadow-xl z-[110] md:hidden overflow-y-auto border-l border-[#E8E1D5]"
                         style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
@@ -179,16 +178,16 @@ export function Navbar() {
                                 <a
                                     key={item.label}
                                     href={item.href}
-                                    className="text-lg font-medium text-black hover:opacity-60 transition-all py-4 min-h-[48px] flex items-center"
+                                    className="text-lg font-medium text-[#2A2320] hover:text-[#DFB374] transition-all py-4 min-h-[48px] flex items-center"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     {item.label}
                                 </a>
                             ))}
-                            <hr className="my-2" />
+                            <hr className="my-2 border-[#E8E1D5]" />
                             <a
                                 href="/custom-print"
-                                className="text-lg font-medium text-black hover:opacity-60 transition-all py-4 min-h-[48px] flex items-center"
+                                className="text-lg font-medium text-[#2A2320] hover:text-[#DFB374] transition-all py-4 min-h-[48px] flex items-center"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Custom Print

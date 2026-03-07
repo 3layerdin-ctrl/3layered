@@ -37,20 +37,20 @@ export function CustomizationSection({ data, basePrice, currency, displayFormat 
     const totalPrice = calculateTotalPrice();
 
     return (
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-[#FDFBF7]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 tracking-tight">
                         Customization Options
                     </h2>
-                    <p className="text-lg text-gray-600 font-light">
+                    <p className="text-lg text-[#2A2320]/80 font-light">
                         Tailor this piece to your vision
                     </p>
                 </div>
 
                 <div className="space-y-12">
                     {data.options.map(option => (
-                        <div key={option.id} className="border-b border-gray-200 pb-12">
+                        <div key={option.id} className="border-b border-[#E8E1D5] pb-12">
                             <h3 className="text-xl font-light mb-6 flex items-center gap-2">
                                 {option.label}
                                 {option.required && (
@@ -70,7 +70,7 @@ export function CustomizationSection({ data, basePrice, currency, displayFormat 
                                             disabled={isDisabled}
                                             className={`
                         border-2 p-6 text-left transition-all duration-200
-                        ${isSelected ? 'border-black bg-gray-50' : 'border-gray-200 hover:border-gray-400'}
+                        ${isSelected ? 'border-[#DFB374] bg-[#FAF7F2]' : 'border-[#E8E1D5] hover:border-gray-400'}
                         ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
                       `}
                                         >
@@ -85,7 +85,7 @@ export function CustomizationSection({ data, basePrice, currency, displayFormat 
                                             </div>
 
                                             {variant.leadTime && (
-                                                <div className="text-xs text-gray-500 mt-2">
+                                                <div className="text-xs text-[#2A2320]/60 mt-2">
                                                     {variant.leadTime}
                                                 </div>
                                             )}
@@ -105,7 +105,7 @@ export function CustomizationSection({ data, basePrice, currency, displayFormat 
 
                 {/* Price Update */}
                 {Object.keys(selections).length > 0 && (
-                    <div className="mt-12 bg-black text-white p-8 text-center">
+                    <div className="mt-12 bg-[#1A110B] text-[#DFB374] p-8 text-center">
                         <div className="text-sm uppercase tracking-widest mb-2">
                             Your Customized Price
                         </div>
@@ -117,13 +117,13 @@ export function CustomizationSection({ data, basePrice, currency, displayFormat 
 
                 {/* Custom Request CTA */}
                 {data.customRequest.enabled && (
-                    <div className="mt-12 text-center border-t border-gray-200 pt-12">
-                        <p className="text-gray-600 mb-4">
+                    <div className="mt-12 text-center border-t border-[#E8E1D5] pt-12">
+                        <p className="text-[#2A2320]/80 mb-4">
                             Need something completely unique?
                         </p>
                         <a
                             href={data.customRequest.formUrl || '/contact'}
-                            className="inline-block border-2 border-black px-8 py-3 hover:bg-black hover:text-white transition-colors duration-200"
+                            className="inline-block border-2 border-[#DFB374] px-8 py-3 hover:bg-black hover:text-white transition-colors duration-200"
                         >
                             {data.customRequest.ctaLabel}
                         </a>

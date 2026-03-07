@@ -24,7 +24,7 @@ export function RelatedProductsSection({ data, currentProductId }: RelatedProduc
     if (!data.enabled || products.length === 0) return null;
 
     return (
-        <section className="py-24 bg-gray-50">
+        <section className="py-24 bg-[#FAF7F2]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center mb-12">
                     <h2 className="font-serif text-4xl md:text-5xl font-bold tracking-tight">
@@ -46,10 +46,10 @@ export function RelatedProductsSection({ data, currentProductId }: RelatedProduc
                         <Link
                             key={product.id}
                             href={`/products/${product.slug}`}
-                            className="group bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                            className="group bg-[#FDFBF7] border border-[#E8E1D5] overflow-hidden hover:shadow-lg transition-shadow duration-300"
                         >
                             {/* Product Image */}
-                            <div className="relative aspect-square bg-gray-100 overflow-hidden">
+                            <div className="relative aspect-square bg-[#E8E1D5] overflow-hidden">
                                 {product.hero.gallery.length > 0 && (
                                     <Image
                                         src={product.hero.gallery[0].url}
@@ -61,7 +61,7 @@ export function RelatedProductsSection({ data, currentProductId }: RelatedProduc
 
                                 {/* Badge */}
                                 {product.hero.badge.enabled && (
-                                    <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 text-xs">
+                                    <div className="absolute top-4 left-4 bg-[#1A110B] text-[#DFB374] px-3 py-1 text-xs">
                                         {product.hero.badge.text}
                                     </div>
                                 )}
@@ -72,7 +72,7 @@ export function RelatedProductsSection({ data, currentProductId }: RelatedProduc
                                 <h3 className="text-xl font-light mb-2 group-hover:underline">
                                     {product.hero.productName}
                                 </h3>
-                                <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                                <p className="text-sm text-[#2A2320]/80 mb-4 line-clamp-2">
                                     {product.hero.tagline}
                                 </p>
                                 <div className="text-lg font-light">

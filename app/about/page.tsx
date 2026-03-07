@@ -11,32 +11,32 @@ export default function AboutPage() {
     return (
         <SlideProvider>
             <Navbar />
-            <main className="min-h-screen bg-white">
+            <main className="min-h-screen bg-[#FDFBF7]">
                 {/* Hero Section */}
                 <section className="pt-24 md:pt-32 pb-12 md:pb-24 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
                         <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-8 tracking-tight">
                             About 3 Layered
                         </h1>
-                        <p className="text-xl md:text-3xl text-gray-600 font-light leading-relaxed">
+                        <p className="text-xl md:text-3xl text-[#2A2320]/80 font-light leading-relaxed">
                             Where architectural philosophy meets modern manufacturing
                         </p>
                     </div>
                 </section>
 
                 {/* Philosophy Section */}
-                <section className="py-24 bg-gray-50">
+                <section className="py-24 bg-[#FAF7F2]">
                     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="mb-16">
                             <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-12 text-center">
                                 Our Philosophy
                             </h2>
-                            <div className="space-y-8 text-lg md:text-xl leading-relaxed text-gray-700">
+                            <div className="space-y-8 text-lg md:text-xl leading-relaxed text-[#2A2320]/90">
                                 <p className="font-light">
                                     3 Layered was built at the intersection of custom manufacturing and Asian architectural design philosophy.
                                 </p>
                                 <p className="font-light">
-                                    Traditional Asian architecture is defined by <span className="text-black font-medium">balance</span>, <span className="text-black font-medium">proportion</span>, and <span className="text-black font-medium">intentional restraint</span>. Every element serves a purpose. Nothing exists without reason. These principles closely mirror how effective custom manufacturing should operate—precise, deliberate, and outcome-driven.
+                                    Traditional Asian architecture is defined by <span className="text-[#1A110B] font-medium">balance</span>, <span className="text-[#1A110B] font-medium">proportion</span>, and <span className="text-[#1A110B] font-medium">intentional restraint</span>. Every element serves a purpose. Nothing exists without reason. These principles closely mirror how effective custom manufacturing should operate—precise, deliberate, and outcome-driven.
                                 </p>
                                 <p className="font-light">
                                     At 3 Layered, we reinterpret these architectural foundations through modern fabrication. Using advanced custom printing and manufacturing processes, we translate timeless structural logic into contemporary parts, products, and forms. The result is work that feels grounded yet modern—designed with clarity, engineered with discipline, and executed with precision.
@@ -48,8 +48,8 @@ export default function AboutPage() {
                         </div>
 
                         {/* Manifesto Quote */}
-                        <div className="border-l-4 border-black pl-8 py-6 my-16">
-                            <p className="text-2xl md:text-3xl font-light italic text-gray-900 mb-4">
+                        <div className="border-l-4 border-[#DFB374] pl-8 py-6 my-16">
+                            <p className="text-2xl md:text-3xl font-light italic text-[#1A110B] mb-4">
                                 "This is custom manufacturing informed by architecture—where tradition guides structure, and modern technology delivers execution."
                             </p>
                         </div>
@@ -57,7 +57,7 @@ export default function AboutPage() {
                 </section>
 
                 {/* Core Principles */}
-                <section className="py-24 bg-white">
+                <section className="py-24 bg-[#FDFBF7]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-16 text-center">
                             Three Core Principles
@@ -65,33 +65,33 @@ export default function AboutPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                             {/* Principle 1 */}
                             <div className="text-center">
-                                <div className="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-3xl font-serif font-bold mx-auto mb-6">
+                                <div className="w-20 h-20 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center text-3xl font-serif font-bold mx-auto mb-6">
                                     1
                                 </div>
                                 <h3 className="font-serif text-2xl font-bold mb-4">Balance</h3>
-                                <p className="text-gray-600 leading-relaxed">
+                                <p className="text-[#2A2320]/80 leading-relaxed">
                                     Every element exists in harmony with the whole. Form and function are inseparable, each supporting the other with purposeful precision.
                                 </p>
                             </div>
 
                             {/* Principle 2 */}
                             <div className="text-center">
-                                <div className="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-3xl font-serif font-bold mx-auto mb-6">
+                                <div className="w-20 h-20 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center text-3xl font-serif font-bold mx-auto mb-6">
                                     2
                                 </div>
                                 <h3 className="font-serif text-2xl font-bold mb-4">Proportion</h3>
-                                <p className="text-gray-600 leading-relaxed">
+                                <p className="text-[#2A2320]/80 leading-relaxed">
                                     Relationships matter. Scale, ratio, and spatial logic define our work—creating pieces that feel correct, not just complete.
                                 </p>
                             </div>
 
                             {/* Principle 3 */}
                             <div className="text-center">
-                                <div className="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-3xl font-serif font-bold mx-auto mb-6">
+                                <div className="w-20 h-20 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center text-3xl font-serif font-bold mx-auto mb-6">
                                     3
                                 </div>
                                 <h3 className="font-serif text-2xl font-bold mb-4">Restraint</h3>
-                                <p className="text-gray-600 leading-relaxed">
+                                <p className="text-[#2A2320]/80 leading-relaxed">
                                     Excellence through elimination. We remove the unnecessary to reveal what truly matters—clarity over complexity.
                                 </p>
                             </div>
@@ -100,12 +100,12 @@ export default function AboutPage() {
                 </section>
 
                 {/* Founder Section */}
-                <section className="py-24 bg-gray-50">
+                <section className="py-24 bg-[#FAF7F2]">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* Founder Image */}
                             <div className="order-2 lg:order-1">
-                                <div className="aspect-[4/5] bg-gray-200 relative overflow-hidden">
+                                <div className="aspect-[4/5] bg-[#E8E1D5]/50 relative overflow-hidden">
                                     <Image
                                         src="https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/about%20page/Founder/IMG_0127.JPG"
                                         alt="Jay Gehlot - Founder of 3 Layered"
@@ -119,13 +119,13 @@ export default function AboutPage() {
                             {/* Content */}
                             <div className="order-1 lg:order-2">
                                 <div className="mb-8">
-                                    <p className="text-sm uppercase tracking-widest text-gray-500 mb-4">Founder</p>
+                                    <p className="text-sm uppercase tracking-widest text-[#2A2320]/60 mb-4">Founder</p>
                                     <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                                         Jay Gehlot
                                     </h2>
                                 </div>
 
-                                <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                                <div className="space-y-6 text-lg text-[#2A2320]/90 leading-relaxed">
                                     <p className="font-light">
                                         Jay Gehlot founded 3 Layered with a singular vision: to bring the timeless principles of Asian architectural thought into the realm of modern custom manufacturing.
                                     </p>
@@ -140,8 +140,8 @@ export default function AboutPage() {
                                     </p>
                                 </div>
 
-                                <div className="mt-8 pt-8 border-t border-gray-200">
-                                    <p className="text-sm text-gray-500 italic">
+                                <div className="mt-8 pt-8 border-t border-[#E8E1D5]">
+                                    <p className="text-sm text-[#2A2320]/60 italic">
                                         "We're not just making parts. We're translating centuries of architectural philosophy into physical form—one precision component at a time."
                                     </p>
                                 </div>
@@ -151,7 +151,7 @@ export default function AboutPage() {
                 </section>
 
                 {/* What We Create - Expanded Premium Version */}
-                <section className="py-16 md:py-32 bg-white">
+                <section className="py-16 md:py-32 bg-[#FDFBF7]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.h2
                             className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-12 md:mb-24 text-center"
@@ -173,7 +173,7 @@ export default function AboutPage() {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
                                 <div className="order-2 lg:order-1">
-                                    <div className="aspect-[4/3] relative overflow-hidden bg-gray-100">
+                                    <div className="aspect-[4/3] relative overflow-hidden bg-[#E8E1D5]">
                                         <Image
                                             src="/miniature_temples_showcase_1768254332054.png"
                                             alt="Museum-quality miniature temple replicas"
@@ -190,20 +190,20 @@ export default function AboutPage() {
                                     transition={{ duration: 0.8, delay: 0.4 }}
                                 >
                                     <div className="space-y-6">
-                                        <p className="text-sm uppercase tracking-widest text-gray-500">Category 01</p>
+                                        <p className="text-sm uppercase tracking-widest text-[#2A2320]/60">Category 01</p>
                                         <h3 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                                             Architectural Miniatures
                                         </h3>
-                                        <div className="w-24 h-1 bg-black"></div>
-                                        <p className="text-xl text-gray-700 leading-relaxed">
+                                        <div className="w-24 h-1 bg-[#1A110B]"></div>
+                                        <p className="text-xl text-[#2A2320]/90 leading-relaxed">
                                             Museum-quality replicas of world heritage temples and sacred structures. Each piece is meticulously engineered with precision and finished by hand, capturing centuries of architectural wisdom in miniature form.
                                         </p>
-                                        <p className="text-lg text-gray-600 leading-relaxed">
+                                        <p className="text-lg text-[#2A2320]/80 leading-relaxed">
                                             From the golden spires of Asian pagodas to the intricate carvings of ancient temples, we transform architectural heritage into tangible art. Every detail is preserved, every proportion honored.
                                         </p>
                                         <Link
                                             href="/products/category/miniature-temples"
-                                            className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-black pb-1 hover:opacity-60 transition-opacity mt-8"
+                                            className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-[#DFB374] pb-1 hover:opacity-60 transition-opacity mt-8"
                                         >
                                             Explore Collection <ArrowRight className="w-5 h-5" />
                                         </Link>
@@ -226,27 +226,27 @@ export default function AboutPage() {
                                     transition={{ duration: 0.8, delay: 0.4 }}
                                 >
                                     <div className="space-y-6">
-                                        <p className="text-sm uppercase tracking-widest text-gray-500">Category 02</p>
+                                        <p className="text-sm uppercase tracking-widest text-[#2A2320]/60">Category 02</p>
                                         <h3 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                                             Custom Print
                                         </h3>
-                                        <div className="w-24 h-1 bg-black"></div>
-                                        <p className="text-xl text-gray-700 leading-relaxed">
+                                        <div className="w-24 h-1 bg-[#1A110B]"></div>
+                                        <p className="text-xl text-[#2A2320]/90 leading-relaxed">
                                             Transform your ideas into reality with our custom 3D printing service. From concept to finished product, we bring your unique designs to life with precision and care.
                                         </p>
-                                        <p className="text-lg text-gray-600 leading-relaxed">
+                                        <p className="text-lg text-[#2A2320]/80 leading-relaxed">
                                             Whether you need a one-off prototype, replacement parts, or custom gifts, our team works with you through every step. Upload your design or work with us to create it, and we'll handle the rest with professional-grade materials and finishes.
                                         </p>
                                         <Link
                                             href="/custom-print"
-                                            className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-black pb-1 hover:opacity-60 transition-opacity mt-8"
+                                            className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-[#DFB374] pb-1 hover:opacity-60 transition-opacity mt-8"
                                         >
                                             Get Started <ArrowRight className="w-5 h-5" />
                                         </Link>
                                     </div>
                                 </motion.div>
                                 <div>
-                                    <div className="aspect-[4/3] relative overflow-hidden bg-gray-100">
+                                    <div className="aspect-[4/3] relative overflow-hidden bg-[#E8E1D5]">
                                         <Image
                                             src="/custom_parts_showcase_1768254367741.png"
                                             alt="Custom 3D printing service"
@@ -266,7 +266,7 @@ export default function AboutPage() {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
                                 <div className="order-2 lg:order-1">
-                                    <div className="aspect-[4/3] relative overflow-hidden bg-gray-100">
+                                    <div className="aspect-[4/3] relative overflow-hidden bg-[#E8E1D5]">
                                         <Image
                                             src="/custom_parts_showcase_1768254367741.png"
                                             alt="Bespoke custom-manufactured parts"
@@ -283,20 +283,20 @@ export default function AboutPage() {
                                     transition={{ duration: 0.8, delay: 0.4 }}
                                 >
                                     <div className="space-y-6">
-                                        <p className="text-sm uppercase tracking-widest text-gray-500">Category 03</p>
+                                        <p className="text-sm uppercase tracking-widest text-[#2A2320]/60">Category 03</p>
                                         <h3 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                                             Custom Parts
                                         </h3>
-                                        <div className="w-24 h-1 bg-black"></div>
-                                        <p className="text-xl text-gray-700 leading-relaxed">
+                                        <div className="w-24 h-1 bg-[#1A110B]"></div>
+                                        <p className="text-xl text-[#2A2320]/90 leading-relaxed">
                                             Bespoke manufacturing solutions for specialized components. From unique brackets and housings to one-of-a-kind mechanical assemblies, we bring impossible-to-source parts into existence.
                                         </p>
-                                        <p className="text-lg text-gray-600 leading-relaxed">
+                                        <p className="text-lg text-[#2A2320]/80 leading-relaxed">
                                             When off-the-shelf won't work, we engineer custom. Every part is manufactured to your exact specifications, with material selection and finishing options to match your application requirements.
                                         </p>
                                         <Link
                                             href="/products/category/custom-parts"
-                                            className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-black pb-1 hover:opacity-60 transition-opacity mt-8"
+                                            className="inline-flex items-center gap-3 text-lg font-medium border-b-2 border-[#DFB374] pb-1 hover:opacity-60 transition-opacity mt-8"
                                         >
                                             Request Custom Parts <ArrowRight className="w-5 h-5" />
                                         </Link>
@@ -308,7 +308,7 @@ export default function AboutPage() {
                 </section>
 
                 {/* CTA Section */}
-                <section className="py-24 bg-black text-white">
+                <section className="py-24 bg-[#1A110B] text-[#DFB374]">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">
                             Ready to Create Something Exceptional?
@@ -319,13 +319,13 @@ export default function AboutPage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
                                 href="/products/category/miniature-temples"
-                                className="inline-block bg-white text-black px-8 py-4 text-lg font-light hover:bg-gray-100 transition-colors"
+                                className="inline-block bg-[#FDFBF7] text-[#1A110B] px-8 py-4 text-lg font-light hover:bg-[#E8E1D5] transition-colors"
                             >
                                 Browse Products
                             </Link>
                             <Link
                                 href="/custom-print"
-                                className="inline-block border-2 border-white text-white px-8 py-4 text-lg font-light hover:bg-white hover:text-black transition-colors"
+                                className="inline-block border-2 border-[#DFB374] text-[#DFB374] px-8 py-4 text-lg font-light hover:bg-[#FDFBF7] hover:text-[#1A110B] transition-colors"
                             >
                                 Start Custom Project
                             </Link>

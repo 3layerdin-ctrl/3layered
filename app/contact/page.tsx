@@ -64,23 +64,23 @@ export default function ContactPage() {
         return (
             <SlideProvider>
                 <Navbar />
-                <main className="min-h-screen bg-gray-50 pt-24 pb-16">
+                <main className="min-h-screen bg-[#FAF7F2] pt-24 pb-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                        <div className="bg-white border border-gray-200 p-12 text-center">
+                        <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-12 text-center">
                             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
                                 <CheckCircle2 className="w-10 h-10 text-green-600" />
                             </div>
                             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Message Sent!</h1>
-                            <p className="text-xl text-gray-600 mb-8">
+                            <p className="text-xl text-[#2A2320]/80 mb-8">
                                 Thank you for reaching out. We've received your message and will get back to you within 24 hours.
                             </p>
-                            <div className="flex items-center justify-center gap-3 text-gray-600 mb-8">
+                            <div className="flex items-center justify-center gap-3 text-[#2A2320]/80 mb-8">
                                 <Mail className="w-5 h-5" />
                                 <span>Confirmation sent to {formData.email}</span>
                             </div>
                             <a
                                 href="/"
-                                className="inline-block bg-black text-white px-8 py-4 hover:bg-gray-900 transition-colors"
+                                className="inline-block bg-[#1A110B] text-[#DFB374] px-8 py-4 hover:bg-gray-900 transition-colors"
                             >
                                 Back to Home
                             </a>
@@ -94,14 +94,14 @@ export default function ContactPage() {
     return (
         <SlideProvider>
             <Navbar />
-            <main className="min-h-screen bg-gray-50 pt-24 pb-16">
+            <main className="min-h-screen bg-[#FAF7F2] pt-24 pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     {/* Hero Section */}
                     <div className="text-center mb-16">
                         <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                             Get In Touch
                         </h1>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-xl text-[#2A2320]/80 max-w-3xl mx-auto">
                             Have a question or ready to start your project? We'd love to hear from you.
                         </p>
                     </div>
@@ -110,14 +110,14 @@ export default function ContactPage() {
                         {/* Contact Information Cards */}
                         <div className="lg:col-span-1 space-y-6">
                             {/* Phone */}
-                            <div className="bg-white border border-gray-200 p-6 hover:border-black transition-colors duration-300">
+                            <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-6 hover:border-[#DFB374] transition-colors duration-300">
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center">
                                         <Phone className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <h3 className="font-serif text-xl font-bold mb-2">Phone</h3>
-                                        <p className="text-gray-600 mb-3">Give us a call</p>
+                                        <p className="text-[#2A2320]/80 mb-3">Give us a call</p>
                                         <a
                                             href="tel:+919982781000"
                                             className="text-lg font-medium hover:underline"
@@ -129,14 +129,14 @@ export default function ContactPage() {
                             </div>
 
                             {/* Email */}
-                            <div className="bg-white border border-gray-200 p-6 hover:border-black transition-colors duration-300">
+                            <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-6 hover:border-[#DFB374] transition-colors duration-300">
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center">
                                         <Mail className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <h3 className="font-serif text-xl font-bold mb-2">Email</h3>
-                                        <p className="text-gray-600 mb-3">Send us a message</p>
+                                        <p className="text-[#2A2320]/80 mb-3">Send us a message</p>
                                         <a
                                             href="mailto:info@3layered.com"
                                             className="text-lg font-medium hover:underline break-all"
@@ -148,15 +148,15 @@ export default function ContactPage() {
                             </div>
 
                             {/* Address */}
-                            <div className="bg-white border border-gray-200 p-6 hover:border-black transition-colors duration-300">
+                            <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-6 hover:border-[#DFB374] transition-colors duration-300">
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center">
                                         <MapPin className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <h3 className="font-serif text-xl font-bold mb-2">Office</h3>
-                                        <p className="text-gray-600 mb-3">Visit our workshop</p>
-                                        <address className="not-italic text-gray-700 leading-relaxed">
+                                        <p className="text-[#2A2320]/80 mb-3">Visit our workshop</p>
+                                        <address className="not-italic text-[#2A2320]/90 leading-relaxed">
                                             Pune<br />
                                             Maharashtra, India
                                         </address>
@@ -165,15 +165,15 @@ export default function ContactPage() {
                             </div>
 
                             {/* Business Hours */}
-                            <div className="bg-white border border-gray-200 p-6 hover:border-black transition-colors duration-300">
+                            <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-6 hover:border-[#DFB374] transition-colors duration-300">
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center">
                                         <Clock className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <h3 className="font-serif text-xl font-bold mb-2">Hours</h3>
-                                        <p className="text-gray-600 mb-3">We're here for you</p>
-                                        <div className="text-gray-700 space-y-1">
+                                        <p className="text-[#2A2320]/80 mb-3">We're here for you</p>
+                                        <div className="text-[#2A2320]/90 space-y-1">
                                             <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
                                             <p>Saturday: 10:00 AM - 4:00 PM</p>
                                             <p>Sunday: Closed</p>
@@ -183,14 +183,14 @@ export default function ContactPage() {
                             </div>
 
                             {/* Instagram */}
-                            <div className="bg-white border border-gray-200 p-6 hover:border-black transition-colors duration-300">
+                            <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-6 hover:border-[#DFB374] transition-colors duration-300">
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-[#1A110B] text-[#DFB374] rounded-full flex items-center justify-center">
                                         <Instagram className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <h3 className="font-serif text-xl font-bold mb-2">Instagram</h3>
-                                        <p className="text-gray-600 mb-3">Follow our journey</p>
+                                        <p className="text-[#2A2320]/80 mb-3">Follow our journey</p>
                                         <a
                                             href="https://www.instagram.com/3layered.global?igsh=MTZ5bjR0MXBidXNyZQ=="
                                             target="_blank"
@@ -206,9 +206,9 @@ export default function ContactPage() {
 
                         {/* Contact Form */}
                         <div className="lg:col-span-2">
-                            <div className="bg-white border border-gray-200 p-8 md:p-12">
+                            <div className="bg-[#FDFBF7] border border-[#E8E1D5] p-8 md:p-12">
                                 <h2 className="font-serif text-3xl font-bold mb-6">Send Us a Message</h2>
-                                <p className="text-gray-600 mb-8">
+                                <p className="text-[#2A2320]/80 mb-8">
                                     Fill out the form below and we'll get back to you as soon as possible.
                                 </p>
 
@@ -225,7 +225,7 @@ export default function ContactPage() {
                                             required
                                             value={formData.name}
                                             onChange={handleInputChange}
-                                            className="w-full border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors"
+                                            className="w-full border-2 border-[#E8E1D5] px-4 py-3 focus:border-[#DFB374] focus:outline-none transition-colors"
                                             placeholder="John Doe"
                                         />
                                     </div>
@@ -243,7 +243,7 @@ export default function ContactPage() {
                                                 required
                                                 value={formData.email}
                                                 onChange={handleInputChange}
-                                                className="w-full border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors"
+                                                className="w-full border-2 border-[#E8E1D5] px-4 py-3 focus:border-[#DFB374] focus:outline-none transition-colors"
                                                 placeholder="john@example.com"
                                             />
                                         </div>
@@ -258,7 +258,7 @@ export default function ContactPage() {
                                                 name="phone"
                                                 value={formData.phone}
                                                 onChange={handleInputChange}
-                                                className="w-full border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors"
+                                                className="w-full border-2 border-[#E8E1D5] px-4 py-3 focus:border-[#DFB374] focus:outline-none transition-colors"
                                                 placeholder="+91 1234567890"
                                             />
                                         </div>
@@ -275,7 +275,7 @@ export default function ContactPage() {
                                             required
                                             value={formData.subject}
                                             onChange={handleInputChange}
-                                            className="w-full border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors"
+                                            className="w-full border-2 border-[#E8E1D5] px-4 py-3 focus:border-[#DFB374] focus:outline-none transition-colors"
                                         >
                                             <option value="">Select a subject</option>
                                             <option value="general">General Inquiry</option>
@@ -299,7 +299,7 @@ export default function ContactPage() {
                                             value={formData.message}
                                             onChange={handleInputChange}
                                             rows={6}
-                                            className="w-full border-2 border-gray-200 px-4 py-3 focus:border-black focus:outline-none transition-colors resize-none"
+                                            className="w-full border-2 border-[#E8E1D5] px-4 py-3 focus:border-[#DFB374] focus:outline-none transition-colors resize-none"
                                             placeholder="Tell us how we can help you..."
                                         />
                                     </div>
@@ -307,13 +307,13 @@ export default function ContactPage() {
                                     {/* Submit Button */}
                                     <button
                                         type="submit"
-                                        className="w-full bg-black text-white py-4 px-6 text-lg font-medium hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center gap-3 group"
+                                        className="w-full bg-gradient-to-r from-[#DFB374] to-[#C99144] hover:from-[#C99144] hover:to-[#B88033] text-[#1A110B] py-4 px-6 text-lg font-bold rounded-full shadow-[0_0_20px_rgba(223,179,116,0.3)] transition-all duration-300 flex items-center justify-center gap-3 group"
                                     >
                                         <span>Send Message</span>
                                         <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </button>
 
-                                    <p className="text-xs text-center text-gray-500">
+                                    <p className="text-xs text-center text-[#2A2320]/60">
                                         We'll respond within 24 hours on business days
                                     </p>
                                 </form>

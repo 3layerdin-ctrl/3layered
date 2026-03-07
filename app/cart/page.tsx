@@ -17,36 +17,36 @@ export default function CartPage() {
     return (
         <SlideProvider>
             <Navbar />
-            <main className="min-h-screen bg-gray-50 pt-24">
+            <main className="min-h-screen bg-[#FAF7F2] pt-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
                     {/* Header */}
                     <div className="mb-6 md:mb-12">
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors mb-4 md:mb-6"
+                            className="inline-flex items-center gap-2 text-sm text-[#2A2320]/70 hover:text-[#DFB374] transition-colors mb-4 md:mb-6"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             Continue Shopping
                         </Link>
-                        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4">
+                        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4 text-[#1A110B]">
                             Shopping Cart
                         </h1>
-                        <p className="text-gray-600 text-lg">
+                        <p className="text-[#2A2320]/80 text-lg">
                             {cart.totalItems} {cart.totalItems === 1 ? 'item' : 'items'} in your cart
                         </p>
                     </div>
 
                     {cart.items.length === 0 ? (
                         /* Empty Cart State */
-                        <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-16 text-center">
-                            <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-6" />
-                            <h2 className="font-serif text-3xl font-bold mb-4">Your cart is empty</h2>
-                            <p className="text-gray-600 mb-8">
+                        <div className="bg-white border border-[#E8E1D5] rounded-xl shadow-sm p-8 md:p-16 text-center">
+                            <ShoppingBag className="w-24 h-24 text-[#DFB374] mx-auto mb-6 opacity-50" />
+                            <h2 className="font-serif text-3xl font-bold mb-4 text-[#1A110B]">Your cart is empty</h2>
+                            <p className="text-[#2A2320]/80 mb-8">
                                 Discover our collection of premium architectural miniatures
                             </p>
                             <Link
                                 href="/products/category/miniature-temples"
-                                className="inline-block bg-black text-white px-8 py-4 hover:bg-gray-900 transition-colors"
+                                className="inline-block bg-gradient-to-r from-[#DFB374] to-[#C99144] hover:from-[#C99144] hover:to-[#B88033] text-[#1A110B] px-8 py-4 font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(223,179,116,0.3)]"
                             >
                                 Explore Products
                             </Link>
@@ -58,13 +58,13 @@ export default function CartPage() {
                                 {cart.items.map(item => (
                                     <div
                                         key={item.id}
-                                        className="bg-white border border-gray-200 p-4 sm:p-6"
+                                        className="bg-white border border-[#E8E1D5] p-4 sm:p-6 rounded-xl shadow-sm"
                                     >
                                         <div className="flex gap-3 sm:gap-4">
                                             {/* Product Image */}
                                             <Link
                                                 href={`/products/${item.productSlug}`}
-                                                className="relative w-20 h-20 sm:w-28 sm:h-28 bg-gray-100 flex-shrink-0 overflow-hidden"
+                                                className="relative w-20 h-20 sm:w-28 sm:h-28 bg-[#FDFBF7] flex-shrink-0 overflow-hidden border border-[#E8E1D5]/50 rounded-lg"
                                             >
                                                 <Image
                                                     src={item.productImage}
@@ -80,16 +80,16 @@ export default function CartPage() {
                                                 <div className="flex items-start justify-between gap-2 mb-1">
                                                     <Link
                                                         href={`/products/${item.productSlug}`}
-                                                        className="font-serif text-sm sm:text-xl font-bold hover:underline leading-snug line-clamp-2 min-w-0"
+                                                        className="font-serif text-sm sm:text-xl font-bold text-[#1A110B] hover:text-[#DFB374] transition-colors leading-snug line-clamp-2 min-w-0"
                                                     >
                                                         {item.productName}
                                                     </Link>
                                                     <div className="text-right flex-shrink-0">
-                                                        <div className="font-serif text-sm sm:text-xl font-bold">
+                                                        <div className="font-serif text-sm sm:text-xl font-bold text-[#1A110B]">
                                                             {formatPrice(item.totalPrice, item.displayFormat)}
                                                         </div>
                                                         {item.quantity > 1 && (
-                                                            <div className="text-xs text-gray-500 mt-0.5">
+                                                            <div className="text-xs text-[#2A2320]/60 mt-0.5">
                                                                 {formatPrice(item.totalPrice / item.quantity, item.displayFormat)} each
                                                             </div>
                                                         )}
@@ -100,10 +100,10 @@ export default function CartPage() {
                                                 {Object.keys(item.customizations).length > 0 && (
                                                     <div className="space-y-0.5 mb-2">
                                                         {Object.values(item.customizations).map((custom, idx) => (
-                                                            <div key={idx} className="text-xs text-gray-600">
-                                                                <span className="font-medium">{custom.variantName}</span>
+                                                            <div key={idx} className="text-xs text-[#2A2320]/70">
+                                                                <span className="font-medium text-[#1A110B]">{custom.variantName}</span>
                                                                 {custom.priceModifier !== 0 && (
-                                                                    <span className="ml-1">
+                                                                    <span className="ml-1 text-[#DFB374]">
                                                                         (+{formatPrice(custom.priceModifier, item.displayFormat)})
                                                                     </span>
                                                                 )}
@@ -113,19 +113,19 @@ export default function CartPage() {
                                                 )}
 
                                                 {/* Quantity Controls + Remove */}
-                                                <div className="flex items-center justify-between mt-3">
-                                                    <div className="flex items-center border-2 border-gray-200">
+                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4 gap-4">
+                                                    <div className="flex items-center border border-[#E8E1D5] rounded-full overflow-hidden w-max">
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                            className="p-2 hover:bg-gray-100 transition-colors"
+                                                            className="p-2 hover:bg-[#FAF7F2] text-[#2A2320] transition-colors"
                                                             aria-label="Decrease quantity"
                                                         >
                                                             <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                                         </button>
-                                                        <span className="px-3 text-sm font-medium">{item.quantity}</span>
+                                                        <span className="px-3 text-sm font-medium text-[#1A110B]">{item.quantity}</span>
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                            className="p-2 hover:bg-gray-100 transition-colors"
+                                                            className="p-2 hover:bg-[#FAF7F2] text-[#2A2320] transition-colors"
                                                             aria-label="Increase quantity"
                                                         >
                                                             <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -134,7 +134,7 @@ export default function CartPage() {
 
                                                     <button
                                                         onClick={() => removeFromCart(item.id)}
-                                                        className="text-xs sm:text-sm text-red-600 hover:underline"
+                                                        className="text-xs sm:text-sm text-red-600/80 hover:text-red-700 font-medium transition-colors"
                                                     >
                                                         Remove
                                                     </button>
@@ -147,59 +147,61 @@ export default function CartPage() {
 
                             {/* Order Summary */}
                             <div className="lg:col-span-1">
-                                <div className="bg-white border border-gray-200 p-4 md:p-8 lg:sticky lg:top-32">
-                                    <h2 className="font-serif text-2xl font-bold mb-6">Order Summary</h2>
+                                <div className="bg-white border border-[#E8E1D5] p-6 md:p-8 rounded-xl shadow-sm lg:sticky lg:top-32">
+                                    <h2 className="font-serif text-2xl font-bold mb-6 text-[#1A110B]">Order Summary</h2>
 
-                                    <div className="space-y-3 mb-6">
+                                    <div className="space-y-4 mb-6">
                                         <div className="flex justify-between items-center gap-2 text-sm sm:text-base">
-                                            <span className="text-gray-600 flex-shrink-0">Subtotal</span>
-                                            <span className="font-medium">₹{cart.subtotal.toLocaleString()}</span>
+                                            <span className="text-[#2A2320]/80 flex-shrink-0">Subtotal</span>
+                                            <span className="font-medium text-[#1A110B]">₹{cart.subtotal.toLocaleString()}</span>
                                         </div>
                                         <div className="flex justify-between items-start gap-2 text-sm sm:text-base">
-                                            <span className="text-gray-600 flex-shrink-0">Shipping</span>
-                                            <span className="text-xs sm:text-sm text-gray-500 text-right">Calculated at checkout</span>
+                                            <span className="text-[#2A2320]/80 flex-shrink-0">Shipping</span>
+                                            <span className="text-xs sm:text-sm text-[#2A2320]/60 text-right">Calculated at checkout</span>
                                         </div>
                                         <div className="flex justify-between items-start gap-2 text-sm sm:text-base">
-                                            <span className="text-gray-600 flex-shrink-0">Tax</span>
-                                            <span className="text-xs sm:text-sm text-gray-500 text-right">Calculated at checkout</span>
+                                            <span className="text-[#2A2320]/80 flex-shrink-0">Tax</span>
+                                            <span className="text-xs sm:text-sm text-[#2A2320]/60 text-right">Calculated at checkout</span>
                                         </div>
                                     </div>
 
-                                    <div className="border-t border-gray-200 pt-4 mb-6">
+                                    <div className="border-t border-[#E8E1D5] pt-4 mb-8">
                                         <div className="flex justify-between items-baseline gap-2">
-                                            <span className="text-base sm:text-lg font-medium">Total</span>
-                                            <span className="font-serif text-2xl sm:text-3xl font-bold">
+                                            <span className="text-base sm:text-lg font-medium text-[#1A110B]">Total</span>
+                                            <span className="font-serif text-2xl sm:text-3xl font-bold text-[#1A110B]">
                                                 ₹{cart.subtotal.toLocaleString()}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <Link
-                                        href="/checkout"
-                                        className="block w-full text-center bg-black text-white py-4 px-6 text-lg font-light tracking-wide hover:bg-gray-900 transition-colors duration-200 mb-4"
-                                    >
-                                        Proceed to Checkout
-                                    </Link>
+                                    <div className="space-y-3">
+                                        <Link
+                                            href="/checkout"
+                                            className="block w-full text-center bg-gradient-to-r from-[#DFB374] to-[#C99144] hover:from-[#C99144] hover:to-[#B88033] text-[#1A110B] py-4 px-6 text-lg font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(223,179,116,0.3)]"
+                                        >
+                                            Proceed to Checkout
+                                        </Link>
 
-                                    <Link
-                                        href="/products/category/miniature-temples"
-                                        className="block w-full text-center border-2 border-black text-black py-3 px-6 font-light hover:bg-gray-50 transition-colors duration-200"
-                                    >
-                                        Continue Shopping
-                                    </Link>
+                                        <Link
+                                            href="/products/category/miniature-temples"
+                                            className="block w-full text-center border border-[#DFB374] text-[#DFB374] hover:bg-[#DFB374]/10 py-4 px-6 font-semibold rounded-full transition-all duration-300"
+                                        >
+                                            Continue Shopping
+                                        </Link>
+                                    </div>
 
                                     {/* Trust Badges */}
-                                    <div className="mt-8 pt-8 border-t border-gray-200 space-y-3 text-sm text-gray-600">
+                                    <div className="mt-8 pt-8 border-t border-[#E8E1D5] space-y-3 text-sm text-[#2A2320]/70">
                                         <div className="flex items-center gap-2">
-                                            <span>✓</span>
+                                            <span className="text-[#DFB374]">✓</span>
                                             <span>Secure payment processing</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span>✓</span>
+                                            <span className="text-[#DFB374]">✓</span>
                                             <span>Free shipping on all orders</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span>✓</span>
+                                            <span className="text-[#DFB374]">✓</span>
                                             <span>30-day return policy</span>
                                         </div>
                                     </div>

@@ -138,14 +138,14 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                     <>
                                         <button
                                             onClick={prevImage}
-                                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-[#2A2320] text-[#2A2320] hover:text-white border border-[#E8E1D5]/80 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 active:scale-95 z-20"
+                                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#FDFBF7]/95 backdrop-blur-sm hover:bg-[#2A2320] text-[#2A2320] hover:text-white border border-[#E8E1D5]/80 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 active:scale-95 z-20"
                                             aria-label="Previous image"
                                         >
                                             <ChevronLeft className="w-5 h-5" />
                                         </button>
                                         <button
                                             onClick={nextImage}
-                                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-[#2A2320] text-[#2A2320] hover:text-white border border-[#E8E1D5]/80 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 active:scale-95 z-20"
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#FDFBF7]/95 backdrop-blur-sm hover:bg-[#2A2320] text-[#2A2320] hover:text-white border border-[#E8E1D5]/80 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110 active:scale-95 z-20"
                                             aria-label="Next image"
                                         >
                                             <ChevronRight className="w-5 h-5" />
@@ -154,7 +154,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                 )}
 
                                 {/* Image Counter */}
-                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md shadow-md text-[#2A2320] px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest z-20 border border-[#E8E1D5]/50 flex items-center gap-2">
+                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#FDFBF7]/90 backdrop-blur-md shadow-md text-[#2A2320] px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest z-20 border border-[#E8E1D5]/50 flex items-center gap-2">
                                     <span className="w-1.5 h-1.5 rounded-full bg-amber-700 animate-pulse"></span>
                                     {currentImageIndex + 1} / {sortedGallery.length}
                                 </div>
@@ -167,7 +167,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                         <button
                                             key={image.id}
                                             onClick={() => setCurrentImageIndex(index)}
-                                            className={`relative aspect-square bg-white rounded-xl shadow-sm border overflow-hidden transition-all duration-300 ${index === currentImageIndex
+                                            className={`relative aspect-square bg-[#FDFBF7] rounded-xl shadow-sm border overflow-hidden transition-all duration-300 ${index === currentImageIndex
                                                 ? 'border-amber-700 ring-2 ring-amber-700/20 opacity-100'
                                                 : 'border-[#E8E1D5] opacity-60 hover:opacity-100 hover:border-amber-700/40'
                                                 }`}
@@ -193,7 +193,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                         Flat {data.price.discountPercent}% OFF
                                     </span>
                                 ) : data.badge.enabled && (
-                                    <span className="inline-flex items-center text-xs tracking-widest uppercase border-2 border-black px-5 py-2 font-medium hover:bg-black hover:text-white transition-colors duration-200">
+                                    <span className="inline-flex items-center text-xs tracking-widest uppercase border-2 border-[#DFB374] px-5 py-2 font-medium hover:bg-black hover:text-white transition-colors duration-200">
                                         {data.badge.text}
                                     </span>
                                 )}
@@ -204,20 +204,20 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                 <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 tracking-tight">
                                     {data.productName}
                                 </h1>
-                                <p className="text-base md:text-xl text-gray-600 font-light leading-relaxed">
+                                <p className="text-base md:text-xl text-[#2A2320]/80 font-light leading-relaxed">
                                     {data.tagline}
                                 </p>
                             </div>
 
                             {/* Price */}
-                            <div className="border-t border-b border-gray-200 py-6">
+                            <div className="border-t border-b border-[#E8E1D5] py-6">
                                 <div className="grid grid-cols-[1fr_auto] items-end gap-4">
                                     {isPrebook ? (
                                         <div className="space-y-3">
                                             {/* Pricing */}
                                             <div className="flex flex-col gap-1">
                                                 {data.price.originalAmount && (
-                                                    <div className="text-sm md:text-base text-gray-400 line-through font-medium">
+                                                    <div className="text-sm md:text-base text-[#2A2320]/50 line-through font-medium">
                                                         {data.price.displayFormat.replace(
                                                             '{amount}',
                                                             data.price.originalAmount.toLocaleString('en-IN')
@@ -245,7 +245,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                         <div className="space-y-2">
                                             <div className="flex flex-col gap-1">
                                                 {data.price.compareAtPrice && (
-                                                    <div className="text-sm md:text-base text-gray-400 line-through font-medium">
+                                                    <div className="text-sm md:text-base text-[#2A2320]/50 line-through font-medium">
                                                         {data.price.displayFormat.replace(
                                                             '{amount}',
                                                             data.price.compareAtPrice.toLocaleString()
@@ -297,7 +297,7 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                                         )}
                                         <button
                                             onClick={handleAddToCart}
-                                            className="w-full border-2 border-[#2A2320] text-[#2A2320] bg-white hover:bg-[#FAF7F2] py-4 px-8 text-lg font-bold tracking-wide rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 group"
+                                            className="w-full border-2 border-[#2A2320] text-[#2A2320] bg-[#FDFBF7] hover:bg-[#FAF7F2] py-4 px-8 text-lg font-bold tracking-wide rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 group"
                                         >
                                             <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                                             <span className="relative z-10">{data.cta.primaryLabel}</span>
@@ -307,17 +307,17 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                             </div>
 
                             {/* Quick Info */}
-                            <div className="text-sm text-gray-600 space-y-2 pt-4">
+                            <div className="text-sm text-[#2A2320]/80 space-y-2 pt-4">
                                 <div className="flex items-start gap-2">
-                                    <span className="text-black">✓</span>
+                                    <span className="text-[#1A110B]">✓</span>
                                     <span>Hand-finished by master craftspeople</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-black">✓</span>
+                                    <span className="text-[#1A110B]">✓</span>
                                     <span>Museum-quality protective packaging</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-black">✓</span>
+                                    <span className="text-[#1A110B]">✓</span>
                                     <span>30-day satisfaction guarantee</span>
                                 </div>
                             </div>
@@ -326,12 +326,12 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                 </div>
 
                 {/* Mobile Sticky CTA */}
-                <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
+                <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#FDFBF7] border-t border-[#E8E1D5] p-4 z-50">
                     <div className="space-y-3">
                         {isPrebook ? (
                             <button
                                 onClick={() => setIsPrebookModalOpen(true)}
-                                className="w-full bg-black text-white py-3 px-6 text-base font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
+                                className="w-full bg-[#1A110B] text-[#DFB374] py-3 px-6 text-base font-light tracking-wide hover:scale-[1.02] transition-colors duration-200"
                             >
                                 {data.cta.primaryLabel}
                             </button>
@@ -339,14 +339,14 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
                             <>
                                 <button
                                     onClick={handleAddToCart}
-                                    className="w-full bg-black text-white py-3 px-6 text-base font-light tracking-wide hover:bg-gray-900 transition-colors duration-200"
+                                    className="w-full bg-[#1A110B] text-[#DFB374] py-3 px-6 text-base font-light tracking-wide hover:scale-[1.02] transition-colors duration-200"
                                 >
                                     {data.cta.primaryLabel}
                                 </button>
                                 {data.cta.secondaryLabel && (
                                     <button
                                         onClick={handleBuyNow}
-                                        className="w-full border border-black text-black py-3 px-6 text-base font-light tracking-wide hover:bg-gray-50 transition-colors duration-200"
+                                        className="w-full border border-[#DFB374] text-[#1A110B] py-3 px-6 text-base font-light tracking-wide hover:bg-[#E8E1D5]/50 transition-colors duration-200"
                                     >
                                         {data.cta.secondaryLabel}
                                     </button>

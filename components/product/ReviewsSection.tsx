@@ -42,7 +42,7 @@ export function ReviewsSection({ data }: ReviewsSectionProps) {
     };
 
     return (
-        <section className="py-20 bg-white border-t border-gray-200">
+        <section className="py-20 bg-[#FDFBF7] border-t border-[#E8E1D5]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className="mb-12">
@@ -51,14 +51,14 @@ export function ReviewsSection({ data }: ReviewsSectionProps) {
                     </h2>
 
                     {/* Average Rating */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-8 border-b border-gray-200">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-8 border-b border-[#E8E1D5]">
                         <div className="flex items-center gap-3">
                             <div className="text-5xl font-light">
                                 {data.averageRating.toFixed(1)}
                             </div>
                             <div>
                                 {renderStars(Math.round(data.averageRating), 'lg')}
-                                <p className="text-sm text-gray-600 mt-1">
+                                <p className="text-sm text-[#2A2320]/80 mt-1">
                                     Based on {data.totalReviews} review{data.totalReviews !== 1 ? 's' : ''}
                                 </p>
                             </div>
@@ -71,7 +71,7 @@ export function ReviewsSection({ data }: ReviewsSectionProps) {
                     {data.reviews.map((review) => (
                         <div
                             key={review.id}
-                            className="border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300"
+                            className="border border-[#E8E1D5] p-6 hover:shadow-lg transition-shadow duration-300"
                         >
                             {/* Review Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -79,7 +79,7 @@ export function ReviewsSection({ data }: ReviewsSectionProps) {
                                     <div className="flex items-center gap-3 mb-2">
                                         {renderStars(review.rating)}
                                         {review.verifiedPurchase && (
-                                            <span className="text-xs bg-black text-white px-2 py-0.5 uppercase tracking-wider">
+                                            <span className="text-xs bg-[#1A110B] text-[#DFB374] px-2 py-0.5 uppercase tracking-wider">
                                                 Verified Purchase
                                             </span>
                                         )}
@@ -87,20 +87,20 @@ export function ReviewsSection({ data }: ReviewsSectionProps) {
                                     <h3 className="font-medium text-lg mb-1">
                                         {review.title}
                                     </h3>
-                                    <p className="text-sm text-gray-600">
+                                    <p className="text-sm text-[#2A2320]/80">
                                         {review.author} • {formatDate(review.date)}
                                     </p>
                                 </div>
                             </div>
 
                             {/* Review Content */}
-                            <p className="text-gray-700 leading-relaxed mb-4">
+                            <p className="text-[#2A2320]/90 leading-relaxed mb-4">
                                 {review.comment}
                             </p>
 
                             {/* Helpful Count */}
                             {review.helpfulCount > 0 && (
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-[#2A2320]/60">
                                     {review.helpfulCount} {review.helpfulCount === 1 ? 'person' : 'people'} found this helpful
                                 </p>
                             )}
