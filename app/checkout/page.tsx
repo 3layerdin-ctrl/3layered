@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { ArrowLeft, Lock, CreditCard, Truck, Package, X, Tag, Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { CelebrationAnimation } from '@/components/CelebrationAnimation';
-import { pixelInitiateCheckout, pixelPurchase } from '@/lib/pixel';
+import { pixelInitiateCheckout } from '@/lib/pixel';
 
 
 export default function CheckoutPage() {
@@ -231,13 +231,15 @@ export default function CheckoutPage() {
                             const orderResult = await createOrderResponse.json();
 
                             if (orderResult.success) {
-                                pixelPurchase({
-                                    value: finalTotal,
-                                    contentIds: cart.items.map(i => i.productId),
-                                    numItems: cart.totalItems,
+                                const params = new URLSearchParams({
+                                    orderNumber: orderResult.orderNumber,
+                                    paymentMethod: 'online',
+                                    total: String(finalTotal),
+                                    numItems: String(cart.totalItems),
+                                    contentIds: cart.items.map(i => i.productId).join(','),
                                 });
                                 clearCart();
-                                router.push(`/order-success?orderNumber=${orderResult.orderNumber}&paymentMethod=online`);
+                                router.push(`/order-success?${params.toString()}`);
                             } else {
                                 alert('Payment successful but order creation failed. Please contact support.');
                             }
@@ -323,13 +325,15 @@ export default function CheckoutPage() {
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    pixelPurchase({
-                        value: finalTotal,
-                        contentIds: cart.items.map(i => i.productId),
-                        numItems: cart.totalItems,
+                    const params = new URLSearchParams({
+                        orderNumber: data.orderNumber,
+                        paymentMethod: 'cod',
+                        total: String(finalTotal),
+                        numItems: String(cart.totalItems),
+                        contentIds: cart.items.map(i => i.productId).join(','),
                     });
                     clearCart();
-                    router.push(`/order-success?orderNumber=${data.orderNumber}&paymentMethod=cod`);
+                    router.push(`/order-success?${params.toString()}`);
                 } else {
                     alert('Failed to place order. Please try again.');
                 }

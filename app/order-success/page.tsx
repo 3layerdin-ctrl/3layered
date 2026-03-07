@@ -1,16 +1,31 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 import { SlideProvider } from '@/contexts/SlideContext';
 import Link from 'next/link';
 import { CheckCircle, Mail, Package } from 'lucide-react';
+import { pixelPurchase } from '@/lib/pixel';
 
 function OrderSuccessContent() {
     const searchParams = useSearchParams();
     const orderNumber = searchParams.get('orderNumber');
     const paymentMethod = searchParams.get('paymentMethod') || 'cod';
+    const total = parseFloat(searchParams.get('total') || '0');
+    const numItems = parseInt(searchParams.get('numItems') || '1', 10);
+    const contentIds = (searchParams.get('contentIds') || '').split(',').filter(Boolean);
+
+    useEffect(() => {
+        if (total > 0) {
+            pixelPurchase({
+                value: total,
+                contentIds: contentIds.length > 0 ? contentIds : ['unknown'],
+                numItems,
+            });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
