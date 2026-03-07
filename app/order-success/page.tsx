@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 import { SlideProvider } from '@/contexts/SlideContext';
@@ -15,9 +15,11 @@ function OrderSuccessContent() {
     const total = parseFloat(searchParams.get('total') || '0');
     const numItems = parseInt(searchParams.get('numItems') || '1', 10);
     const contentIds = (searchParams.get('contentIds') || '').split(',').filter(Boolean);
+    const hasFiredRef = useRef(false);
 
     useEffect(() => {
-        if (total > 0) {
+        if (total > 0 && !hasFiredRef.current) {
+            hasFiredRef.current = true;
             pixelPurchase({
                 value: total,
                 contentIds: contentIds.length > 0 ? contentIds : ['unknown'],
@@ -25,7 +27,7 @@ function OrderSuccessContent() {
             });
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [total]);
 
     return (
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
