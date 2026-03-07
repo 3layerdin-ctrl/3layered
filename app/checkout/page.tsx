@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { ArrowLeft, Lock, CreditCard, Truck, Package, X, Tag, Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { CelebrationAnimation } from '@/components/CelebrationAnimation';
+import { pixelInitiateCheckout, pixelPurchase } from '@/lib/pixel';
 
 
 export default function CheckoutPage() {
@@ -101,6 +102,17 @@ export default function CheckoutPage() {
         }
         return Math.max(total, 0); // Ensure total doesn't go negative
     };
+
+    // Fire Meta Pixel InitiateCheckout on mount
+    useEffect(() => {
+        if (cart.totalItems > 0) {
+            pixelInitiateCheckout({
+                value: cart.subtotal,
+                numItems: cart.totalItems,
+            });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Load Razorpay script
     useEffect(() => {
@@ -219,6 +231,11 @@ export default function CheckoutPage() {
                             const orderResult = await createOrderResponse.json();
 
                             if (orderResult.success) {
+                                pixelPurchase({
+                                    value: finalTotal,
+                                    contentIds: cart.items.map(i => i.productId),
+                                    numItems: cart.totalItems,
+                                });
                                 clearCart();
                                 router.push(`/order-success?orderNumber=${orderResult.orderNumber}&paymentMethod=online`);
                             } else {
@@ -306,6 +323,11 @@ export default function CheckoutPage() {
                 const data = await response.json();
 
                 if (response.ok && data.success) {
+                    pixelPurchase({
+                        value: finalTotal,
+                        contentIds: cart.items.map(i => i.productId),
+                        numItems: cart.totalItems,
+                    });
                     clearCart();
                     router.push(`/order-success?orderNumber=${data.orderNumber}&paymentMethod=cod`);
                 } else {

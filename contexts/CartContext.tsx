@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Cart, CartItem, CartContextType } from '@/types/cart';
+import { pixelAddToCart } from '@/lib/pixel';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -50,6 +51,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
             id: itemId,
             totalPrice,
         };
+
+        pixelAddToCart({
+            contentId: itemData.productId,
+            contentName: itemData.productName,
+            value: totalPrice,
+        });
 
         setCart(prev => {
             const newItems = [...prev.items, newItem];
