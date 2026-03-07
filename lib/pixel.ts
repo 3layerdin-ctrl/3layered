@@ -51,3 +51,18 @@ export function pixelPurchase(params: {
         currency: params.currency ?? 'INR',
     });
 }
+
+export function pixelViewContent(params: {
+    contentId: string;
+    contentName: string;
+    value?: number;
+    currency?: string;
+}) {
+    fbq('track', 'ViewContent', {
+        content_ids: [params.contentId],
+        content_name: params.contentName,
+        content_type: 'product',
+        value: params.value ?? 0,
+        currency: params.currency ?? 'INR',
+    });
+}

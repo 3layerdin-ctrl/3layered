@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { HeroSection as HeroSectionType } from '@/types/product';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { PrebookModal } from './PrebookModal';
+import { pixelViewContent } from '@/lib/pixel';
 
 interface HeroSectionProps {
     data: HeroSectionType;
@@ -22,6 +23,16 @@ export function HeroSection({ data, productId, productSlug, isPrebook = false, p
     const { addToCart } = useCart();
     const touchStartX = useRef<number | null>(null);
     const touchEndX = useRef<number | null>(null);
+
+    useEffect(() => {
+        pixelViewContent({
+            contentId: productId,
+            contentName: data.productName,
+            value: data.price.amount,
+            currency: data.price.currency,
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const nextImage = () => {
         setCurrentImageIndex((prev) => (prev + 1) % sortedGallery.length);
