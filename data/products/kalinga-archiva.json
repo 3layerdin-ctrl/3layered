@@ -41,24 +41,31 @@
         },
         "gallery": [
             {
+                "id": "cover-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/kalinga.jpg.jpeg",
+                "alt": "Kalinga Archiva - Cover image",
+                "order": 1,
+                "isHero": true
+            },
+            {
                 "id": "hero-1",
                 "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%202.jpg",
                 "alt": "Kalinga Archiva - Detailed view showing intricate temple carvings",
-                "order": 1,
-                "isHero": true
+                "order": 2,
+                "isHero": false
             },
             {
                 "id": "detail-1",
                 "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva1.jpg",
                 "alt": "Kalinga Archiva - Front view of ancient Indian temple architecture model",
-                "order": 2,
+                "order": 3,
                 "isHero": false
             },
             {
                 "id": "detail-2",
                 "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Kalinga%20Archiva/Kalinga%20Archiva%203.jpg",
                 "alt": "Kalinga Archiva - Side perspective of temple structure",
-                "order": 3,
+                "order": 4,
                 "isHero": false
             }
         ]

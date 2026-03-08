@@ -41,24 +41,31 @@
         },
         "gallery": [
             {
+                "id": "cover-1",
+                "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/mahal.jpg.jpeg",
+                "alt": "Mahal Archiva - Cover image",
+                "order": 1,
+                "isHero": true
+            },
+            {
                 "id": "hero-1",
                 "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%203.jpg",
                 "alt": "Mahal Archiva - Elegant royal palace architecture model",
-                "order": 1,
-                "isHero": true
+                "order": 2,
+                "isHero": false
             },
             {
                 "id": "detail-1",
                 "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%202.jpg",
                 "alt": "Mahal Archiva - Detailed view of palace domes and arches",
-                "order": 2,
+                "order": 3,
                 "isHero": false
             },
             {
                 "id": "detail-2",
                 "url": "https://jwgtjfmwlnttjdvycuqj.supabase.co/storage/v1/object/public/displlay/products/Architect%20models/Mahal%20archiva/Mahal%20archiva%201.jpg",
                 "alt": "Mahal Archiva - Side perspective showing architectural symmetry",
-                "order": 3,
+                "order": 4,
                 "isHero": false
             }
         ]
