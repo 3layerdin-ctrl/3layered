@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 
 const BRANDS = [
     { name: "ideal Brandzz", url: "https://www.instagram.com/idealbrandzz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" },
@@ -14,6 +14,7 @@ const BRANDS = [
 
 export function BrandMarquee() {
     const scrollerRef = useRef<HTMLDivElement>(null);
+    const [paused, setPaused] = useState(false);
 
     return (
         <section id="work" className="py-16 border-t border-b border-[#E8E1D5] bg-[#FDFBF7] overflow-hidden">
@@ -23,11 +24,16 @@ export function BrandMarquee() {
 
             <div
                 ref={scrollerRef}
-                className="group flex gap-16 overflow-hidden"
+                className="flex gap-16 overflow-hidden"
                 style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}
+                onMouseEnter={() => setPaused(true)}
+                onMouseLeave={() => setPaused(false)}
             >
                 {/* First set of brands */}
-                <div className="flex gap-16 animate-marquee group-hover:[animation-play-state:paused]">
+                <div
+                    className="flex gap-16 animate-marquee"
+                    style={{ animationPlayState: paused ? 'paused' : 'running' }}
+                >
                     {BRANDS.map((brand, index) => (
                         <div
                             key={`${brand.name}-1-${index}`}
@@ -46,7 +52,10 @@ export function BrandMarquee() {
                 </div>
 
                 {/* Duplicate set for seamless loop */}
-                <div className="flex gap-16 animate-marquee group-hover:[animation-play-state:paused]">
+                <div
+                    className="flex gap-16 animate-marquee"
+                    style={{ animationPlayState: paused ? 'paused' : 'running' }}
+                >
                     {BRANDS.map((brand, index) => (
                         <div
                             key={`${brand.name}-2-${index}`}
