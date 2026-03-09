@@ -3,10 +3,13 @@
 import { useEffect, useRef } from "react";
 
 const BRANDS = [
-    "ideal Brandzz",
-    "Bella Homes",
-    "Smile gifts",
-    "Mittal Precision Steel Autocom Pvt Ltd",
+    { name: "ideal Brandzz", url: "https://www.instagram.com/idealbrandzz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" },
+    { name: "Bella Homes", url: "https://bellahomesinteriorss.com/" },
+    { name: "Aaina Gifting", url: "https://aainagifting.com/" },
+    { name: "Mittal Precision Steel Autocom Pvt Ltd", url: "https://vasantgroup.com/industries/mittal-precision-autocomps-pvt-ltd/" },
+    { name: "Vasant Group", url: "https://vasantgroup.com/" },
+    { name: "DY Patil International University", url: "https://www.dypiu.ac.in/" },
+    { name: "Choice Gallery", url: "https://www.mychoicegallery.com/" },
 ];
 
 export function BrandMarquee() {
@@ -27,12 +30,17 @@ export function BrandMarquee() {
                 <div className="flex gap-16 animate-marquee group-hover:[animation-play-state:paused]">
                     {BRANDS.map((brand, index) => (
                         <div
-                            key={`${brand}-1-${index}`}
+                            key={`${brand.name}-1-${index}`}
                             className="flex items-center justify-center min-w-[200px]"
                         >
-                            <span className="text-2xl md:text-3xl font-serif font-bold bg-gradient-to-r from-[#DFB374] to-[#C99144] bg-clip-text text-transparent opacity-60 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                                {brand}
-                            </span>
+                            <a
+                                href={brand.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-2xl md:text-3xl font-serif font-bold bg-gradient-to-r from-[#DFB374] to-[#C99144] bg-clip-text text-transparent opacity-60 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+                            >
+                                {brand.name}
+                            </a>
                         </div>
                     ))}
                 </div>
@@ -41,12 +49,17 @@ export function BrandMarquee() {
                 <div className="flex gap-16 animate-marquee group-hover:[animation-play-state:paused]">
                     {BRANDS.map((brand, index) => (
                         <div
-                            key={`${brand}-2-${index}`}
+                            key={`${brand.name}-2-${index}`}
                             className="flex items-center justify-center min-w-[200px]"
                         >
-                            <span className="text-2xl md:text-3xl font-serif font-bold bg-gradient-to-r from-[#DFB374] to-[#C99144] bg-clip-text text-transparent opacity-60 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                                {brand}
-                            </span>
+                            <a
+                                href={brand.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-2xl md:text-3xl font-serif font-bold bg-gradient-to-r from-[#DFB374] to-[#C99144] bg-clip-text text-transparent opacity-60 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+                            >
+                                {brand.name}
+                            </a>
                         </div>
                     ))}
                 </div>
