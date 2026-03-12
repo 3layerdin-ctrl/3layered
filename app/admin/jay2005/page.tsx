@@ -80,25 +80,25 @@ interface PrebookRequest {
 
 type Tab = 'dashboard' | 'orders' | 'custom' | 'contact' | 'calls' | 'prebooks' | 'subscription';
 
-const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string; border: string }> = {
-    pending:    { label: 'Pending',    bg: 'bg-amber-100',  text: 'text-amber-800',  border: 'border-l-amber-400' },
-    processing: { label: 'Processing', bg: 'bg-blue-100',   text: 'text-blue-800',   border: 'border-l-blue-400' },
-    shipped:    { label: 'Shipped',    bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-l-purple-400' },
-    delivered:  { label: 'Delivered',  bg: 'bg-green-100',  text: 'text-green-800',  border: 'border-l-green-400' },
-    cancelled:  { label: 'Cancelled',  bg: 'bg-red-100',    text: 'text-red-800',    border: 'border-l-red-400' },
-    new:        { label: 'New',        bg: 'bg-red-100',    text: 'text-red-800',    border: 'border-l-red-400' },
-    reviewing:  { label: 'Reviewing',  bg: 'bg-yellow-100', text: 'text-yellow-800', border: 'border-l-yellow-400' },
-    quoted:     { label: 'Quoted',     bg: 'bg-blue-100',   text: 'text-blue-800',   border: 'border-l-blue-400' },
-    accepted:   { label: 'Accepted',   bg: 'bg-green-100',  text: 'text-green-800',  border: 'border-l-green-400' },
-    rejected:   { label: 'Rejected',   bg: 'bg-red-100',    text: 'text-red-800',    border: 'border-l-red-400' },
-    completed:  { label: 'Completed',  bg: 'bg-green-100',  text: 'text-green-800',  border: 'border-l-green-400' },
-    unread:     { label: 'Unread',     bg: 'bg-red-100',    text: 'text-red-800',    border: 'border-l-red-400' },
-    read:       { label: 'Read',       bg: 'bg-gray-100',   text: 'text-gray-800',   border: 'border-l-gray-400' },
-    replied:    { label: 'Replied',    bg: 'bg-blue-100',   text: 'text-blue-800',   border: 'border-l-blue-400' },
-    resolved:   { label: 'Resolved',   bg: 'bg-green-100',  text: 'text-green-800',  border: 'border-l-green-400' },
-    contacted:  { label: 'Contacted',  bg: 'bg-yellow-100', text: 'text-yellow-800', border: 'border-l-yellow-400' },
-    scheduled:  { label: 'Scheduled',  bg: 'bg-blue-100',   text: 'text-blue-800',   border: 'border-l-blue-400' },
-    confirmed:  { label: 'Confirmed',  bg: 'bg-green-100',  text: 'text-green-800',  border: 'border-l-green-400' },
+const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string; border: string; ring: string }> = {
+    pending:    { label: 'Pending',    bg: 'bg-amber-500/15',    text: 'text-amber-400',    border: 'border-l-amber-500',   ring: 'ring-amber-500/30' },
+    processing: { label: 'Processing', bg: 'bg-blue-500/15',     text: 'text-blue-400',     border: 'border-l-blue-500',    ring: 'ring-blue-500/30' },
+    shipped:    { label: 'Shipped',    bg: 'bg-violet-500/15',   text: 'text-violet-400',   border: 'border-l-violet-500',  ring: 'ring-violet-500/30' },
+    delivered:  { label: 'Delivered',  bg: 'bg-emerald-500/15',  text: 'text-emerald-400',  border: 'border-l-emerald-500', ring: 'ring-emerald-500/30' },
+    cancelled:  { label: 'Cancelled',  bg: 'bg-red-500/15',      text: 'text-red-400',      border: 'border-l-red-500',     ring: 'ring-red-500/30' },
+    new:        { label: 'New',        bg: 'bg-rose-500/15',     text: 'text-rose-400',     border: 'border-l-rose-500',    ring: 'ring-rose-500/30' },
+    reviewing:  { label: 'Reviewing',  bg: 'bg-amber-500/15',    text: 'text-amber-400',    border: 'border-l-amber-500',   ring: 'ring-amber-500/30' },
+    quoted:     { label: 'Quoted',     bg: 'bg-sky-500/15',      text: 'text-sky-400',      border: 'border-l-sky-500',     ring: 'ring-sky-500/30' },
+    accepted:   { label: 'Accepted',   bg: 'bg-emerald-500/15',  text: 'text-emerald-400',  border: 'border-l-emerald-500', ring: 'ring-emerald-500/30' },
+    rejected:   { label: 'Rejected',   bg: 'bg-red-500/15',      text: 'text-red-400',      border: 'border-l-red-500',     ring: 'ring-red-500/30' },
+    completed:  { label: 'Completed',  bg: 'bg-emerald-500/15',  text: 'text-emerald-400',  border: 'border-l-emerald-500', ring: 'ring-emerald-500/30' },
+    unread:     { label: 'Unread',     bg: 'bg-rose-500/15',     text: 'text-rose-400',     border: 'border-l-rose-500',    ring: 'ring-rose-500/30' },
+    read:       { label: 'Read',       bg: 'bg-zinc-500/15',     text: 'text-zinc-400',     border: 'border-l-zinc-600',    ring: 'ring-zinc-500/30' },
+    replied:    { label: 'Replied',    bg: 'bg-blue-500/15',     text: 'text-blue-400',     border: 'border-l-blue-500',    ring: 'ring-blue-500/30' },
+    resolved:   { label: 'Resolved',   bg: 'bg-emerald-500/15',  text: 'text-emerald-400',  border: 'border-l-emerald-500', ring: 'ring-emerald-500/30' },
+    contacted:  { label: 'Contacted',  bg: 'bg-amber-500/15',    text: 'text-amber-400',    border: 'border-l-amber-500',   ring: 'ring-amber-500/30' },
+    scheduled:  { label: 'Scheduled',  bg: 'bg-blue-500/15',     text: 'text-blue-400',     border: 'border-l-blue-500',    ring: 'ring-blue-500/30' },
+    confirmed:  { label: 'Confirmed',  bg: 'bg-emerald-500/15',  text: 'text-emerald-400',  border: 'border-l-emerald-500', ring: 'ring-emerald-500/30' },
 };
 
 const ACTIVE_ORDER_STATUSES = ['pending', 'processing', 'shipped'];
@@ -107,9 +107,9 @@ const formatDate = (d: string) =>
     new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
 function StatusBadge({ status }: { status: string }) {
-    const cfg = STATUS_CONFIG[status] || { label: status, bg: 'bg-gray-100', text: 'text-gray-800' };
+    const cfg = STATUS_CONFIG[status] || { label: status, bg: 'bg-zinc-500/15', text: 'text-zinc-400', border: '', ring: '' };
     return (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cfg.bg} ${cfg.text} keep-color`}>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-semibold tracking-wide border border-white/10 ${cfg.bg} ${cfg.text} keep-color`}>
             {cfg.label}
         </span>
     );
@@ -582,13 +582,13 @@ export default function AdminPanel() {
 
     const totalAlerts = stats.pendingOrders + stats.newCustom + stats.unreadContacts + stats.newCalls + stats.newPrebooks;
 
-    const navItems: { id: Tab; label: string; icon: string; badge: number }[] = [
-        { id: 'dashboard', label: 'Dashboard', icon: '◧', badge: 0 },
-        { id: 'orders', label: 'Orders', icon: '📦', badge: stats.pendingOrders },
-        { id: 'custom', label: 'Custom Requests', icon: '✏️', badge: stats.newCustom },
-        { id: 'contact', label: 'Contact', icon: '✉️', badge: stats.unreadContacts },
-        { id: 'calls', label: 'Booked Calls', icon: '📞', badge: stats.newCalls },
-        { id: 'prebooks', label: 'Prebooks', icon: '🏛️', badge: stats.newPrebooks },
+    const navItems: { id: Tab; label: string; icon: React.ReactNode; badge: number }[] = [
+        { id: 'dashboard', label: 'Dashboard', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>, badge: 0 },
+        { id: 'orders', label: 'Orders', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>, badge: stats.pendingOrders },
+        { id: 'custom', label: 'Custom Requests', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>, badge: stats.newCustom },
+        { id: 'contact', label: 'Contact', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>, badge: stats.unreadContacts },
+        { id: 'calls', label: 'Booked Calls', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>, badge: stats.newCalls },
+        { id: 'prebooks', label: 'Prebooks', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg>, badge: stats.newPrebooks },
     ];
 
     if (!isAuthenticated) {
@@ -709,7 +709,7 @@ export default function AdminPanel() {
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 truncate text-sm font-medium">{order.customer_email}</span>
-                            <button onClick={() => copy(order.customer_email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
+                            <button onClick={() => copy(order.customer_email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                         </div>
                     </div>
                     {order.customer_phone && (
@@ -717,7 +717,7 @@ export default function AdminPanel() {
                             <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                             <div className="flex items-center gap-2">
                                 <span className="text-zinc-300 text-sm font-medium">{order.customer_phone}</span>
-                                <button onClick={() => copy(order.customer_phone || '')} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                                <button onClick={() => copy(order.customer_phone || '')} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                                 <a href={getWhatsAppLink(order.customer_phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
                                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -743,7 +743,7 @@ export default function AdminPanel() {
                             <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Razorpay ID</div>
                             <div className="flex items-center gap-2">
                                 <span className="font-mono text-sm text-zinc-300">{order.razorpay_payment_id}</span>
-                                <button onClick={() => copy(order.razorpay_payment_id || '')} className="text-zinc-600 hover:text-white transition-colors">📋</button>
+                                <button onClick={() => copy(order.razorpay_payment_id || '')} className="text-zinc-600 hover:text-white transition-colors"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                             </div>
                         </div>
                     )}
@@ -756,7 +756,7 @@ export default function AdminPanel() {
                             <button onClick={() => {
                                 const a = order.customer_address;
                                 copy(`${a.address}${a.apartment ? ', ' + a.apartment : ''}, ${a.city}, ${a.state} ${a.pincode}, ${a.country}`);
-                            }} className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors">📋 Copy Details</button>
+                            }} className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg> Copy Details</button>
                         </div>
                         <div className="text-zinc-300 text-sm leading-relaxed">
                             {order.customer_address.address}{order.customer_address.apartment && `, ${order.customer_address.apartment}`},{' '}
@@ -831,7 +831,7 @@ export default function AdminPanel() {
                                 onClick={() => patchOrder(order.id, { status: s })}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     order.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-1 ${STATUS_CONFIG[s]?.ring} border border-white/10`
                                         : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
@@ -864,7 +864,7 @@ export default function AdminPanel() {
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 truncate font-medium">{req.email}</span>
-                            <button onClick={() => copy(req.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
+                            <button onClick={() => copy(req.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                         </div>
                     </div>
                     {req.phone && (
@@ -872,7 +872,7 @@ export default function AdminPanel() {
                             <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                             <div className="flex items-center gap-2">
                                 <span className="text-zinc-300 font-medium">{req.phone}</span>
-                                <button onClick={() => copy(req.phone || '')} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                                <button onClick={() => copy(req.phone || '')} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                                 <a href={getWhatsAppLink(req.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
                                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -921,7 +921,7 @@ export default function AdminPanel() {
                                 onClick={() => updateCustomRequestStatus(req.id, s)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     req.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-1 ${STATUS_CONFIG[s]?.ring} border border-white/10`
                                         : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
@@ -953,7 +953,7 @@ export default function AdminPanel() {
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 truncate text-sm font-medium">{sub.email}</span>
-                            <button onClick={() => copy(sub.email)} className="text-zinc-600 hover:text-white transition-colors">📋</button>
+                            <button onClick={() => copy(sub.email)} className="text-zinc-600 hover:text-white transition-colors"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                         </div>
                     </div>
                     {sub.phone && (
@@ -984,7 +984,7 @@ export default function AdminPanel() {
                                 onClick={() => updateContactStatus(sub.id, s)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     sub.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-1 ${STATUS_CONFIG[s]?.ring} border border-white/10`
                                         : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
@@ -1015,14 +1015,14 @@ export default function AdminPanel() {
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 truncate text-sm font-medium">{call.email}</span>
-                            <button onClick={() => copy(call.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
+                            <button onClick={() => copy(call.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                         </div>
                     </div>
                     <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 text-sm font-medium">{call.phone}</span>
-                            <button onClick={() => copy(call.phone)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                            <button onClick={() => copy(call.phone)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                             <a href={getWhatsAppLink(call.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
                                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -1047,7 +1047,7 @@ export default function AdminPanel() {
                                 onClick={() => updateCallStatus(call.id, s)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     call.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-1 ${STATUS_CONFIG[s]?.ring} border border-white/10`
                                         : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
@@ -1079,14 +1079,14 @@ export default function AdminPanel() {
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Email</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 truncate text-sm font-medium">{req.email}</span>
-                            <button onClick={() => copy(req.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email">📋</button>
+                            <button onClick={() => copy(req.email)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Email"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                         </div>
                     </div>
                     <div className="bg-zinc-950/50 border border-white/5 rounded-xl p-4">
                         <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-semibold">Phone</div>
                         <div className="flex items-center gap-2">
                             <span className="text-zinc-300 text-sm font-medium">{req.phone}</span>
-                            <button onClick={() => copy(req.phone)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone">📋</button>
+                            <button onClick={() => copy(req.phone)} className="text-zinc-600 hover:text-white transition-colors" title="Copy Phone"><svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" /></svg></button>
                             <a href={getWhatsAppLink(req.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 rounded-lg text-[#25D366] transition-colors keep-color shadow-sm" title="Chat on WhatsApp">
                                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -1104,7 +1104,7 @@ export default function AdminPanel() {
                                 onClick={() => updatePrebookStatus(req.id, s)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     req.status === s
-                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-2 ring-white/20 ring-offset-1 ring-offset-zinc-900 border border-white/10`
+                                        ? `${STATUS_CONFIG[s]?.bg} ${STATUS_CONFIG[s]?.text} ring-1 ${STATUS_CONFIG[s]?.ring} border border-white/10`
                                         : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 border border-white/5 hover:text-white'
                                 }`}
                             >
@@ -1178,7 +1178,7 @@ export default function AdminPanel() {
                             }`}
                         >
                             <span className="flex items-center gap-3">
-                                <span className="text-base">{item.icon}</span>
+                                <span className="flex-shrink-0">{item.icon}</span>
                                 <span>{item.label}</span>
                             </span>
                             {item.badge > 0 && (
@@ -1210,19 +1210,22 @@ export default function AdminPanel() {
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="lg:hidden p-2 rounded-xl border border-white/10 hover:bg-white/5 text-zinc-300 text-xl leading-none transition-colors"
+                            className="lg:hidden p-2 rounded-xl border border-white/10 hover:bg-white/5 text-zinc-300 transition-colors"
                         >
-                            ☰
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
                         </button>
                         <h1 className="text-lg font-serif font-semibold text-white tracking-tight">{tabLabel[activeTab]}</h1>
                     </div>
                     <div className="flex items-center gap-3">
                         <button
                             onClick={toggleTheme}
-                            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all text-lg keep-color"
+                            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 transition-all"
                             title="Toggle Theme"
                         >
-                            {theme === 'dark' ? '☀️' : '🌙'}
+                            {theme === 'dark'
+                                ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                                : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" /></svg>
+                            }
                         </button>
                         {totalAlerts > 0 && (
                             <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-semibold px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.2)] keep-color">
@@ -1255,12 +1258,12 @@ export default function AdminPanel() {
                     )}>
                         <span>
                             {subPaymentPending || payNotifSent
-                                ? '⏳  Payment confirmation pending — PP DEV Works will verify shortly.'
+                                ? 'Payment confirmation pending — PP DEV Works will verify shortly.'
                                 : modalDaysUntil < 0
-                                ? '🔴  Payment overdue by ' + Math.abs(modalDaysUntil) + (Math.abs(modalDaysUntil) === 1 ? ' day' : ' days') + '. Site may be suspended.'
+                                ? 'Payment overdue by ' + Math.abs(modalDaysUntil) + (Math.abs(modalDaysUntil) === 1 ? ' day' : ' days') + '. Site may be suspended.'
                                 : modalDaysUntil === 0
-                                ? '🔔  Payment is due today.'
-                                : '⚠️  Payment due in ' + modalDaysUntil + (modalDaysUntil === 1 ? ' day.' : ' days.')}
+                                ? 'Payment is due today.'
+                                : 'Payment due in ' + modalDaysUntil + (modalDaysUntil === 1 ? ' day.' : ' days.')}
                         </span>
                         <button
                             onClick={() => setShowAccountModal(true)}
@@ -1275,8 +1278,8 @@ export default function AdminPanel() {
                     {loading ? (
                         <div className="flex items-center justify-center h-64">
                             <div className="text-center">
-                                <div className="text-4xl mb-3 animate-pulse">🏛️</div>
-                                <div className="text-gray-500 font-medium">Loading...</div>
+                                <svg className="w-8 h-8 text-zinc-600 animate-spin mx-auto mb-3" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                                <div className="text-zinc-500 text-sm font-medium">Loading...</div>
                             </div>
                         </div>
                     ) : (
@@ -1351,7 +1354,6 @@ export default function AdminPanel() {
                                         </div>
                                         {activeOrders.length === 0 ? (
                                             <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-10 text-center text-zinc-500 border border-white/5">
-                                                <div className="text-4xl mb-3 opacity-50">✅</div>
                                                 No active orders right now
                                             </div>
                                         ) : (
@@ -1397,7 +1399,6 @@ export default function AdminPanel() {
                                         </div>
                                         {activeOrders.length === 0 ? (
                                             <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-10 text-center text-zinc-500 border border-white/5">
-                                                <div className="text-4xl mb-3 opacity-50">📭</div>
                                                 No active orders found
                                             </div>
                                         ) : (
@@ -1412,7 +1413,12 @@ export default function AdminPanel() {
                                         >
                                             <h2 className="text-lg font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors tracking-wide">Past Orders</h2>
                                             <span className="bg-white/5 border border-white/10 text-zinc-400 text-xs font-semibold px-3 py-1 rounded-full keep-color">{pastOrders.length}</span>
-                                            <span className="text-zinc-600 group-hover:text-zinc-400 ml-auto text-sm transition-colors">{showPastOrders ? '▲ Hide' : '▼ Show'}</span>
+                                            <span className="text-zinc-600 group-hover:text-zinc-400 ml-auto transition-colors">
+                                                {showPastOrders
+                                                    ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>
+                                                    : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                                                }
+                                            </span>
                                         </button>
                                         {showPastOrders && (
                                             pastOrders.length === 0 ? (
@@ -1429,9 +1435,8 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={customSearch} onChange={setCustomSearch} placeholder="Search by name or email..." />
                                     {filteredCustom.length === 0 ? (
-                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
-                                            <div className="text-5xl mb-4 opacity-40">✨</div>
-                                            <p className="text-lg font-medium text-zinc-400">No custom requests yet</p>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5">
+                                            <p className="text-sm font-medium text-zinc-500">No custom requests yet</p>
                                         </div>
                                     ) : (
                                         <div className="space-y-4">{filteredCustom.map(renderCustomCard)}</div>
@@ -1443,9 +1448,8 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={contactSearch} onChange={setContactSearch} placeholder="Search messages..." />
                                     {filteredContact.length === 0 ? (
-                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
-                                            <div className="text-5xl mb-4 opacity-40">📨</div>
-                                            <p className="text-lg font-medium text-zinc-400">No contact messages</p>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5">
+                                            <p className="text-sm font-medium text-zinc-500">No contact messages</p>
                                         </div>
                                     ) : (
                                         <div className="space-y-4">{filteredContact.map(renderContactCard)}</div>
@@ -1457,9 +1461,8 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={callSearch} onChange={setCallSearch} placeholder="Search by name, email, or phone..." />
                                     {filteredCalls.length === 0 ? (
-                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
-                                            <div className="text-5xl mb-4 opacity-40">📞</div>
-                                            <p className="text-lg font-medium text-zinc-400">No booked calls</p>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5">
+                                            <p className="text-sm font-medium text-zinc-500">No booked calls</p>
                                         </div>
                                     ) : (
                                         <div className="space-y-4">{filteredCalls.map(renderCallCard)}</div>
@@ -1471,9 +1474,8 @@ export default function AdminPanel() {
                                 <div>
                                     <SearchBar value={prebookSearch} onChange={setPrebookSearch} placeholder="Search by name, email, or product..." />
                                     {filteredPrebooks.length === 0 ? (
-                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5 flex flex-col items-center">
-                                            <div className="text-5xl mb-4 opacity-40">🎫</div>
-                                            <p className="text-lg font-medium text-zinc-400">No prebook requests</p>
+                                        <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-12 text-center text-zinc-500 border border-white/5">
+                                            <p className="text-sm font-medium text-zinc-500">No prebook requests</p>
                                         </div>
                                     ) : (
                                         <div className="space-y-4">{filteredPrebooks.map(renderPrebookCard)}</div>
@@ -1501,9 +1503,9 @@ export default function AdminPanel() {
                         </div>
                         <button
                             onClick={() => setShowAccountModal(false)}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-all text-lg leading-none"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-all"
                         >
-                            ✕
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
 
@@ -1627,19 +1629,21 @@ export default function AdminPanel() {
                                                     rel="noopener noreferrer"
                                                     className="flex items-center justify-center gap-2 w-full bg-blue-500/10 text-blue-400 border border-blue-500/20 py-3.5 rounded-xl font-semibold hover:bg-blue-500/20 transition-all text-sm keep-color"
                                                 >
-                                                    💳  Pay via UPI App
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                                                    Pay via UPI App
                                                 </a>
                                             )}
                                             {subPaymentPending || payNotifSent ? (
                                                 <div className="space-y-2">
-                                                    <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner keep-color">
-                                                        ⏳  Awaiting confirmation
+                                                    <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 keep-color">
+                                                        <svg className="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                        Awaiting confirmation
                                                     </div>
                                                     <button
                                                         onClick={cancelPaymentNotification}
                                                         className="w-full py-2.5 rounded-xl text-xs font-semibold border border-red-500/20 text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-all keep-color"
                                                     >
-                                                        ✕  Cancel Payment Request
+                                                        Cancel Payment Request
                                                     </button>
                                                 </div>
                                             ) : (
@@ -1648,7 +1652,7 @@ export default function AdminPanel() {
                                                     disabled={payNotifSending}
                                                     className="w-full py-3.5 rounded-xl font-bold text-sm border-2 border-white/10 text-white hover:bg-white/10 hover:border-white/20 transition-all disabled:opacity-40"
                                                 >
-                                                    {payNotifSending ? 'Sending...' : "✓  I've Paid — Notify Developer"}
+                                                    {payNotifSending ? 'Sending...' : "I've Paid — Notify Developer"}
                                                 </button>
                                             )}
                                         </div>
