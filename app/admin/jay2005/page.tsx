@@ -1249,30 +1249,6 @@ export default function AdminPanel() {
                     </div>
                 </header>
 
-                {/* Billing reminder strip */}
-                {modalDaysUntil !== null && modalDaysUntil <= 2 && (
-                    <div className={'px-4 sm:px-6 py-3 flex items-center justify-between text-sm font-medium flex-shrink-0 ' + (
-                        subPaymentPending || payNotifSent ? 'bg-indigo-600 text-white' :
-                        modalDaysUntil <= 0 ? 'bg-red-600 text-white' :
-                        'bg-amber-500 text-white'
-                    )}>
-                        <span>
-                            {subPaymentPending || payNotifSent
-                                ? 'Payment confirmation pending — PP DEV Works will verify shortly.'
-                                : modalDaysUntil < 0
-                                ? 'Payment overdue by ' + Math.abs(modalDaysUntil) + (Math.abs(modalDaysUntil) === 1 ? ' day' : ' days') + '. Site may be suspended.'
-                                : modalDaysUntil === 0
-                                ? 'Payment is due today.'
-                                : 'Payment due in ' + modalDaysUntil + (modalDaysUntil === 1 ? ' day.' : ' days.')}
-                        </span>
-                        <button
-                            onClick={() => setShowAccountModal(true)}
-                            className="ml-4 underline font-bold opacity-90 hover:opacity-100 whitespace-nowrap"
-                        >
-                            Pay now →
-                        </button>
-                    </div>
-                )}
 
                 <main className="flex-1 p-4 sm:p-6">
                     {loading ? (
