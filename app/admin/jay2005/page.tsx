@@ -261,7 +261,7 @@ export default function AdminPanel() {
 
     const fetchSubscription = async () => {
         try {
-            const res = await fetch('/api/subscription');
+            const res = await fetch('/api/subscription', { cache: 'no-store' });
             const data = await res.json();
             if (data.client_name) setSubClientName(data.client_name);
             if (data.website_name) setSubWebsiteName(data.website_name);

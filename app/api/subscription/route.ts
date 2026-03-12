@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+
 const ADMIN_PASS = 'jaygehlot20053layeredadmin//200590()';
 
 export async function GET() {
