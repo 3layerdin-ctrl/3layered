@@ -1249,6 +1249,44 @@ export default function AdminPanel() {
                     </div>
                 </header>
 
+                {/* Billing reminder strip */}
+                {modalDaysUntil !== null && modalDaysUntil <= 2 && (
+                    <div className={'mx-4 sm:mx-6 mt-4 rounded-xl px-4 py-3 flex items-center justify-between text-sm font-medium flex-shrink-0 border ' + (
+                        subPaymentPending || payNotifSent
+                            ? 'bg-indigo-500/10 border-indigo-500/25 text-indigo-300'
+                            : modalDaysUntil <= 0
+                            ? 'bg-red-500/10 border-red-500/25 text-red-300'
+                            : 'bg-amber-500/10 border-amber-500/25 text-amber-300'
+                    )}>
+                        <div className="flex items-center gap-2.5">
+                            <div className={'w-1.5 h-1.5 rounded-full flex-shrink-0 ' + (
+                                subPaymentPending || payNotifSent ? 'bg-indigo-400 animate-pulse' :
+                                modalDaysUntil <= 0 ? 'bg-red-400 animate-pulse' : 'bg-amber-400'
+                            )} />
+                            <span className="text-[13px]">
+                                {subPaymentPending || payNotifSent
+                                    ? 'Payment confirmation pending — PP DEV Works will verify shortly.'
+                                    : modalDaysUntil < 0
+                                    ? 'Payment overdue by ' + Math.abs(modalDaysUntil) + (Math.abs(modalDaysUntil) === 1 ? ' day' : ' days') + '. Site may be suspended.'
+                                    : modalDaysUntil === 0
+                                    ? 'Payment is due today.'
+                                    : 'Payment due in ' + modalDaysUntil + (modalDaysUntil === 1 ? ' day.' : ' days.')}
+                            </span>
+                        </div>
+                        <button
+                            onClick={() => setShowAccountModal(true)}
+                            className={'ml-4 text-xs font-semibold px-3 py-1.5 rounded-lg border whitespace-nowrap transition-all ' + (
+                                subPaymentPending || payNotifSent
+                                    ? 'border-indigo-500/30 hover:bg-indigo-500/20'
+                                    : modalDaysUntil <= 0
+                                    ? 'border-red-500/30 hover:bg-red-500/20'
+                                    : 'border-amber-500/30 hover:bg-amber-500/20'
+                            )}
+                        >
+                            Pay now
+                        </button>
+                    </div>
+                )}
 
                 <main className="flex-1 p-4 sm:p-6">
                     {loading ? (
@@ -1524,29 +1562,23 @@ export default function AdminPanel() {
                                     <p className="text-xs text-zinc-500 mb-2">Monthly</p>
                                     <p className="text-base font-bold text-white leading-tight">₹{Number(subAmount).toLocaleString('en-IN')}</p>
                                 </div>
-                                <div className={
-                                    'rounded-2xl p-5 border ' + (
-                                        modalDaysUntil !== null && modalDaysUntil < 0 ? 'bg-red-500/10 border-red-500/20' :
-                                        modalDaysUntil !== null && modalDaysUntil <= 2 ? 'bg-amber-500/10 border-amber-500/20' : 'bg-zinc-900/50 border-white/5'
-                                    )
-                                }>
+                                <div className="bg-zinc-900/50 border border-white/5 rounded-2xl p-5">
                                     <p className="text-xs text-zinc-500 mb-2">Next Billing</p>
                                     {modalFormattedBilling ? (
                                         <>
                                             <p className="text-base font-bold text-white leading-tight">{modalFormattedBilling}</p>
-                                            {modalDaysUntil !== null && (
-                                                <p className={
-                                                    'text-[11px] mt-1.5 font-semibold ' + (
-                                                        modalDaysUntil < 0 ? 'text-red-400' :
-                                                        modalDaysUntil <= 2 ? 'text-amber-400' : 'text-zinc-500'
-                                                    )
-                                                }>
+                                            {modalDaysUntil !== null && modalDaysUntil <= 2 && (
+                                                <div className={'inline-flex items-center gap-1.5 mt-2 px-2 py-0.5 rounded-md text-[11px] font-semibold border ' + (
+                                                    modalDaysUntil < 0
+                                                        ? 'bg-red-500/10 border-red-500/20 text-red-400'
+                                                        : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                                                )}>
+                                                    <div className={'w-1 h-1 rounded-full flex-shrink-0 ' + (modalDaysUntil < 0 ? 'bg-red-400 animate-pulse' : 'bg-amber-400')} />
                                                     {modalDaysUntil < 0
-                                                        ? Math.abs(modalDaysUntil) + ' d overdue'
+                                                        ? Math.abs(modalDaysUntil) + (Math.abs(modalDaysUntil) === 1 ? ' day' : ' days') + ' overdue'
                                                         : modalDaysUntil === 0 ? 'Due today'
-                                                        : modalDaysUntil === 1 ? 'Tomorrow'
-                                                        : 'In ' + modalDaysUntil + ' days'}
-                                                </p>
+                                                        : 'Due tomorrow'}
+                                                </div>
                                             )}
                                         </>
                                     ) : (
@@ -1610,18 +1642,13 @@ export default function AdminPanel() {
                                                 </a>
                                             )}
                                             {subPaymentPending || payNotifSent ? (
-                                                <div className="space-y-2">
-                                                    <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 keep-color">
-                                                        <svg className="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                        Awaiting confirmation
-                                                    </div>
-                                                    <button
-                                                        onClick={cancelPaymentNotification}
-                                                        className="w-full py-2.5 rounded-xl text-xs font-semibold border border-red-500/20 text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-all keep-color"
-                                                    >
-                                                        Cancel Payment Request
-                                                    </button>
-                                                </div>
+                                                <button
+                                                    onClick={cancelPaymentNotification}
+                                                    className="w-full py-3.5 rounded-xl text-sm font-semibold border border-red-500/20 text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-all keep-color flex items-center justify-center gap-2"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                                    Cancel Payment Request
+                                                </button>
                                             ) : (
                                                 <button
                                                     onClick={sendPaymentNotification}
