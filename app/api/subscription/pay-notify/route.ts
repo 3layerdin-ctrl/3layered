@@ -39,3 +39,17 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
 }
+
+export async function DELETE(req: NextRequest) {
+    const adminPassword = req.headers.get('x-admin-password');
+    if (adminPassword !== ADMIN_PASS) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    await supabase
+        .from('client_subscription')
+        .update({ payment_pending: false })
+        .eq('id', 1);
+
+    return NextResponse.json({ success: true });
+}

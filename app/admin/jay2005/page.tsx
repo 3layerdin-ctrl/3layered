@@ -290,6 +290,19 @@ export default function AdminPanel() {
         setPayNotifSending(false);
     };
 
+    const cancelPaymentNotification = async () => {
+        try {
+            const res = await fetch('/api/subscription/pay-notify', {
+                method: 'DELETE',
+                headers: { 'x-admin-password': ADMIN_PASS },
+            });
+            if (res.ok) {
+                setPayNotifSent(false);
+                setSubPaymentPending(false);
+            }
+        } catch {}
+    };
+
     const fetchOrders = async () => {
         try {
             const res = await fetch(`/api/orders?password=${encodeURIComponent(ADMIN_PASS)}`);
@@ -1618,8 +1631,16 @@ export default function AdminPanel() {
                                                 </a>
                                             )}
                                             {subPaymentPending || payNotifSent ? (
-                                                <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner keep-color">
-                                                    ⏳  Awaiting confirmation
+                                                <div className="space-y-2">
+                                                    <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner keep-color">
+                                                        ⏳  Awaiting confirmation
+                                                    </div>
+                                                    <button
+                                                        onClick={cancelPaymentNotification}
+                                                        className="w-full py-2.5 rounded-xl text-xs font-semibold border border-red-500/20 text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-all keep-color"
+                                                    >
+                                                        ✕  Cancel Payment Request
+                                                    </button>
                                                 </div>
                                             ) : (
                                                 <button
